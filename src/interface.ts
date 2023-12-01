@@ -79,7 +79,7 @@ export interface communes_udiDataItem {
   nom_quartier: string;
   code_reseau: string;
   nom_reseau: string;
-  debut_alim: string; 
+  debut_alim: string;
   annee: string;
 }
 
@@ -782,4 +782,3 @@ export interface ReseauResultatDis {
   nom: string;
   debit?: string;
 }
-

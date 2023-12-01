@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { AddressObject, ResultatDis, communes_udi } from '../interface';
+import { getFormattedDateYearsAgoAsString } from './utilities/addressFunction';
 
 export const qualiteEau = async (adressObject: AddressObject) => {
   let uniqueCodeReseau: string[] = [];
@@ -16,7 +17,7 @@ export const qualiteEau = async (adressObject: AddressObject) => {
       cityCode = '69123';
     }
     const codeCommune = '?code_commune=' + cityCode;
-    const dateMinPrelevement = '&date_min_prelevement=' + getFormattedDateYearsAgo(10);
+    const dateMinPrelevement = '&date_min_prelevement=' + getFormattedDateYearsAgoAsString(10);
 
     const response = await axios.get(basURL + endpoint + codeCommune + dateMinPrelevement);
     const resultatDis: ResultatDis = response.data;
@@ -53,15 +54,7 @@ export const qualiteEau = async (adressObject: AddressObject) => {
   }
 };
 
-function getFormattedDateYearsAgo(yearsAgo: number): string {
-  const date = new Date();
-  date.setFullYear(date.getFullYear() - yearsAgo);
 
-  // Ensuring month and day are in 'MM' and 'DD' format
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${date.getFullYear()}-${month}-${day}`;
-}
 
 type ParamAnalyse = {
   libelle_parametre: string;
