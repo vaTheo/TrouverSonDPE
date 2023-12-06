@@ -54,8 +54,6 @@ export const qualiteEau = async (adressObject: AddressObject) => {
   }
 };
 
-
-
 type ParamAnalyse = {
   libelle_parametre: string;
   min: number;

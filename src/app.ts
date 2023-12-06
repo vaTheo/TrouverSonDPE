@@ -2,7 +2,8 @@ import axios from 'axios';
 import { findAddress } from './function/findAddress';
 import { getDPE } from './function/getDPE';
 import { qualiteEau } from './function/qualiteEau';
-import { getAZI, getCatNat, getCavite, getItallationsClassees } from './function/gaspar';
+import { callAllApiGaspar, callAllApiGasparPromiseAll } from './function/gaspar';
+import { saveDataToFile } from './function/utilities/utilities';
 const BANid = '';
 
 // findAddress('38430', '49 sentier du pressoir')
@@ -14,12 +15,14 @@ const BANid = '';
 // findAddress('29870', '6 place des Cormorans')
 //  findAddress('38430', '209 Chemin de l Archat')
 // findAddress('62720', '65 Rue Roger Salengro')
+
 findAddress('38118', '2 Rue des Balcons du Rhône') //Central nucleaire à coté
   .then((addressObject) => {
     // console.log(addressObject);
     getDPE(addressObject);
     // qualiteEau(addressObject);
-    getItallationsClassees(addressObject);
+    callAllApiGasparPromiseAll(addressObject).then((result) =>
+    saveDataToFile(result, `${addressObject.properties.city}.json`));
   })
   .catch((error) => {
     console.error(error);
