@@ -1,0 +1,2840 @@
+{
+  "AZIData": [
+    {
+      "code_national_azi": "86DDT19980002",
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null,
+      "date_debut_programmation": "31/12/1997",
+      "date_fin_programmation": "31/12/1997"
+    },
+    {
+      "code_national_azi": "86DDT19980014",
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null,
+      "date_debut_programmation": "31/12/1997",
+      "date_fin_programmation": "31/12/1997"
+    }
+  ],
+  "CatnatData": [
+    {
+      "date_debut_evt": "27/02/2010",
+      "date_fin_evt": "01/03/2010",
+      "libelle_risque_jo": "Mouvement de Terrain"
+    },
+    {
+      "date_debut_evt": "01/04/2011",
+      "date_fin_evt": "30/06/2011",
+      "libelle_risque_jo": "Sécheresse"
+    },
+    {
+      "date_debut_evt": "01/04/2011",
+      "date_fin_evt": "30/06/2011",
+      "libelle_risque_jo": "Sécheresse"
+    },
+    {
+      "date_debut_evt": "01/04/2011",
+      "date_fin_evt": "30/06/2011",
+      "libelle_risque_jo": "Sécheresse"
+    },
+    {
+      "date_debut_evt": "01/04/2011",
+      "date_fin_evt": "30/06/2011",
+      "libelle_risque_jo": "Sécheresse"
+    },
+    {
+      "date_debut_evt": "15/04/2011",
+      "date_fin_evt": "30/06/2011",
+      "libelle_risque_jo": "Sécheresse"
+    },
+    {
+      "date_debut_evt": "01/05/2011",
+      "date_fin_evt": "30/06/2011",
+      "libelle_risque_jo": "Sécheresse"
+    },
+    {
+      "date_debut_evt": "24/05/2019",
+      "date_fin_evt": "24/05/2019",
+      "libelle_risque_jo": "Inondations et/ou Coulées de Boue"
+    },
+    {
+      "date_debut_evt": "10/05/2020",
+      "date_fin_evt": "10/05/2020",
+      "libelle_risque_jo": "Inondations et/ou Coulées de Boue"
+    },
+    {
+      "date_debut_evt": "01/02/2021",
+      "date_fin_evt": "09/02/2021",
+      "libelle_risque_jo": "Inondations et/ou Coulées de Boue"
+    },
+    {
+      "date_debut_evt": "03/02/2021",
+      "date_fin_evt": "09/02/2021",
+      "libelle_risque_jo": "Inondations et/ou Coulées de Boue"
+    },
+    {
+      "date_debut_evt": "03/02/2021",
+      "date_fin_evt": "09/02/2021",
+      "libelle_risque_jo": "Inondations et/ou Coulées de Boue"
+    }
+  ],
+  "CaviteData": [
+    {
+      "nom": "Souterrain refuge Chez Suraud",
+      "longitude": -0.5027606,
+      "latitude": 45.89239
+    },
+    {
+      "nom": "Souterrain - 37 rue de Saintonge",
+      "longitude": -0.4312159,
+      "latitude": 45.974865
+    },
+    {
+      "nom": "Souterrain - 7 rue de saintonge",
+      "longitude": -0.433155,
+      "latitude": 45.97299
+    },
+    {
+      "nom": "La saulière",
+      "longitude": -0.58363074,
+      "latitude": 45.87968
+    },
+    {
+      "nom": "La fosse à l'eau",
+      "longitude": -0.5681566,
+      "latitude": 45.88913
+    },
+    {
+      "nom": "Aqueduc au lieu-dit Les Rousseaux",
+      "longitude": -0.5086306,
+      "latitude": 45.96557
+    },
+    {
+      "nom": "Carrière de Fief l'Abbé",
+      "longitude": -0.52894336,
+      "latitude": 45.926003
+    },
+    {
+      "nom": "Gouffre des Beaupinières",
+      "longitude": -0.5674616,
+      "latitude": 45.87785
+    },
+    {
+      "nom": "Résurgence du Moulin Brun",
+      "longitude": -0.5658444,
+      "latitude": 45.86677
+    }
+  ],
+  "InstallationsClasseesData": [
+    {
+      "raisonSociale": "PARC EOLIEN DE GANOCHARD (ex NORDEX LX SAS)",
+      "codeNaf": "35",
+      "longitude": -0.606009,
+      "latitude": 45.942145,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": true,
+      "industrie": false,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En fin d’exploitation",
+      "regime": "Autorisation",
+      "rubriques": [],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "SEC TP (Fontorbe - St J d'Angely)",
+      "longitude": -0.528469,
+      "latitude": 45.963663,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Enregistrement",
+      "rubriques": [
+        {
+          "numeroRubrique": "2760",
+          "nature": "Installation de stockage de déchets inertes",
+          "alinea": "3",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "88907.000"
+        },
+        {
+          "numeroRubrique": "2714",
+          "nature": "déchets non dangereux de papiers, plastiques, bois,… (transit) hors 2710,2711 et 2719",
+          "alinea": "2",
+          "regimeAutoriseAlinea": "Déclaration",
+          "quantiteTotale": "900.000",
+          "unite": "m3"
+        },
+        {
+          "numeroRubrique": "2517",
+          "nature": "Produits minéraux ou déchets non dangereux inertes (transit)",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "25000.000",
+          "unite": "m2"
+        }
+      ],
+      "inspections": [
+        {
+          "dateInspection": "2020-06-24"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "Commune de St Jean d'Angély",
+      "codeNaf": "85",
+      "longitude": -0.518822,
+      "latitude": 45.938923,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": [
+        {
+          "dateInspection": "2019-04-18"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "Parc éolien de Vervant & LEA",
+      "longitude": -0.425188,
+      "latitude": 45.959148,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": true,
+      "industrie": false,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En fin d’exploitation",
+      "regime": "Autorisation",
+      "rubriques": [],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "BATI RENOV SAS",
+      "codeNaf": "43",
+      "longitude": -0.42899,
+      "latitude": 45.91978,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": [
+        {
+          "dateInspection": "2018-02-19"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "CYCLAD syndicat mixte",
+      "codeNaf": "38",
+      "longitude": -0.505204,
+      "latitude": 45.950893,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": [
+        {
+          "dateInspection": "2020-07-08"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "RFN RECYCLAGE",
+      "longitude": -0.46213,
+      "latitude": 45.901518,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Autorisation",
+      "rubriques": [
+        {
+          "numeroRubrique": "2713",
+          "nature": "Métaux et déchets de métaux (transit)",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "2980.000",
+          "unite": "m2"
+        },
+        {
+          "numeroRubrique": "2710",
+          "nature": "collecte de déchets dangereux-A",
+          "alinea": "1.a",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "50.000",
+          "unite": "t"
+        },
+        {
+          "numeroRubrique": "2712",
+          "nature": "Stockage, dépollution, démontage,… de VHU",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "1915.000",
+          "unite": "m2"
+        },
+        {
+          "numeroRubrique": "2710",
+          "nature": "collecte de déchets non dangereux-DC",
+          "alinea": "2.b",
+          "regimeAutoriseAlinea": "Déclaration avec contrôle",
+          "quantiteTotale": "150.000",
+          "unite": "m3"
+        },
+        {
+          "numeroRubrique": "2711",
+          "nature": "Transit, regroupement, tri, ...équipements électriques mis au rebut",
+          "alinea": "2",
+          "regimeAutoriseAlinea": "Déclaration avec contrôle",
+          "quantiteTotale": "800.000",
+          "unite": "m3"
+        }
+      ],
+      "inspections": [
+        {
+          "dateInspection": "2023-04-05",
+          "fichierInspection": {
+            "identifiantFichier": "5NaiJGiV27Ckf3bh0jseaYAMAtY8Fv0m",
+            "nomFichier": "Partiepubliable",
+            "typeFichier": "Rapport d'inspection publiable",
+            "urlFichier": "https://www.georisques.gouv.fr/webappReport/ws/installations/inspection/5NaiJGiV27Ckf3bh0jseaYAMAtY8Fv0m"
+          }
+        }
+      ]
+    },
+    {
+      "raisonSociale": "Garage BOSVAL",
+      "longitude": -0.536401,
+      "latitude": 45.860008,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "GUILLOTEAU Jean-Michel (VHU illicite)",
+      "codeNaf": "55",
+      "longitude": -0.506293,
+      "latitude": 45.864327,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Enregistrement",
+      "rubriques": [
+        {
+          "numeroRubrique": "2712",
+          "nature": "Stockage, dépollution, démontage,… de VHU",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "100.000",
+          "unite": "m2"
+        }
+      ],
+      "inspections": [
+        {
+          "dateInspection": "2022-06-15",
+          "fichierInspection": {
+            "identifiantFichier": "C2IUrWMOFiK4Cw3WIBIgixEErfUJ6ztF",
+            "nomFichier": "PartiePubliable.vcht",
+            "typeFichier": "Rapport d'inspection publiable",
+            "urlFichier": "https://www.georisques.gouv.fr/webappReport/ws/installations/inspection/C2IUrWMOFiK4Cw3WIBIgixEErfUJ6ztF"
+          }
+        },
+        {
+          "dateInspection": "2022-01-20"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "SEC TP SA - St Hilaire de V",
+      "codeNaf": "42",
+      "longitude": -0.536835,
+      "latitude": 45.856524,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": true,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Autorisation",
+      "rubriques": [
+        {
+          "numeroRubrique": "2510",
+          "nature": "Carrières (exploitation de)",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "20000.000"
+        }
+      ],
+      "inspections": [
+        {
+          "dateInspection": "2021-10-05"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "TERRE ATLANTIQUE (ex COOP st jean d'Y)",
+      "codeNaf": "46",
+      "longitude": -0.454513,
+      "latitude": 45.901102,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Enregistrement",
+      "rubriques": [
+        {
+          "numeroRubrique": "2910",
+          "nature": "Combustion",
+          "alinea": "A.2",
+          "regimeAutoriseAlinea": "Déclaration avec contrôle",
+          "quantiteTotale": "10.200",
+          "unite": "MW"
+        },
+        {
+          "numeroRubrique": "2910",
+          "nature": "Combustion",
+          "alinea": "A.2",
+          "regimeAutoriseAlinea": "Déclaration avec contrôle",
+          "quantiteTotale": "10.300"
+        },
+        {
+          "numeroRubrique": "2160",
+          "nature": "Silos plats enregistré",
+          "alinea": "1.a",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "107000.000",
+          "unite": "m3"
+        },
+        {
+          "numeroRubrique": "2160",
+          "nature": "Silos autres que plats autorisés",
+          "alinea": "2.a",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "128705.000"
+        },
+        {
+          "numeroRubrique": "4718",
+          "nature": "Gaz inflammables liquéfiés de catégorie 1 et 2",
+          "alinea": "2",
+          "regimeAutoriseAlinea": "Déclaration avec contrôle"
+        }
+      ],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "LIOT SA",
+      "codeNaf": "10",
+      "longitude": -0.454678,
+      "latitude": 45.901052,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Enregistrement",
+      "rubriques": [
+        {
+          "numeroRubrique": "2160",
+          "nature": "silos autres que plats DC",
+          "alinea": "2.b",
+          "regimeAutoriseAlinea": "Déclaration avec contrôle",
+          "quantiteTotale": "12063.000",
+          "unite": "m3"
+        },
+        {
+          "numeroRubrique": "2260",
+          "nature": "Supérieure à 1 MW mais inférieure à 20 MW",
+          "alinea": "2.b",
+          "regimeAutoriseAlinea": "Déclaration avec contrôle",
+          "quantiteTotale": "4.250",
+          "unite": "MW"
+        },
+        {
+          "numeroRubrique": "2910",
+          "nature": "Combustion",
+          "alinea": "A.2",
+          "regimeAutoriseAlinea": "Déclaration avec contrôle",
+          "quantiteTotale": "4.250"
+        },
+        {
+          "numeroRubrique": "2920",
+          "nature": "Réfrigération ou compression (installation de) pression >10E5 Pa",
+          "alinea": "2.b",
+          "regimeAutoriseAlinea": "Déclaration",
+          "quantiteTotale": "58.000"
+        },
+        {
+          "numeroRubrique": "2260",
+          "nature": "Supérieure à 500 kW",
+          "alinea": "1.a",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "600.000",
+          "unite": "kW"
+        },
+        {
+          "numeroRubrique": "2260",
+          "nature": "BROYAGE, CONCASSAGE, CRIBLAGE, ETC DES SUBSTANCES VEGETALES",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "600.000"
+        },
+        {
+          "numeroRubrique": "2160",
+          "nature": "silos autres que plats DC",
+          "alinea": "2.b",
+          "regimeAutoriseAlinea": "Déclaration avec contrôle",
+          "quantiteTotale": "6000.000"
+        },
+        {
+          "numeroRubrique": "4718",
+          "nature": "Gaz inflammables liquéfiés de catégorie 1 et 2",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Autorisation"
+        },
+        {
+          "numeroRubrique": "4718",
+          "nature": "Supérieure ou égale à 6 t mais inférieure à 50 t",
+          "alinea": "2.b",
+          "regimeAutoriseAlinea": "Déclaration avec contrôle"
+        }
+      ],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "SAUR SUD-OUEST ex SODITER",
+      "codeNaf": "36",
+      "longitude": -0.461562,
+      "latitude": 45.902536,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": true,
+      "statutSeveso": "Non Seveso",
+      "ied": true,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Autorisation",
+      "rubriques": [
+        {
+          "numeroRubrique": "2780",
+          "nature": "Installations de traitement aérobie de déchets non dangereux",
+          "alinea": "3.a",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "122.000",
+          "unite": "t/j"
+        },
+        {
+          "numeroRubrique": "2714",
+          "nature": "déchets non dangereux de papiers, plastiques, bois,… (transit) hors 2710,2711 et 2719",
+          "alinea": "2",
+          "regimeAutoriseAlinea": "Déclaration",
+          "quantiteTotale": "950.000",
+          "unite": "m3"
+        },
+        {
+          "numeroRubrique": "3532",
+          "nature": "Valorisation de déchets non dangereux",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "335.000",
+          "unite": "t/j"
+        }
+      ],
+      "inspections": [
+        {
+          "dateInspection": "2021-04-01"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "TOTALENERGIES MARKETING FRANCE",
+      "longitude": -0.604496,
+      "latitude": 45.893966,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": [
+        {
+          "dateInspection": "2009-10-07"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "MICHEAU DALEME",
+      "longitude": -0.432488,
+      "latitude": 45.974034,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": [
+        {
+          "dateInspection": "2013-06-17"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "ANGIBAUD (EX SOFRAMUS NOUVELLE STE)",
+      "codeNaf": "46",
+      "longitude": -0.453838,
+      "latitude": 45.903727,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "TERRE ATLANTIQUE (ex COOP ST JEAN D Y",
+      "codeNaf": "46",
+      "longitude": -0.412331,
+      "latitude": 45.981268,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Enregistrement",
+      "rubriques": [
+        {
+          "numeroRubrique": "2910",
+          "nature": "Combustion",
+          "alinea": "A.1",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "11.600"
+        },
+        {
+          "numeroRubrique": "1432",
+          "nature": "Liquides inflammables (stockage)",
+          "quantiteTotale": "120.000"
+        },
+        {
+          "numeroRubrique": "2160",
+          "nature": "silos autres que plats DC",
+          "alinea": "2.b",
+          "regimeAutoriseAlinea": "Déclaration avec contrôle",
+          "quantiteTotale": "12930.000",
+          "unite": "m3"
+        },
+        {
+          "numeroRubrique": "2260",
+          "nature": "BROYAGE, CONCASSAGE, CRIBLAGE, ETC DES SUBSTANCES VEGETALES",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "806.000"
+        }
+      ],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "SETB",
+      "codeNaf": "16",
+      "longitude": -0.425415,
+      "latitude": 45.927919,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En fin d’exploitation",
+      "regime": "Enregistrement",
+      "rubriques": [],
+      "inspections": [
+        {
+          "dateInspection": "2009-02-03"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "SARL DEMONT AUTO",
+      "codeNaf": "46",
+      "longitude": -0.606345,
+      "latitude": 45.9664,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Enregistrement",
+      "rubriques": [
+        {
+          "numeroRubrique": "2712",
+          "nature": "Stockage, dépollution, démontage,… de VHU",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "12000.000",
+          "unite": "m2"
+        },
+        {
+          "numeroRubrique": "2712",
+          "nature": "Stockage, dépollution, démontage,… de VHU",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "7984.000",
+          "unite": "m2"
+        }
+      ],
+      "inspections": [
+        {
+          "dateInspection": "2022-01-20",
+          "fichierInspection": {
+            "identifiantFichier": "faa1beI30KPVcaE64xHPjAtJUBd7MIBc",
+            "nomFichier": "RapportInspection_publiable",
+            "typeFichier": "Rapport d'inspection publiable",
+            "urlFichier": "https://www.georisques.gouv.fr/webappReport/ws/installations/inspection/faa1beI30KPVcaE64xHPjAtJUBd7MIBc"
+          }
+        }
+      ]
+    },
+    {
+      "raisonSociale": "COMPTOIRS DU BISCUIT",
+      "longitude": -0.517537,
+      "latitude": 45.958046,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": true,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En fin d’exploitation",
+      "regime": "Autorisation",
+      "rubriques": [],
+      "inspections": [
+        {
+          "dateInspection": "2011-05-03"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "BCO (ex LIBAUD BETON CHANTIERS)",
+      "codeNaf": "23",
+      "longitude": -0.516598,
+      "latitude": 45.959941,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": [
+        {
+          "dateInspection": "2019-07-02"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "LECLERC St Jean d'Y - ANGELY SA",
+      "codeNaf": "47",
+      "longitude": -0.507262,
+      "latitude": 45.942825,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "PIECES AUTO OCCASION",
+      "longitude": -0.51815,
+      "latitude": 45.941964,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En fin d'exploitation",
+      "regime": "Enregistrement",
+      "rubriques": [
+        {
+          "numeroRubrique": "2712",
+          "nature": "Stockage, dépollution, démontage,… de VHU",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "0.000"
+        }
+      ],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "TERRE ATLANTIQUE St Jean d'Angély",
+      "codeNaf": "46",
+      "longitude": -0.512904,
+      "latitude": 45.93689,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Autorisation",
+      "rubriques": [
+        {
+          "numeroRubrique": "2260",
+          "nature": "BROYAGE, CONCASSAGE, CRIBLAGE, ETC DES SUBSTANCES VEGETALES",
+          "alinea": "2",
+          "regimeAutoriseAlinea": "Déclaration",
+          "quantiteTotale": "465.000",
+          "unite": "kW"
+        },
+        {
+          "numeroRubrique": "2160",
+          "nature": "Silos autres que plats autorisés",
+          "alinea": "2.a",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "53333.000",
+          "unite": "m3"
+        }
+      ],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "UIOM CYCLERGIE",
+      "codeNaf": "38",
+      "longitude": -0.412378,
+      "latitude": 45.980789,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": true,
+      "statutSeveso": "Non Seveso",
+      "ied": true,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Autorisation",
+      "rubriques": [
+        {
+          "numeroRubrique": "2771",
+          "nature": "Traitement thermique de déchets non dangereux",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "3.500"
+        },
+        {
+          "numeroRubrique": "3520",
+          "nature": "pour les déchets non dangereux",
+          "alinea": "a",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "3.500",
+          "unite": "t/h"
+        },
+        {
+          "numeroRubrique": "2716",
+          "nature": "déchets non dangereux non inertes (transit)",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "16.000",
+          "unite": "m3"
+        }
+      ],
+      "inspections": [
+        {
+          "dateInspection": "2022-06-15",
+          "fichierInspection": {
+            "identifiantFichier": "8FeK7BkWVmUXMLMEtaMKkK2HK7QplMw8",
+            "nomFichier": "rapport_publiable",
+            "typeFichier": "Rapport d'inspection publiable",
+            "urlFichier": "https://www.georisques.gouv.fr/webappReport/ws/installations/inspection/8FeK7BkWVmUXMLMEtaMKkK2HK7QplMw8"
+          }
+        },
+        {
+          "dateInspection": "2023-05-25",
+          "fichierInspection": {
+            "identifiantFichier": "w6NZoTrpnLa134QsyLBPRdXWpQfbOnMm",
+            "nomFichier": "Partiepubliable",
+            "typeFichier": "Rapport d'inspection publiable",
+            "urlFichier": "https://www.georisques.gouv.fr/webappReport/ws/installations/inspection/w6NZoTrpnLa134QsyLBPRdXWpQfbOnMm"
+          }
+        }
+      ]
+    },
+    {
+      "raisonSociale": "SNATI-SARP-SUD-OUEST SAS",
+      "codeNaf": "37",
+      "longitude": -0.532046,
+      "latitude": 45.953546,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": true,
+      "statutSeveso": "Non Seveso",
+      "ied": true,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Autorisation",
+      "rubriques": [
+        {
+          "numeroRubrique": "3550",
+          "nature": "stockage temporaire de déchets",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "795.000",
+          "unite": "t"
+        },
+        {
+          "numeroRubrique": "2790",
+          "nature": "Traitement de déchets dangereux",
+          "regimeAutoriseAlinea": "Autorisation"
+        },
+        {
+          "numeroRubrique": "2716",
+          "nature": "déchets non dangereux non inertes (transit)",
+          "alinea": "2",
+          "regimeAutoriseAlinea": "Déclaration avec contrôle",
+          "quantiteTotale": "150.000",
+          "unite": "m3"
+        },
+        {
+          "numeroRubrique": "3510",
+          "nature": "Traitement de déchets dangereux",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "70.000",
+          "unite": "t/j"
+        },
+        {
+          "numeroRubrique": "2718",
+          "nature": "Déchets dangereux ou contenant des substances ou préparations dangereuses (transit ou tri)",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "418.000",
+          "unite": "t"
+        }
+      ],
+      "inspections": [
+        {
+          "dateInspection": "2020-05-28"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "JOUBERT ST JEAN D'ANGELY SAS",
+      "codeNaf": "16",
+      "longitude": -0.513935,
+      "latitude": 45.937867,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Autorisation",
+      "rubriques": [
+        {
+          "numeroRubrique": "2940",
+          "nature": "Vernis, peinture, colle, ... (application, cuisson, séchage)",
+          "alinea": "2.a",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "10.000",
+          "unite": "kg/j"
+        },
+        {
+          "numeroRubrique": "2925",
+          "nature": "Charge d'accumulateurs dégageant de l'hydrogène",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Déclaration",
+          "quantiteTotale": "3.500",
+          "unite": "kW"
+        },
+        {
+          "numeroRubrique": "1532",
+          "nature": "Stockage bois déclaré",
+          "alinea": "2.b",
+          "regimeAutoriseAlinea": "Déclaration",
+          "quantiteTotale": "12600.000",
+          "unite": "m3"
+        },
+        {
+          "numeroRubrique": "2410",
+          "nature": "Supérieur à 250 kW",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "2850.000",
+          "unite": "kW"
+        },
+        {
+          "numeroRubrique": "2662",
+          "nature": "Stockage de polymères D",
+          "alinea": "2",
+          "regimeAutoriseAlinea": "Déclaration",
+          "quantiteTotale": "150.000",
+          "unite": "m3"
+        },
+        {
+          "numeroRubrique": "2260",
+          "nature": "Supérieure à 100 kW mais inférieure ou égale à 500 kW",
+          "alinea": "1.b",
+          "regimeAutoriseAlinea": "Déclaration avec contrôle",
+          "quantiteTotale": "420.000",
+          "unite": "kW"
+        },
+        {
+          "numeroRubrique": "2910",
+          "nature": "Combustion",
+          "alinea": "B.2",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "9.200",
+          "unite": "MW"
+        }
+      ],
+      "inspections": [
+        {
+          "dateInspection": "2021-10-28"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "CHAVAGNE AUTOS",
+      "longitude": -0.457334,
+      "latitude": 45.879599,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "EARL de la VOIE ROMAINE_QUINTARD ROMARIC",
+      "longitude": -0.42899,
+      "latitude": 45.91978,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Enregistrement",
+      "rubriques": [
+        {
+          "numeroRubrique": "2250",
+          "nature": "Alcools,eaux de vie et liqueurs (production par distillation)",
+          "alinea": "2",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "0.000",
+          "unite": "hl/j"
+        },
+        {
+          "numeroRubrique": "2251",
+          "nature": "Vins (préparation, conditionnement)",
+          "alinea": "B.2",
+          "regimeAutoriseAlinea": "Déclaration",
+          "quantiteTotale": "3500.000",
+          "unite": "hL/an"
+        }
+      ],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "PETROLES SHELL CARAUTOROUTE ex Elf Est",
+      "longitude": -0.586715,
+      "latitude": 45.889547,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "CAILLON Jean Marc",
+      "codeNaf": "46",
+      "longitude": -0.46213,
+      "latitude": 45.901518,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": [
+        {
+          "dateInspection": "2010-12-08"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "BIO OUEST SILO SARL",
+      "codeNaf": "52",
+      "longitude": -0.518822,
+      "latitude": 45.938923,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": [
+        {
+          "dateInspection": "2020-02-05"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "BONNIN SCEV",
+      "longitude": -0.491999,
+      "latitude": 45.870655,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Enregistrement",
+      "rubriques": [
+        {
+          "numeroRubrique": "2251",
+          "nature": "Vins (préparation, conditionnement)",
+          "alinea": "B.2",
+          "regimeAutoriseAlinea": "Déclaration",
+          "quantiteTotale": "11300.000",
+          "unite": "hL/an"
+        },
+        {
+          "numeroRubrique": "2250",
+          "nature": "Alcools,eaux de vie et liqueurs (production par distillation)",
+          "alinea": "2",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "36.600",
+          "unite": "hl/j"
+        },
+        {
+          "numeroRubrique": "4755",
+          "nature": "Alcools de bouche d'origine agricole et leurs constituants (inflammables)",
+          "alinea": "2.b",
+          "regimeAutoriseAlinea": "Déclaration avec contrôle"
+        }
+      ],
+      "inspections": [
+        {
+          "dateInspection": "2017-06-26"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "BERTHELOT GARAGE",
+      "codeNaf": "45",
+      "longitude": -0.518822,
+      "latitude": 45.938923,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": [
+        {
+          "dateInspection": "2011-06-27"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "Société Parcs Eolien Mazeray et Bignay",
+      "codeNaf": "35",
+      "longitude": -0.596867,
+      "latitude": 45.934719,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": true,
+      "industrie": false,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Autorisation",
+      "rubriques": [
+        {
+          "numeroRubrique": "2980",
+          "nature": "Eoliennes de + de 50 m",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "12.500"
+        }
+      ],
+      "inspections": [
+        {
+          "dateInspection": "2018-09-28"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "Ferme éolienne d'Antezant-la-Chapelle",
+      "codeNaf": "35",
+      "longitude": -0.497976,
+      "latitude": 45.997988,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": true,
+      "industrie": false,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Autorisation",
+      "rubriques": [
+        {
+          "numeroRubrique": "2980",
+          "nature": "Eoliennes de + de 50 m",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "16.000"
+        }
+      ],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "La Benâte énergie",
+      "codeNaf": "35",
+      "longitude": -0.551213,
+      "latitude": 46.015666,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": true,
+      "industrie": false,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Autorisation",
+      "rubriques": [
+        {
+          "numeroRubrique": "2980",
+          "nature": "Eoliennes de + de 50 m",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "12.000"
+        }
+      ],
+      "inspections": [
+        {
+          "dateInspection": "2022-05-17",
+          "fichierInspection": {
+            "identifiantFichier": "8TuIiDt85JF4baZKUP6vJ8ocnNxYsHXJ",
+            "nomFichier": "LBE partie publiable du rapport",
+            "typeFichier": "Rapport d'inspection publiable",
+            "urlFichier": "https://www.georisques.gouv.fr/webappReport/ws/installations/inspection/8TuIiDt85JF4baZKUP6vJ8ocnNxYsHXJ"
+          }
+        }
+      ]
+    },
+    {
+      "raisonSociale": "Régie d'Energie Eolienne (REE)",
+      "codeNaf": "71",
+      "longitude": -0.637399,
+      "latitude": 45.925986,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": true,
+      "industrie": false,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Autorisation",
+      "rubriques": [
+        {
+          "numeroRubrique": "2980",
+          "nature": "Eoliennes de + de 50 m",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "10.000"
+        }
+      ],
+      "inspections": [
+        {
+          "dateInspection": "2019-03-21"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "BOURGEOIS JEAN-LOUIS",
+      "longitude": -0.483006,
+      "latitude": 45.99443,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En fin d'exploitation",
+      "regime": "Autorisation",
+      "rubriques": [
+        {
+          "numeroRubrique": "58",
+          "nature": "ANIMAUX, ETRES VIVANTS (ETABLISSEMENTS DE VENTE)",
+          "alinea": "B",
+          "quantiteTotale": "50.000"
+        },
+        {
+          "numeroRubrique": "2130",
+          "nature": "Piscicultures",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "90.000",
+          "unite": "t/an"
+        },
+        {
+          "numeroRubrique": "2130",
+          "nature": "PISCICULTURES",
+          "alinea": "2.a",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "90.000",
+          "unite": "t/an"
+        }
+      ],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "EARL ELEVAGE DE ILE RADIEUSE",
+      "codeNaf": "01",
+      "longitude": -0.602563,
+      "latitude": 45.916329,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": [
+        {
+          "dateInspection": "2017-12-14"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "CENTRALE EOLIENNE D'ANTEZANT SAINT-PARDOULT",
+      "codeNaf": "35",
+      "longitude": -0.470794,
+      "latitude": 46.013634,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": true,
+      "industrie": false,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Autorisation",
+      "rubriques": [
+        {
+          "numeroRubrique": "2980",
+          "nature": "Eoliennes de + de 50 m",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Autorisation"
+        }
+      ],
+      "inspections": [
+        {
+          "dateInspection": "2023-06-07",
+          "fichierInspection": {
+            "identifiantFichier": "fCQD6DJvzg0s2sxa7jfNER56pTF6ZD0i",
+            "nomFichier": "Partiepubliable",
+            "typeFichier": "Rapport d'inspection publiable",
+            "urlFichier": "https://www.georisques.gouv.fr/webappReport/ws/installations/inspection/fCQD6DJvzg0s2sxa7jfNER56pTF6ZD0i"
+          }
+        }
+      ]
+    },
+    {
+      "raisonSociale": "Centrale Eolienne de Varaize",
+      "codeNaf": "35",
+      "longitude": -0.412994,
+      "latitude": 45.90943,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": true,
+      "industrie": false,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Autorisation",
+      "rubriques": [
+        {
+          "numeroRubrique": "2980",
+          "nature": "Eoliennes de + de 50 m",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Autorisation"
+        }
+      ],
+      "inspections": [
+        {
+          "dateInspection": "2023-09-13"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "EARL LA METAIRIE",
+      "longitude": -0.604729,
+      "latitude": 45.92239,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "THORAUD JACKY",
+      "codeNaf": "43",
+      "longitude": -0.596776,
+      "latitude": 45.905832,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": [
+        {
+          "dateInspection": "2005-10-31"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "GAEC DU VIVIER",
+      "longitude": -0.617223,
+      "latitude": 45.99462,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "GAEC DU GROS CHENE",
+      "longitude": -0.522868,
+      "latitude": 45.993674,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "EARL LA FONTAINE DES VEUVES",
+      "longitude": -0.451639,
+      "latitude": 46.000708,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "EARL FLORENCE BOISLIVEAU",
+      "longitude": -0.637033,
+      "latitude": 45.960343,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "MILCO SAS",
+      "longitude": -0.538449,
+      "latitude": 45.956645,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Enregistrement",
+      "rubriques": [
+        {
+          "numeroRubrique": "1185",
+          "nature": "Quantité susceptible d'être présente",
+          "alinea": "2.a",
+          "regimeAutoriseAlinea": "Déclaration avec contrôle",
+          "quantiteTotale": "468.300",
+          "unite": "kg"
+        },
+        {
+          "numeroRubrique": "2221",
+          "nature": "Supérieure à 4t/j",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "6.800",
+          "unite": "t/j"
+        },
+        {
+          "numeroRubrique": "4310",
+          "nature": "Gaz inflammables catégorie 1 et 2",
+          "alinea": "2",
+          "regimeAutoriseAlinea": "Déclaration avec contrôle",
+          "quantiteTotale": "7.800",
+          "unite": "t"
+        },
+        {
+          "numeroRubrique": "4718",
+          "nature": "Gaz inflammables liquéfiés de catégorie 1 et 2",
+          "alinea": "2",
+          "regimeAutoriseAlinea": "Déclaration avec contrôle"
+        },
+        {
+          "numeroRubrique": "2221",
+          "nature": "Supérieure à 500 kg/j, mais inférieure ou égale à 4 t/j",
+          "alinea": "2",
+          "regimeAutoriseAlinea": "Déclaration avec contrôle",
+          "quantiteTotale": "2.000"
+        }
+      ],
+      "inspections": []
+    }
+  ],
+  "MVTData": [
+    {
+      "fiabilite": "Fort",
+      "date_debut": "2007-01-01",
+      "commentaire_mvt": null,
+      "longitude": -0.526196,
+      "latitude": 45.94476
+    },
+    {
+      "fiabilite": "Fort",
+      "date_debut": "1111-11-01",
+      "commentaire_mvt": null,
+      "longitude": -0.519748,
+      "latitude": 45.94298
+    },
+    {
+      "fiabilite": "Fort",
+      "date_debut": "1111-11-01",
+      "commentaire_mvt": null,
+      "longitude": -0.5317696,
+      "latitude": 45.94119
+    },
+    {
+      "fiabilite": "Fort",
+      "date_debut": "1111-11-01",
+      "commentaire_mvt": null,
+      "longitude": -0.53562653,
+      "latitude": 45.948303
+    },
+    {
+      "fiabilite": "Fort",
+      "date_debut": "1111-11-01",
+      "commentaire_mvt": null,
+      "longitude": -0.53844815,
+      "latitude": 45.950672
+    },
+    {
+      "fiabilite": "Fort",
+      "date_debut": "1111-11-01",
+      "commentaire_mvt": null,
+      "longitude": -0.5458086,
+      "latitude": 45.95393
+    },
+    {
+      "fiabilite": "Fort",
+      "date_debut": "1111-11-01",
+      "commentaire_mvt": null,
+      "longitude": -0.55688834,
+      "latitude": 45.95525
+    }
+  ],
+  "PAPIData": [
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "140",
+          "libelle_risque_long": "Inondation"
+        },
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        },
+        {
+          "num_risque": "286",
+          "libelle_risque_long": "Par submersion marine"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    },
+    {
+      "liste_libelle_risque": [
+        {
+          "num_risque": "180",
+          "libelle_risque_long": "Par une crue à débordement lent de cours d'eau"
+        }
+      ],
+      "libelle_bassin_risques": "",
+      "libelle_commentaire": null
+    }
+  ],
+  "PCSData": [],
+  "RadonData": [
+    {
+      "classe_potentiel": "1"
+    }
+  ],
+  "RisquesData": [
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {}
+  ],
+  "SISData": [
+    {
+      "nom": "Centre EDF / GDF Services de Saint Jean d'Angely",
+      "superficie": 7575.136,
+      "geom": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                -0.526954,
+                45.936479
+              ],
+              [
+                -0.527013,
+                45.936413
+              ],
+              [
+                -0.527037,
+                45.936386
+              ],
+              [
+                -0.527099,
+                45.93632
+              ],
+              [
+                -0.527181,
+                45.93623
+              ],
+              [
+                -0.527278,
+                45.936279
+              ],
+              [
+                -0.527293,
+                45.936288
+              ],
+              [
+                -0.52734,
+                45.936313
+              ],
+              [
+                -0.527441,
+                45.936363
+              ],
+              [
+                -0.527577,
+                45.936428
+              ],
+              [
+                -0.527622,
+                45.93645
+              ],
+              [
+                -0.5278,
+                45.936537
+              ],
+              [
+                -0.528008,
+                45.936636
+              ],
+              [
+                -0.528186,
+                45.936722
+              ],
+              [
+                -0.528228,
+                45.936743
+              ],
+              [
+                -0.528178,
+                45.936799
+              ],
+              [
+                -0.528087,
+                45.936896
+              ],
+              [
+                -0.528195,
+                45.93696
+              ],
+              [
+                -0.528277,
+                45.937006
+              ],
+              [
+                -0.528373,
+                45.937063
+              ],
+              [
+                -0.528411,
+                45.937084
+              ],
+              [
+                -0.528473,
+                45.937121
+              ],
+              [
+                -0.528195,
+                45.937315
+              ],
+              [
+                -0.528088,
+                45.93739
+              ],
+              [
+                -0.527995,
+                45.937454
+              ],
+              [
+                -0.527938,
+                45.937495
+              ],
+              [
+                -0.527822,
+                45.937373
+              ],
+              [
+                -0.527704,
+                45.937252
+              ],
+              [
+                -0.527554,
+                45.937141
+              ],
+              [
+                -0.527419,
+                45.937044
+              ],
+              [
+                -0.527279,
+                45.936911
+              ],
+              [
+                -0.527218,
+                45.936863
+              ],
+              [
+                -0.526999,
+                45.936684
+              ],
+              [
+                -0.526933,
+                45.93663
+              ],
+              [
+                -0.526877,
+                45.936603
+              ],
+              [
+                -0.526853,
+                45.93659
+              ],
+              [
+                -0.52687,
+                45.93657
+              ],
+              [
+                -0.526954,
+                45.936479
+              ]
+            ]
+          ]
+        ]
+      },
+      "id_sis": null,
+      "fiche_risque": "https://fiches-risques.brgm.fr/georisques/infosols/classification/SSP00035410101"
+    }
+  ],
+  "TRIData": [],
+  "ZonageSismiqueData": [
+    {
+      "code_zone": "3",
+      "zone_sismicite": "3 - MODEREE"
+    }
+  ]
+}

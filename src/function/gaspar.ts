@@ -15,14 +15,16 @@ import {
   TIMData,
   TRIData,
   ZonageSismiqueData,
+  GasparAllObject,
 } from 'src/function/utilities/Inetface/GeoRisque';
 
 import { getCoordinatesAsString } from './utilities/addressFunction';
 import axios, { Axios, AxiosError } from 'axios';
-import { delay } from './utilities/utilities';
+import { delay, filterObjectKeys, parseDateString, sortObject } from './utilities/utilities';
 
 /*
  *DATASHEET API : https://www.georisques.gouv.fr/doc-api
+ * 1000call/min
  */
 //API Gaspar management, given any valide endepoint return the response
 const apiGaspar = async (addressObject: AddressObject, endpoint: string, rayon: string) => {
@@ -31,6 +33,57 @@ const apiGaspar = async (addressObject: AddressObject, endpoint: string, rayon: 
   const URL = 'https://www.georisques.gouv.fr/api/v1/';
   const coordone = getCoordinatesAsString(addressObject);
   let page = 1;
+  const keysToKeep = [
+    'code_national_azi',
+    'liste_libelle_risque',
+    'libelle_bassin_risques',
+    'libelle_commentaire',
+    'date_debut_programmation',
+    'date_fin_programmation',
+    'date_debut_evt',
+    'date_fin_evt',
+    'libelle_risque_jo',
+    'raisonSociale',
+    'codeNaf',
+    'longitude',
+    'latitude',
+    'bovins',
+    'porcs',
+    'volailles',
+    'carriere',
+    'eolienne',
+    'industrie',
+    'prioriteNationale',
+    'ied',
+    'regime',
+    'inspections',
+    'rubriques',
+    'etatActivite',
+    'statutSeveso',
+    'date_debut',
+    'date_debut',
+    'fiabilite',
+    'commentaire_mvt',
+    'classe_potentiel',
+    'num_risque',
+    'libelle_risque_long',
+    'zone_sismicite',
+    'fiche_risque',
+    'nom',
+    'superficie',
+    'geom',
+    'id_sis',
+    'code_zone',
+    'risques_detail',
+    'date_fin_realisation',
+    'libelle_bassin_risques',
+    'libelle_commentaire',
+    'date_arrete_approbation',
+    'date_arrete_carte',
+    'date_arrete_national',
+    'date_arrete_pcb',
+    'date_arrete_prefet_parties_prenantes',
+  ];
 
   try {
     do {
@@ -46,7 +99,48 @@ const apiGaspar = async (addressObject: AddressObject, endpoint: string, rayon: 
       }
       await delay(500);
     } while (dataResponse.next != null); //Continue untill response is not NULL
-    return data;
+
+    //Filter the data
+    let filteredObjects = filterObjectKeys(data, keysToKeep);
+    if (endpoint == 'gaspar/catnat') {
+      filteredObjects = sortObject(filteredObjects, 'date_debut_evt');
+      // Filter oldest years
+      filteredObjects = filteredObjects.filter((item) => {
+        const yearsToInclude = [
+          '2024',
+          '2023',
+          '2022',
+          '2021',
+          '2020',
+          '2019',
+          '2018',
+          '2017',
+          '2016',
+          '2015',
+        ];
+        return yearsToInclude.some((year) => item.date_debut_evt.includes(year));
+      });
+    } else if (endpoint == 'mvt') {
+      filteredObjects = sortObject(filteredObjects, 'date_debut');
+      // Filter oldest years
+      filteredObjects = filteredObjects.filter((item) => {
+        const yearsToInclude = [
+          '2024',
+          '2023',
+          '2022',
+          '2021',
+          '2020',
+          '2019',
+          '2018',
+          '2017',
+          '2016',
+          '2015',
+        ];
+        return yearsToInclude.some((year) => item.date_debut.includes(year));
+      });
+    }
+    console.log('Finished getting : ' + endpoint);
+    return filteredObjects;
   } catch (err) {
     const URLsend = endpoint.includes('radon')
       ? `${URL}${endpoint}?code_insee=${addressObject.properties.citycode}&page=${page}`
@@ -68,47 +162,21 @@ const apiGaspar = async (addressObject: AddressObject, endpoint: string, rayon: 
     return []; // return an array, maybe later I'll return a error object??
   }
 };
-
 //API Gaspar management, given any valide endepoint return the response
-export const callAllApiGaspar = async (addressObject: AddressObject) => {
-  const results = {
-    azi: (await apiGaspar(addressObject, 'gaspar/azi', '10000')) as AZIData,
-    catNat: (await apiGaspar(addressObject, 'gaspar/catnat', '10000')) as CatnatData,
-    cavite: (await apiGaspar(addressObject, 'cavites', '10000')) as CaviteData,
-    installationsClassees: (await apiGaspar(
-      addressObject,
-      'installations_classees',
-      '10000',
-    )) as InstallationsClasseesData,
-    mvt: (await apiGaspar(addressObject, 'mvt', '10000')) as MVTData,
-    papi: (await apiGaspar(addressObject, 'gaspar/papi', '10000')) as PAPIData,
-    pcs: (await apiGaspar(addressObject, 'gaspar/pcs', '10000')) as PCSData,
-    radon: (await apiGaspar(addressObject, 'radon', '10000')) as RadonData,
-    risques: (await apiGaspar(addressObject, 'gaspar/risques', '10000')) as RisquesData,
-    sis: (await apiGaspar(addressObject, 'sis', '10000')) as SISData,
-    tim: (await apiGaspar(addressObject, 'gaspar/tim', '10000')) as TIMData,
-    tri: (await apiGaspar(addressObject, 'gaspar/tri', '10000')) as TRIData,
-    zonageSismique: (await apiGaspar(addressObject, 'zonage_sismique', '10000')) as ZonageSismiqueData,
-  };
-  return results;
-};
-
-//API Gaspar management, given any valide endepoint return the response
-export const callAllApiGasparPromiseAll = async (addressObject: AddressObject) => {
+export const callAllApiGasparPromiseAll = async (addressObject: AddressObject): Promise<GasparAllObject> => {
   const endpoints = [
-    { endpoint: 'gaspar/azi', type: 'AZIData', rayon: '10000' },
+    { endpoint: 'gaspar/azi', type: 'AZIData', rayon: '1' /*1*/ },
     { endpoint: 'gaspar/catnat', type: 'CatnatData', rayon: '10000' },
-    { endpoint: 'cavites', type: 'CaviteData', rayon: '10000' },
+    // { endpoint: 'cavites', type: 'CaviteData', rayon: '10000' },
     { endpoint: 'installations_classees', type: 'InstallationsClasseesData', rayon: '10000' },
-    { endpoint: 'mvt', type: 'MVTData', rayon: '10000' },
-    { endpoint: 'gaspar/papi', type: 'PAPIData', rayon: '10000' },
-    { endpoint: 'gaspar/pcs', type: 'PCSData', rayon: '10000' },
+    { endpoint: 'mvt', type: 'MVTData', rayon: '100' },
+    // { endpoint: 'gaspar/papi', type: 'PAPIData', rayon: '10000' },
+    // { endpoint: 'gaspar/pcs', type: 'PCSData', rayon: '10000' },
     { endpoint: 'radon', type: 'RadonData', rayon: '10000' },
-    { endpoint: 'gaspar/risques', type: 'RisquesData', rayon: '10000' },
+    { endpoint: 'gaspar/risques', type: 'RisquesData', rayon: '1' /*1*/ },
     { endpoint: 'sis', type: 'SISData', rayon: '10000' },
-    { endpoint: 'gaspar/tim', type: 'TIMData', rayon: '10000' },
-    { endpoint: 'gaspar/tri', type: 'TRIData', rayon: '10000' },
-    { endpoint: 'zonage_sismique', type: 'ZonageSismiqueData', rayon: '10000' },
+    { endpoint: 'gaspar/tri', type: 'TRIData', rayon: '1' },
+    { endpoint: 'zonage_sismique', type: 'ZonageSismiqueData', rayon: '1' /*1*/ },
   ];
 
   // Create an array of API call promises
@@ -123,151 +191,171 @@ export const callAllApiGasparPromiseAll = async (addressObject: AddressObject) =
 
   return results;
 };
-
-/**Ce service permet de lister les Atlas de Zones Inondables (AZI)
- *  recensés sur le territoire concerné, suivant une emprise spatiale
- *  définie, à savoir un rayon de recherche pour un point défini,
- * une ou plusieurs communes. */
-export const getAZI = async (addressObject: AddressObject) => {
-  // const endpoint = '/api/v1/gaspar/azi';
-  // const rayon = '1';
-  // const data: GasprAPIResponse = await apiGaspar(addressObject, endpoint, rayon);
-  // console.log(data);
+const AZIAnalysis = (arrayAZI: AZIData[], numberOccurrences: number): number => {
+  //Atlas des zones inondable
+  //Find all Num risque
+  let allRisqueNumber = arrayAZI.map((item) => {
+    return item.liste_libelle_risque[0].num_risque;
+  });
+  const uniqueRisqueAZI = allRisqueNumber.filter((value, index, self) => {
+    return self.indexOf(value) === index;
+  });
+  if (allRisqueNumber.length == 0) {
+    return 0;
+  } else if (allRisqueNumber.length < 1 && uniqueRisqueAZI.length < 1) {
+    return 1;
+  } else if (allRisqueNumber.length < 2 && uniqueRisqueAZI.length < 2) {
+    return 2;
+  } else {
+    return 3;
+  }
 };
 
-/**Ce service permet de lister les arrêtés de catastrophe naturelle,
- * suivant une emprise spatiale définie, à savoir un rayon de recherche
- * pour un point défini, une ou plusieurs communes. */
-export const getCatNat = async (addressObject: AddressObject) => {
-  // const endpoint = '/api/v1/gaspar/catnat';
-  // const rayon = '100';
-  // const data: GasprAPIResponse = await apiGaspar(addressObject, endpoint, rayon);
-};
-/**Ce service permet de lister les arrêtés de catastrophe naturelle,
- * suivant une emprise spatiale définie, à savoir un rayon de recherche
- * pour un point défini, une ou plusieurs communes.
- * Donne notament les carieres */
-export const getCavite = async (addressObject: AddressObject) => {
-  // const endpoint = '/api/v1/cavites';
-  // const rayon = '10000';
-  // const data: GasprAPIResponse = await apiGaspar(addressObject, endpoint, rayon);
-  // console.log(data);
+const sysmiqueAnalysis = (arraySismique: ZonageSismiqueData[], numberOccurrences: number): number => {
+  // Zonage Sismique Data Risque = 1-Très faible 2-faible 3-Moderée 4-Moyen 5-Fort
+  const risqueLieu = parseInt(arraySismique[0].code_zone);
+  if (risqueLieu <= 2) {
+    return 0;
+  } else if (risqueLieu > 2 && risqueLieu <= 3) {
+    return 1;
+  } else if (risqueLieu == 4) {
+    return 2;
+  } else if (risqueLieu == 5) {
+    return 3;
+  }
 };
 
-/**Ce service permet de lister les Documents d'Information Communal
- * sur les Risques Majeurs (DICRIM) sur le territoire concerné,
- *  suivant une emprise spatiale définie, à savoir un rayon de
- * recherche pour un point défini, une ou plusieurs communes. */
-export const getItallationsClassees = async (addressObject: AddressObject) => {
-  // const endpoint = '/api/v1/installations_classees';
-  // const rayon = '1000';
-  // const data: GasprAPIResponse = await apiGaspar(addressObject, endpoint, rayon);
-  // console.log(data);
+const CATNATAnalysis = (arrayCATNAT: CatnatData[], numberOccurrences: number): number => {
+  if (numberOccurrences == 0) {
+    return 0;
+  } else if (numberOccurrences == 1) {
+    return 1;
+  } else if (numberOccurrences < 5) {
+    return 2;
+  } else {
+    return 3;
+  }
 };
 
-/**Cette interface est conçue pour diffuser
- * les données sur le mouvement de terrain.
- */
-export const getMVT = async (addressObject: AddressObject) => {
-  // const endpoint = '/api/v1/mvt';
-  // const rayon = '1000';
-  // const data: GasprAPIResponse = await apiGaspar(addressObject, endpoint, rayon);
-  // console.log(data);
+const installationClasseAnalysis = (
+  arrayInstallationClasse: InstallationsClasseesData[],
+  numberOccurrences: number,
+): number => {
+  let numberNonSeveso = 0;
+  let numberSeveso1 = 0;
+  let numberSeveso2 = 0;
+  const arrayStatusSeveso = arrayInstallationClasse.map((item) => {
+    return item.statutSeveso;
+  });
+  arrayStatusSeveso.forEach((item) => {
+    if (item == 'Non Seveso') {
+      numberNonSeveso++;
+    } else if (item == 'Seveso seuil bas') {
+      numberSeveso1++;
+    } else if (item == 'Seveso seuil haut') {
+      numberSeveso2++;
+    } else {
+      console.log('Err installationClasseAnalysis, seveso name not taken into account :' + item);
+    }
+  });
+  if (numberSeveso2 >= 1) {
+    return 3;
+  } else if (numberSeveso1 >= 1) {
+    return 2;
+  } else if (numberNonSeveso >= 1) {
+    return 1;
+  } else {
+    return 0;
+  }
+};
+const radonAnalysis = (arrayRadon: RadonData[], numberOccurrences: number): number => {
+  if (arrayRadon[0].classe_potentiel == '1') {
+    return 0;
+  } else if (arrayRadon[0].classe_potentiel == '2') {
+    return 2;
+  } else if (arrayRadon[0].classe_potentiel == '3') {
+    return 3;
+  } else {
+    console.log('Error, radonAnalysis unknown class');
+  }
 };
 
-/**Ce service permet de lister les Programmes d'Actions de Prévention des Inondations (PAPI)
- * recensés sur le territoire concerné, suivant une emprise spatiale définie, à savoir un
- *  rayon de recherche pour un point défini, une ou plusieurs communes.
- */
-export const getPAPI = async (addressObject: AddressObject) => {
-  // const endpoint = '/api/v1/gaspar/papi';
-  // const rayon = '1000';
-  // const data: GasprAPIResponse = await apiGaspar(addressObject, endpoint, rayon);
-  // console.log(data);
+const risqueAnalysis = (arrayRisque: RisquesData[], numberOccurrences: number): number => {
+  const arrayAllNumRisque = arrayRisque.map((item) => {
+    return item.risques_detail.map((item) => {
+      return parseInt(item.num_risque);
+    });
+  });
+  if (arrayAllNumRisque.length == 0) {
+    return 0;
+  } else if (arrayAllNumRisque.length << 5) {
+    return 1;
+  } else if (arrayAllNumRisque.length << 15) {
+    return 2;
+  } else if (arrayAllNumRisque.length >= 15) {
+    return 3;
+  } else {
+    console.log('Erron in risqueAnalysis, unknown parameters');
+  }
 };
 
-/**Ce service permet de lister les Plans Communaux de Sauvegarde (PCS) recensés
- * sur le territoire concerné, suivant une emprise spatiale définie, à savoir un
- * rayon de recherche pour un point défini, une ou plusieurs communes.
- */
-export const getPCS = async (addressObject: AddressObject) => {
-  // const endpoint = '/api/v1/gaspar/pcs';
-  // const rayon = '1000';
-  // const data: GasprAPIResponse = await apiGaspar(addressObject, endpoint, rayon);
-  // console.log(data);
+const mvtAnalysis = (arrayMvt: MVTData[], numberOccurrences: number): number => {
+  // This type of data are not very useful
+  if ((numberOccurrences = 0)) {
+    return 0;
+  } else {
+    return 1;
+  }
 };
 
-/**Ce service permet de recherche le potentiel radon d'une ou plusieurs
- * communes. Attention pour les communes de Paris, Lyon et Marseille,
- * seules les informations à l'arrondissement sont disponibles.
- */
-export const getRadon = async (addressObject: AddressObject) => {
-  // const endpoint = '/api/v1/radon';
-  // const rayon = '1000';
-  // const data: GasprAPIResponse = await apiGaspar(addressObject, endpoint, rayon);
-  // console.log(data);
+const sisAnalysis = (arraySIS: SISData[], numberOccurrences: number): number => {
+  if ((arraySIS.length = 0)) {
+    return 0;
+  } else if (arraySIS.length <= 5) {
+    return 1;
+  } else if (arraySIS.length <= 15) {
+    return 2;
+  } else if (arraySIS.length > 15) {
+    return 3;
+  } else {
+    console.log('Erron in sisAnalysis, unknown parameters');
+  }
 };
 
-/**Cette interface est conçue pour diffuser les données sur le retrait / gonflement
- *  des sols argileux.
- */
-export const getRGA = async (addressObject: AddressObject) => {
-  // const endpoint = '/api/v1/rga';
-  // const rayon = '1000';
-  // const data: GasprAPIResponse = await apiGaspar(addressObject, endpoint, rayon);
-  // console.log(data);
+const TRIAnalysis = (arrayTRI: TRIData[], numberOccurrences: number): number => {
+  const arrayRisqueAvere = arrayTRI.map((item) => {
+    if (item.date_arrete_pcb && !item.date_arrete_approbation) {
+      return item.liste_libelle_risque;
+    }
+  });
+  if (arrayRisqueAvere.length != 0) {
+    return 3;
+  } else {
+    return 0;
+  }
 };
 
-/**Ce service permet de lister les types de risques recensés sur le territoire concerné,
- * suivant une emprise spatiale définie, à savoir un rayon de recherche pour un point défini,
- * une ou plusieurs communes.
- */
-export const getRisques = async (addressObject: AddressObject) => {
-  // const endpoint = '/api/v1/gaspar/risques';
-  // const rayon = '1000';
-  // const data: GasprAPIResponse = await apiGaspar(addressObject, endpoint, rayon);
-  // console.log(data);
-};
-
-/**Ce service permet de lister les différents SIS(Secteurs d'informations sur les sols),
- * suivant une emprise spatiale définie, à savoir un rayon de recherche pour un point défini,
- * une ou plusieurs communes.
- */
-export const getSIS = async (addressObject: AddressObject) => {
-  // const endpoint = '/api/v1/sis';
-  // const rayon = '1000';
-  // const data: GasprAPIResponse = await apiGaspar(addressObject, endpoint, rayon);
-  // console.log(data);
-};
-
-/**Ce service permet de lister les dossier de Transmission d'Information au Maire (TIM)
- * recensés sur le territoire concerné, suivant une emprise spatiale définie,
- * à savoir un rayon de recherche pour un point défini, une ou plusieurs communes.
- */
-export const getTIM = async (addressObject: AddressObject) => {
-  // const endpoint = '/api/v1/gaspar/tim';
-  // const rayon = '1000';
-  // const data: GasprAPIResponse = await apiGaspar(addressObject, endpoint, rayon);
-  // console.log(data);
-};
-
-/**Ce service permet de lister les Territoires à Risques importants d'Inondation (TRI)
- *recensés sur le territoire concerné, suivant une emprise spatiale définie, à savoir
- un rayon de recherche pour un point défini, une ou plusieurs communes.
- */
-export const getTRI = async (addressObject: AddressObject) => {
-  // const endpoint = '/api/v1/gaspar/tri';
-  // const rayon = '1000';
-  // const data: GasprAPIResponse = await apiGaspar(addressObject, endpoint, rayon);
-  // console.log(data);
-};
-
-/**Ce service permet de lister le zonage sismique, suivant une emprise spatiale définie,
- * à savoir un rayon de recherche pour un point défini, une ou plusieurs communes.
- */
-export const getZonageSismique = async (addressObject: AddressObject) => {
-  // const endpoint = '/api/v1/zonage_sismique';
-  // const rayon = '1000';
-  // const data: TRIResponse = await apiGaspar(addressObject, endpoint, rayon);
-  // console.log(data);
+export const analisysGaspar = async (dataObject: GasparAllObject) => {
+  const gasparSizes: Record<string, number | undefined> = {};
+  const gasparPoints: Record<string, number | undefined> = {};
+  for (const key in dataObject) {
+    if (dataObject.hasOwnProperty(key)) {
+      const element = dataObject[key as keyof GasparAllObject];
+      gasparSizes[key] = Array.isArray(element) ? element.length : undefined;
+      gasparPoints[key] = undefined; //Construc gasparPoints structure for future usage
+    }
+  }
+  gasparPoints.ZonageSismiqueData = sysmiqueAnalysis(dataObject.ZonageSismiqueData, gasparSizes.zonage_sismique);
+  gasparPoints.RisquesData = risqueAnalysis(dataObject.RisquesData, gasparSizes.RisquesData);
+  gasparPoints.CatnatData = CATNATAnalysis(dataObject.CatnatData, gasparSizes.catnatData);
+  gasparPoints.InstallationsClasseesData = installationClasseAnalysis(
+    dataObject.InstallationsClasseesData,
+    gasparSizes.installations_classees,
+  );
+  gasparPoints.RadonData = radonAnalysis(dataObject.RadonData, gasparSizes.radonData);
+  gasparPoints.MVTData = mvtAnalysis(dataObject.MVTData, gasparSizes.mvt);
+  gasparPoints.SISData = sisAnalysis(dataObject.SISData, gasparSizes.SISData);
+  gasparPoints.TRIData = TRIAnalysis(dataObject.TRIData, gasparSizes.TRIData);
+  gasparPoints.AZIData = AZIAnalysis(dataObject.AZIData, gasparSizes.AZIdata)
+  console.log(gasparPoints);
 };

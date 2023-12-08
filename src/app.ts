@@ -2,12 +2,12 @@ import axios from 'axios';
 import { findAddress } from './function/findAddress';
 import { getDPE } from './function/getDPE';
 import { qualiteEau } from './function/qualiteEau';
-import { callAllApiGaspar, callAllApiGasparPromiseAll } from './function/gaspar';
+import { analisysGaspar, callAllApiGasparPromiseAll } from './function/gaspar';
 import { saveDataToFile } from './function/utilities/utilities';
 const BANid = '';
 
-// findAddress('38430', '49 sentier du pressoir')
-// findAddress('59310', '20 Av. de la Libération')
+//  findAddress('38430', '49 sentier du pressoir')
+//  findAddress('59310', '20 Av. de la Libération')
 //  findAddress('69003', '20B RUE clos suiphon')
 // findAddress('38210', '5 Contaminé S')
 //  findAddress('17400', '15 Rue Lachevalle')
@@ -15,14 +15,19 @@ const BANid = '';
 // findAddress('29870', '6 place des Cormorans')
 //  findAddress('38430', '209 Chemin de l Archat')
 // findAddress('62720', '65 Rue Roger Salengro')
+// findAddress('38114', '3 chemin des tournants')
+// findAddress('14600', '6 Chem. des Buis')
+findAddress('67000', '12 rue des dentelles')
 
-findAddress('38118', '2 Rue des Balcons du Rhône') //Central nucleaire à coté
+// findAddress('38118', '2 Rue des Balcons du Rhône') //Central nucleaire à coté
   .then((addressObject) => {
     // console.log(addressObject);
     getDPE(addressObject);
     // qualiteEau(addressObject);
-    callAllApiGasparPromiseAll(addressObject).then((result) =>
-    saveDataToFile(result, `${addressObject.properties.city}.json`));
+    callAllApiGasparPromiseAll(addressObject).then((result) =>{
+      saveDataToFile(result, `${addressObject.properties.city}.json`),
+      analisysGaspar(result)})
+    
   })
   .catch((error) => {
     console.error(error);

@@ -1,0 +1,674 @@
+{
+  "AZIData": [],
+  "CatnatData": [
+    {
+      "date_debut_evt": "03/01/2018",
+      "date_fin_evt": "04/01/2018",
+      "libelle_risque_jo": "Inondations et/ou Coulées de Boue"
+    },
+    {
+      "date_debut_evt": "03/01/2018",
+      "date_fin_evt": "04/01/2018",
+      "libelle_risque_jo": "Inondations et/ou Coulées de Boue"
+    },
+    {
+      "date_debut_evt": "03/01/2018",
+      "date_fin_evt": "04/01/2018",
+      "libelle_risque_jo": "Inondations et/ou Coulées de Boue"
+    },
+    {
+      "date_debut_evt": "04/01/2018",
+      "date_fin_evt": "04/01/2018",
+      "libelle_risque_jo": "Inondations et/ou Coulées de Boue"
+    },
+    {
+      "date_debut_evt": "04/01/2018",
+      "date_fin_evt": "04/01/2018",
+      "libelle_risque_jo": "Inondations et/ou Coulées de Boue"
+    },
+    {
+      "date_debut_evt": "15/06/2019",
+      "date_fin_evt": "15/06/2019",
+      "libelle_risque_jo": "Inondations et/ou Coulées de Boue"
+    },
+    {
+      "date_debut_evt": "01/07/2019",
+      "date_fin_evt": "30/09/2019",
+      "libelle_risque_jo": "Sécheresse"
+    }
+  ],
+  "CaviteData": [
+    {
+      "nom": "le creytel",
+      "longitude": 6.032984,
+      "latitude": 45.127697
+    },
+    {
+      "nom": "fayolle",
+      "longitude": 6.0644655,
+      "latitude": 45.046043
+    },
+    {
+      "nom": "clot du freney",
+      "longitude": 6.1332326,
+      "latitude": 45.04668
+    },
+    {
+      "nom": "barrage du chambon",
+      "longitude": 6.136031,
+      "latitude": 45.044876
+    },
+    {
+      "nom": "infernet",
+      "longitude": 6.11141,
+      "latitude": 45.039593
+    },
+    {
+      "nom": "commeres",
+      "longitude": 6.0770855,
+      "latitude": 45.02779
+    },
+    {
+      "nom": "pontet",
+      "longitude": 6.030195,
+      "latitude": 45.040707
+    },
+    {
+      "nom": "forissier",
+      "longitude": 6.041956,
+      "latitude": 45.032303
+    },
+    {
+      "nom": "gardette",
+      "longitude": 6.0411096,
+      "latitude": 45.03485
+    },
+    {
+      "nom": "bouchere",
+      "longitude": 6.034765,
+      "latitude": 45.038754
+    },
+    {
+      "nom": "combe noire",
+      "longitude": 5.9950414,
+      "latitude": 45.03728
+    },
+    {
+      "nom": "combepale",
+      "longitude": 6.004751,
+      "latitude": 45.032368
+    }
+  ],
+  "InstallationsClasseesData": [
+    {
+      "raisonSociale": "GRAVIER TRAVAUX PUBLICS",
+      "codeNaf": "43",
+      "longitude": 6.086047,
+      "latitude": 45.092104,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": [
+        {
+          "dateInspection": "2020-11-06"
+        },
+        {
+          "dateInspection": "2020-11-06"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "GRAVIERES DU VENEON",
+      "codeNaf": "08",
+      "longitude": 6.058892,
+      "latitude": 45.024066,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": true,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": true,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En fin d'exploitation",
+      "regime": "Autorisation",
+      "rubriques": [
+        {
+          "numeroRubrique": "2510",
+          "nature": "Carrières (exploitation de)",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "480000.000"
+        }
+      ],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "FRANCE DENEIGEMENT SAS",
+      "codeNaf": "43",
+      "longitude": 5.957899,
+      "latitude": 45.114222,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": true,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Autorisation",
+      "rubriques": [
+        {
+          "numeroRubrique": "2510",
+          "nature": "Carrières (exploitation de)",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "150000.000"
+        }
+      ],
+      "inspections": [
+        {
+          "dateInspection": "2017-07-12"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "COMMUNAUTE DE COMMUNES DE L'OISANS",
+      "codeNaf": "38",
+      "longitude": 5.949434,
+      "latitude": 45.112248,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Enregistrement",
+      "rubriques": [
+        {
+          "numeroRubrique": "2714",
+          "nature": "déchets non dangereux de papiers, plastiques, bois,… (transit) hors 2710,2711 et 2719",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "1050.000",
+          "unite": "m3"
+        }
+      ],
+      "inspections": [
+        {
+          "dateInspection": "2022-12-21",
+          "fichierInspection": {
+            "identifiantFichier": "gk6Xes8aZVTL12qrkxDP3mJa7TKHbQZM",
+            "nomFichier": "20221221_RAP_Is084T5_Insp_exquaitransit_LivetEtGavet-GEORISQUES",
+            "typeFichier": "Rapport d'inspection publiable",
+            "urlFichier": "https://www.georisques.gouv.fr/webappReport/ws/installations/inspection/gk6Xes8aZVTL12qrkxDP3mJa7TKHbQZM"
+          }
+        }
+      ]
+    },
+    {
+      "raisonSociale": "CARRIERES DES SABLES",
+      "longitude": 5.984167,
+      "latitude": 45.118568,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En fin d’exploitation",
+      "regime": "Enregistrement",
+      "rubriques": [],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "SATA",
+      "longitude": 6.08129,
+      "latitude": 45.097192,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Autorisation",
+      "rubriques": [
+        {
+          "numeroRubrique": "4220",
+          "nature": "Produits explosifs (stockage de)",
+          "alinea": "2",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "476.000",
+          "unite": "kg"
+        }
+      ],
+      "inspections": [
+        {
+          "dateInspection": "2019-04-09"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "SPL OZ VAUJANY",
+      "codeNaf": "49",
+      "longitude": 6.075197,
+      "latitude": 45.128195,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Enregistrement",
+      "rubriques": [
+        {
+          "numeroRubrique": "4220",
+          "nature": "Produits explosifs (stockage de)",
+          "alinea": "2",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "275.500",
+          "unite": "kg"
+        }
+      ],
+      "inspections": [
+        {
+          "dateInspection": "2021-12-16"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "EDF UP Alpes",
+      "codeNaf": "35",
+      "longitude": 5.904735,
+      "latitude": 45.096618,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En fin d’exploitation",
+      "regime": "Enregistrement",
+      "rubriques": [],
+      "inspections": [
+        {
+          "dateInspection": "2023-09-29",
+          "fichierInspection": {
+            "identifiantFichier": "qPET2GBvHUvKaaytmG7rg7U7U2aWDxJs",
+            "nomFichier": "Rapport de l'inspection du 29 septembre 2023 (cessation)",
+            "typeFichier": "Rapport d'inspection publiable",
+            "urlFichier": "https://www.georisques.gouv.fr/webappReport/ws/installations/inspection/qPET2GBvHUvKaaytmG7rg7U7U2aWDxJs"
+          }
+        },
+        {
+          "dateInspection": "2023-09-29"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "EDF DPIH UPA",
+      "codeNaf": "35",
+      "longitude": 5.964216,
+      "latitude": 45.117442,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En fin d'exploitation",
+      "regime": "Enregistrement",
+      "rubriques": [
+        {
+          "numeroRubrique": "2760",
+          "nature": "Installation de stockage de déchets inertes",
+          "alinea": "3",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "56000.000"
+        }
+      ],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "COMMUNAUTE DE COMMUNES DE L'OISANS",
+      "codeNaf": "84",
+      "longitude": 5.950491,
+      "latitude": 45.112499,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": [
+        {
+          "dateInspection": "2022-12-21",
+          "fichierInspection": {
+            "identifiantFichier": "N4yvfaEBUT1m6UYj8EDaTvz9twtE8utj",
+            "nomFichier": "20221227_RAP_Is085T5_Insp_quaitransi-GEORISQUES1",
+            "typeFichier": "Rapport d'inspection publiable",
+            "urlFichier": "https://www.georisques.gouv.fr/webappReport/ws/installations/inspection/N4yvfaEBUT1m6UYj8EDaTvz9twtE8utj"
+          }
+        },
+        {
+          "dateInspection": "2023-08-25",
+          "fichierInspection": {
+            "identifiantFichier": "DHNd8Yxt7ClTzKF4TPuahwRGIPOWdDaS",
+            "nomFichier": "20230831_RAP_INSP_2023Is072T5_QuaiTransfertDechetterie-LivetEtGavetvs-GEORISQUES",
+            "typeFichier": "Rapport d'inspection publiable",
+            "urlFichier": "https://www.georisques.gouv.fr/webappReport/ws/installations/inspection/DHNd8Yxt7ClTzKF4TPuahwRGIPOWdDaS"
+          }
+        }
+      ]
+    },
+    {
+      "raisonSociale": "FRANCE DENEIGEMENT SAS",
+      "codeNaf": "43",
+      "longitude": 5.957877,
+      "latitude": 45.114277,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": true,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Autorisation",
+      "rubriques": [
+        {
+          "numeroRubrique": "2515",
+          "nature": "Broyage, concassage,...et autres produits minéraux ou déchets non dangereux inertes",
+          "alinea": "1.a",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "1095.000",
+          "unite": "kW"
+        },
+        {
+          "numeroRubrique": "2515",
+          "nature": "Broyage, concassage,...et autres produits minéraux ou déchets non dangereux inertes",
+          "alinea": "1.a",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "1095.000"
+        },
+        {
+          "numeroRubrique": "2510",
+          "nature": "Carrières (exploitation de)",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Autorisation",
+          "quantiteTotale": "150000.000"
+        }
+      ],
+      "inspections": []
+    },
+    {
+      "raisonSociale": "CMSE",
+      "longitude": 6.070755,
+      "latitude": 45.029082,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": true,
+      "prioriteNationale": false,
+      "statutSeveso": "Non Seveso",
+      "ied": false,
+      "etatActivite": "En exploitation avec titre",
+      "regime": "Enregistrement",
+      "rubriques": [
+        {
+          "numeroRubrique": "2515",
+          "nature": "Broyage, concassage,...et autres produits minéraux ou déchets non dangereux inertes",
+          "alinea": "1.a",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "972.000",
+          "unite": "kW"
+        },
+        {
+          "numeroRubrique": "2517",
+          "nature": "Produits minéraux ou déchets non dangereux inertes (transit)",
+          "alinea": "1",
+          "regimeAutoriseAlinea": "Enregistrement",
+          "quantiteTotale": "85000.000",
+          "unite": "m2"
+        },
+        {
+          "numeroRubrique": "2515",
+          "nature": "Broyage, concassage,...et autres produits minéraux ou déchets non dangereux inertes",
+          "alinea": "1.b",
+          "regimeAutoriseAlinea": "Déclaration",
+          "quantiteTotale": "0.000",
+          "unite": "kW"
+        }
+      ],
+      "inspections": [
+        {
+          "dateInspection": "2020-10-01"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "MAIRIE D'HUEZ EN OISANS (PATINOIRE)",
+      "longitude": 6.063145,
+      "latitude": 45.091799,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": [
+        {
+          "dateInspection": "2009-07-01"
+        }
+      ]
+    },
+    {
+      "raisonSociale": "COMMUNAUTE DE COMMUNES DE L'OISANS",
+      "codeNaf": "84",
+      "longitude": 5.95266,
+      "latitude": 45.112604,
+      "bovins": false,
+      "porcs": false,
+      "volailles": false,
+      "carriere": false,
+      "eolienne": false,
+      "industrie": false,
+      "prioriteNationale": false,
+      "ied": false,
+      "regime": "Autres régimes",
+      "rubriques": [],
+      "inspections": [
+        {
+          "dateInspection": "2023-08-25",
+          "fichierInspection": {
+            "identifiantFichier": "gMhaoyaMVqYE9NtnKqekchztoBatbVN9",
+            "nomFichier": "20230831-RAP-Insp-Is074T5_AncienneDecharge_LivetEtGavetvs-GEORISQUES",
+            "typeFichier": "Rapport d'inspection publiable",
+            "urlFichier": "https://www.georisques.gouv.fr/webappReport/ws/installations/inspection/gMhaoyaMVqYE9NtnKqekchztoBatbVN9"
+          }
+        }
+      ]
+    }
+  ],
+  "MVTData": [],
+  "PAPIData": [],
+  "PCSData": [],
+  "RadonData": [
+    {
+      "classe_potentiel": "1"
+    }
+  ],
+  "RisquesData": [
+    {
+      "risques_detail": [
+        {
+          "num_risque": "134",
+          "libelle_risque_long": "Mouvement de terrain",
+          "zone_sismicite": null
+        },
+        {
+          "num_risque": "158",
+          "libelle_risque_long": "Séisme",
+          "zone_sismicite": null
+        },
+        {
+          "num_risque": "159",
+          "libelle_risque_long": "Avalanche",
+          "zone_sismicite": null
+        },
+        {
+          "num_risque": "166",
+          "libelle_risque_long": "Feu de forêt",
+          "zone_sismicite": null
+        }
+      ]
+    }
+  ],
+  "SISData": [
+    {
+      "nom": "Centrale EDF Keller & Leleux",
+      "superficie": 5448.223,
+      "geom": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                5.935171,
+                45.106865
+              ],
+              [
+                5.935247,
+                45.106877
+              ],
+              [
+                5.935247,
+                45.106896
+              ],
+              [
+                5.935204,
+                45.106911
+              ],
+              [
+                5.935198,
+                45.106964
+              ],
+              [
+                5.935874,
+                45.106884
+              ],
+              [
+                5.93588,
+                45.106831
+              ],
+              [
+                5.936094,
+                45.106805
+              ],
+              [
+                5.936089,
+                45.106695
+              ],
+              [
+                5.936019,
+                45.106699
+              ],
+              [
+                5.936024,
+                45.10668
+              ],
+              [
+                5.93596,
+                45.10668
+              ],
+              [
+                5.93596,
+                45.10671
+              ],
+              [
+                5.935912,
+                45.106714
+              ],
+              [
+                5.936314,
+                45.106138
+              ],
+              [
+                5.93544,
+                45.106123
+              ],
+              [
+                5.935332,
+                45.106479
+              ],
+              [
+                5.935289,
+                45.106468
+              ],
+              [
+                5.935295,
+                45.106472
+              ],
+              [
+                5.935171,
+                45.106865
+              ]
+            ]
+          ]
+        ]
+      },
+      "id_sis": null,
+      "fiche_risque": "https://fiches-risques.brgm.fr/georisques/infosols/classification/SSP00033880101"
+    }
+  ],
+  "TRIData": [],
+  "ZonageSismiqueData": [
+    {
+      "code_zone": "3",
+      "zone_sismicite": "3 - MODEREE"
+    }
+  ]
+}
