@@ -559,3 +559,15 @@ export interface ZonageSismiqueData {
   libelle_commune: string;
   zone_sismicite: string;
 }
+
+export interface ResultArrayGeoRisque{
+  AZIData?: Number;
+  CatnatData?: Number;
+  InstallationsClasseesData?: Number;
+  MVTData?: Number;
+  RadonData?: Number;
+  RisquesData?: Number;
+  SISData?: Number;
+  TRIData?: Number;
+  ZonageSismiqueData?: Number;
+}

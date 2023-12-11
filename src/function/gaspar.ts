@@ -16,11 +16,12 @@ import {
   TRIData,
   ZonageSismiqueData,
   GasparAllObject,
+  ResultArrayGeoRisque,
 } from 'src/function/utilities/Inetface/GeoRisque';
 
 import { getCoordinatesAsString } from './utilities/addressFunction';
-import axios, { Axios, AxiosError } from 'axios';
-import { delay, filterObjectKeys, parseDateString, sortObject } from './utilities/utilities';
+import axios from 'axios';
+import { delay, filterObjectKeys, sortObject } from './utilities/utilities';
 
 /*
  *DATASHEET API : https://www.georisques.gouv.fr/doc-api
@@ -139,7 +140,7 @@ const apiGaspar = async (addressObject: AddressObject, endpoint: string, rayon: 
         return yearsToInclude.some((year) => item.date_debut.includes(year));
       });
     }
-    console.log('Finished getting : ' + endpoint);
+    console.log('Finished getting : ' + endpoint + ', at page ' + page);
     return filteredObjects;
   } catch (err) {
     const URLsend = endpoint.includes('radon')
@@ -222,6 +223,8 @@ const sysmiqueAnalysis = (arraySismique: ZonageSismiqueData[], numberOccurrences
     return 2;
   } else if (risqueLieu == 5) {
     return 3;
+  } else {
+    console.log('SysmiqueAnalysis unknown error with code : ' + arraySismique[0].code_zone);
   }
 };
 
@@ -335,7 +338,7 @@ const TRIAnalysis = (arrayTRI: TRIData[], numberOccurrences: number): number => 
   }
 };
 
-export const analisysGaspar = async (dataObject: GasparAllObject) => {
+export const analisysGaspar = (dataObject: GasparAllObject): ResultArrayGeoRisque => {
   const gasparSizes: Record<string, number | undefined> = {};
   const gasparPoints: Record<string, number | undefined> = {};
   for (const key in dataObject) {
@@ -345,17 +348,21 @@ export const analisysGaspar = async (dataObject: GasparAllObject) => {
       gasparPoints[key] = undefined; //Construc gasparPoints structure for future usage
     }
   }
-  gasparPoints.ZonageSismiqueData = sysmiqueAnalysis(dataObject.ZonageSismiqueData, gasparSizes.zonage_sismique);
+  // Function call for note managements of each parameters
+  gasparPoints.RadonData = radonAnalysis(dataObject.RadonData, gasparSizes.radonData);
+  gasparPoints.MVTData = mvtAnalysis(dataObject.MVTData, gasparSizes.mvt);
+  gasparPoints.SISData = sisAnalysis(dataObject.SISData, gasparSizes.SISData);
+  gasparPoints.TRIData = TRIAnalysis(dataObject.TRIData, gasparSizes.TRIData);
+  gasparPoints.AZIData = AZIAnalysis(dataObject.AZIData, gasparSizes.AZIdata);
+  gasparPoints.ZonageSismiqueData = sysmiqueAnalysis(
+    dataObject.ZonageSismiqueData,
+    gasparSizes.zonage_sismique,
+  );
   gasparPoints.RisquesData = risqueAnalysis(dataObject.RisquesData, gasparSizes.RisquesData);
   gasparPoints.CatnatData = CATNATAnalysis(dataObject.CatnatData, gasparSizes.catnatData);
   gasparPoints.InstallationsClasseesData = installationClasseAnalysis(
     dataObject.InstallationsClasseesData,
     gasparSizes.installations_classees,
   );
-  gasparPoints.RadonData = radonAnalysis(dataObject.RadonData, gasparSizes.radonData);
-  gasparPoints.MVTData = mvtAnalysis(dataObject.MVTData, gasparSizes.mvt);
-  gasparPoints.SISData = sisAnalysis(dataObject.SISData, gasparSizes.SISData);
-  gasparPoints.TRIData = TRIAnalysis(dataObject.TRIData, gasparSizes.TRIData);
-  gasparPoints.AZIData = AZIAnalysis(dataObject.AZIData, gasparSizes.AZIdata)
-  console.log(gasparPoints);
+  return gasparPoints;
 };
