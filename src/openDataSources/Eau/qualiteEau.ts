@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { AddressObject, ResultatDis, communes_udi } from '../interface';
-import { getFormattedDateYearsAgoAsString } from './utilities/addressFunction';
+import { ResultatDis, communes_udi } from './interfaceEau';
+import { getFormattedDateYearsAgoAsString } from '../address/addressFunction';
+import { AddressObject } from '../address/interfaceAddress';
 
 export const qualiteEau = async (adressObject: AddressObject) => {
   let uniqueCodeReseau: string[] = [];

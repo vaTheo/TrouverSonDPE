@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AddressObject } from '../interface';
+import { AddressObject } from '../address/interfaceAddress';
 
 export const getDPE = async (addressObject: AddressObject) => {
   try {

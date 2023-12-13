@@ -1,4 +1,3 @@
-import { AddressObject } from 'src/interface';
 import {
   CatnatData,
   CaviteData,
@@ -17,11 +16,12 @@ import {
   ZonageSismiqueData,
   GasparAllObject,
   ResultArrayGeoRisque,
-} from 'src/function/utilities/Inetface/GeoRisque';
+} from './GeoRisque';
 
-import { getCoordinatesAsString } from './utilities/addressFunction';
+import { getCoordinatesAsString } from '../address/addressFunction';
 import axios from 'axios';
-import { delay, filterObjectKeys, sortObject } from './utilities/utilities';
+import { delay, filterObjectKeys, sortObject } from '../function/utilities';
+import { AddressObject } from '../address/interfaceAddress';
 
 /*
  *DATASHEET API : https://www.georisques.gouv.fr/doc-api
