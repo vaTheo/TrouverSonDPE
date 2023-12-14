@@ -746,6 +746,6 @@ export interface ParamAnalyseEau {
   good: boolean | null;
 }
 
-export interface ResultEauAnalysis {
-  eauAnalysis: Number;
+export interface RateEauAnalysis {
+  eauAnalysis: number;
 }

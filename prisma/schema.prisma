@@ -1,0 +1,27 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AllRatings {
+  id                        Int      @id @default(autoincrement())
+  addressID                 String
+  eauAnalysis               Int
+  AZIData                   Int
+  CatnatData                Int
+  InstallationsClasseesData Int
+  MVTData                   Int
+  RadonData                 Int
+  RisquesData               Int
+  SISData                   Int
+  TRIData                   Int
+  ZonageSismiqueData        Int
+  createdAt                 DateTime @default(now())
+}

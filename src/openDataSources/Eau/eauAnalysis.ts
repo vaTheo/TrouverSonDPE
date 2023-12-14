@@ -1,6 +1,6 @@
-import { ParamAnalyseEau, ResultEauAnalysis } from './interfaceEau';
+import { ParamAnalyseEau, RateEauAnalysis } from './interfaceEau';
 
-export const eauAnalysis = (result: ParamAnalyseEau[]): ResultEauAnalysis => {
+export const eauAnalysis = (result: ParamAnalyseEau[]): RateEauAnalysis => {
   let numberFail = 0;
   result.forEach((element) => {
     if (!element.good) {

@@ -1,4 +1,4 @@
-import { GasprAPIResponse, GasparAllObject, ResultArrayGeoRisque } from './interfaceGeoRisque';
+import { GasprAPIResponse, GasparAllObject, RateArrayGeoRisque } from './interfaceGeoRisque';
 import {
   AZIAnalysis,
   radonAnalysis,
@@ -185,7 +185,7 @@ export const callAllApiGasparPromiseAll = async (addressObject: AddressObject): 
   return results;
 };
 
-export const analisysGaspar = (dataObject: GasparAllObject): ResultArrayGeoRisque => {
+export const analisysGaspar = (dataObject: GasparAllObject): RateArrayGeoRisque => {
   const gasparSizes: Record<string, number | undefined> = {};
   const gasparPoints: Record<string, number | undefined> = {};
   for (const key in dataObject) {

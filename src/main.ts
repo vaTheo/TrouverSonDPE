@@ -1,7 +1,8 @@
 import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
-import { RatingModule } from './server/app.module';
+import { RatingModule } from './server/rating.module';
 
+//Nest server management
 async function bootstrap() {
   try {
     const app = await NestFactory.create(RatingModule);

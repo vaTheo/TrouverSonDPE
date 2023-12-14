@@ -560,14 +560,14 @@ export interface ZonageSismiqueData {
   zone_sismicite: string;
 }
 
-export interface ResultArrayGeoRisque{
-  AZIData?: Number;
-  CatnatData?: Number;
-  InstallationsClasseesData?: Number;
-  MVTData?: Number;
-  RadonData?: Number;
-  RisquesData?: Number;
-  SISData?: Number;
-  TRIData?: Number;
-  ZonageSismiqueData?: Number;
+export interface RateArrayGeoRisque{
+  AZIData?: number;
+  CatnatData?: number;
+  InstallationsClasseesData?: number;
+  MVTData?: number;
+  RadonData?: number;
+  RisquesData?: number;
+  SISData?: number;
+  TRIData?: number;
+  ZonageSismiqueData?: number;
 }
