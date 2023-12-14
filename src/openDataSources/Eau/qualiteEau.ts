@@ -1,25 +1,25 @@
 import axios from 'axios';
-import { ResultatDis, communes_udi } from './interfaceEau';
+import { ParamAnalyseEau, ResultatDis, communes_udi } from './interfaceEau';
 import { getFormattedDateYearsAgoAsString } from '../address/addressFunction';
 import { AddressObject } from '../address/interfaceAddress';
 
-export const qualiteEau = async (adressObject: AddressObject) => {
+export const qualiteEau = async (adressObject: AddressObject): Promise<ResultatDis> => {
   let uniqueCodeReseau: string[] = [];
   let uniqueTypeAnalysis: string[] = [];
   const basURL = 'https://hubeau.eaufrance.fr/api/v1/qualite_eau_potable/';
+  const endpoint = 'resultats_dis';
+  const uniqueCodeReseauString = uniqueCodeReseau.join(','); //Make the array a string to use it with the following api call
+  //City code managment it appear Hub eau do not manage disctrict
+  let cityCode = adressObject.properties.citycode;
+  const lyonCityCodes = ['69381', '69382', '69383', '69384', '69385', '69386', '69387', '69388', '69389'];
+  if (lyonCityCodes.includes(cityCode)) {
+    cityCode = '69123';
+  }
+  const codeCommune = '?code_commune=' + cityCode;
+  const dateMinPrelevement = '&date_min_prelevement=' + getFormattedDateYearsAgoAsString(10);
+
   // Get resultat Dis
   try {
-    const uniqueCodeReseauString = uniqueCodeReseau.join(','); //Make the array a string to use it with the following api call
-    const endpoint = 'resultats_dis';
-    //City code managment it appear Hub eau do not manage disctrict
-    let cityCode = adressObject.properties.citycode;
-    const lyonCityCodes = ['69381', '69382', '69383', '69384', '69385', '69386', '69387', '69388', '69389'];
-    if (lyonCityCodes.includes(cityCode)) {
-      cityCode = '69123';
-    }
-    const codeCommune = '?code_commune=' + cityCode;
-    const dateMinPrelevement = '&date_min_prelevement=' + getFormattedDateYearsAgoAsString(10);
-
     const response = await axios.get(basURL + endpoint + codeCommune + dateMinPrelevement);
     const resultatDis: ResultatDis = response.data;
 
@@ -47,25 +47,31 @@ export const qualiteEau = async (adressObject: AddressObject) => {
       }
     });
     // console.log(counts);
-    analyseDataEauVille(resultatDis);
+    return resultatDis;
     // console.log(uniqueTypeAnalysis);
     // console.log(uniqueTypeAnalysis.length);
   } catch (err) {
-    console.log(err);
+    const URLsend = basURL + endpoint + codeCommune + dateMinPrelevement;
+    const urlErr = `-- URL= ${URL}${URLsend}`;
+    if (axios.isAxiosError(err) && err.response?.data) {
+      const responseData = err.response.data;
+      // Check for known status codes
+      if (err.response?.status === 404) {
+        console.error(`Resource not found: ${responseData.message} ${urlErr}`);
+      } else if (err.response?.status === 410) {
+        console.error(`Resource no longer available: ${responseData.message} ${urlErr}`);
+      } else {
+        console.error(`Unexpected error: ${responseData.message} ${urlErr}`);
+      }
+    } else {
+      console.error(`Non-HTTP error occurred: ${err.message} ${urlErr}`);
+    }
   }
 };
 
-type ParamAnalyse = {
-  libelle_parametre: string;
-  min: number;
-  max: number;
-  totalAverage: number;
-  countValue: number;
-  good: boolean | null;
-};
-
-const analyseDataEauVille = async (resultatDis: ResultatDis) => {
-  let paramAnalyse: ParamAnalyse[] = [
+export const dataCalculation = (resultatDis: ResultatDis): ParamAnalyseEau[] => {
+  // Creation of empty data and defining thresholds
+  let paramAnalyseEau: ParamAnalyseEau[] = [
     {
       libelle_parametre: 'Escherichia coli /100ml - MF',
       min: 0,
@@ -157,7 +163,7 @@ const analyseDataEauVille = async (resultatDis: ResultatDis) => {
   });
 
   // Calculate averages and check if they are within the range
-  paramAnalyse.forEach((param) => {
+  paramAnalyseEau.forEach((param) => {
     const data = totals[param.libelle_parametre];
     if (data) {
       const avg = data.total / data.count;
@@ -170,7 +176,6 @@ const analyseDataEauVille = async (resultatDis: ResultatDis) => {
       param.countValue = 0; // No occurrences found
     }
   });
-  console.log(paramAnalyse);
 
-  // return averages;
+  return paramAnalyseEau;
 };

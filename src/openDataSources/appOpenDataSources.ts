@@ -1,10 +1,18 @@
 import axios from 'axios';
 import { findAddress } from './address/findAddress';
 import { getDPE } from './DPE/getDPE';
-import { qualiteEau } from './Eau/qualiteEau';
-import { analisysGaspar, callAllApiGasparPromiseAll } from './geoRisque/interfaceGeorisque';
+import { dataCalculation, qualiteEau } from './Eau/qualiteEau';
+import { analisysGaspar, callAllApiGasparPromiseAll } from './geoRisque/Georisque';
 import { saveDataToFile } from './function/utilities';
+import { inputAddressObject } from './address/interfaceAddress';
+import { eauAnalysis } from './Eau/eauAnalysis';
 const BANid = '';
+
+const address = {
+  postalCode: '38430',
+  City: 'St jean de moirans',
+  street: '49 sentier du pressoir',
+} as inputAddressObject;
 
 //  findAddress('38430', '49 sentier du pressoir')
 //  findAddress('59310', '20 Av. de la Libération')
@@ -20,15 +28,21 @@ const BANid = '';
 // findAddress('67000', '12 rue des dentelles')
 
 // findAddress('38118', '2 Rue des Balcons du Rhône') //Central nucleaire à coté
-  // .then((addressObject) => {
-  //   // console.log(addressObject);
-  //   getDPE(addressObject);
-  //   // qualiteEau(addressObject);
-  //   callAllApiGasparPromiseAll(addressObject).then((result) =>{
-  //     saveDataToFile(result, `${addressObject.properties.city}.json`),
-  //     analisysGaspar(result)})
-    
-  // })
-  // .catch((error) => {
-  //   console.error(error);
-  // });
+findAddress(address)
+  .then((addressObject) => {
+    console.log(addressObject);
+    // getDPE(addressObject).then((res) => {
+    //   console.log(res);
+    // });
+    qualiteEau(addressObject).then((res) => {
+      const result = dataCalculation(res);
+      const resultAnalysis = eauAnalysis(result);
+      console.log(resultAnalysis);
+    });
+    // callAllApiGasparPromiseAll(addressObject).then((result) =>{
+    //   saveDataToFile(result, `${addressObject.properties.city}.json`),
+    //   analisysGaspar(result)})
+  })
+  .catch((error) => {
+    console.error(error);
+  });

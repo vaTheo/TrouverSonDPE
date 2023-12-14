@@ -12,6 +12,7 @@
   },
   "scripts": {
     "dev": "nodemon --watch src/**/* -e ts,tsx --exec ts-node src/main.ts",
+    "testEau": "nodemon --watch src/**/* -e ts,tsx --exec ts-node src/openDataSources/appOpenDataSources.ts",
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
     "start:dev": "nest start --watch",
     "start:prod": "node dist/main"

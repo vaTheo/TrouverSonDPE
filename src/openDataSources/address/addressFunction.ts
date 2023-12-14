@@ -1,4 +1,4 @@
-import { AddressObject } from "src/openDataSources/Eau/interfaceEau";
+import { AddressObject } from "../address/interfaceAddress";
 
 export function getCoordinatesAsString(addressObj: AddressObject): string {
   return addressObj.geometry.coordinates.join(',')

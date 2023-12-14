@@ -736,3 +736,16 @@ export interface ReseauResultatDis {
   nom: string;
   debit?: string;
 }
+
+export interface ParamAnalyseEau {
+  libelle_parametre: string;
+  min: number;
+  max: number;
+  totalAverage: number;
+  countValue: number;
+  good: boolean | null;
+}
+
+export interface ResultEauAnalysis {
+  eauAnalysis: Number;
+}
