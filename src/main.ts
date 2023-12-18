@@ -1,12 +1,15 @@
 import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
-import { RatingModule } from './server/rating.module';
+import { RootModule } from './server/root/root.module';
+import cookieParser from 'cookie-parser';
 
 //Nest server management
 async function bootstrap() {
   try {
-    const app = await NestFactory.create(RatingModule);
+    const app = await NestFactory.create(RootModule);
     app.enableCors(); // Enables CORS for all origins
+    app.use(cookieParser());
+
 
     const port = 3000;
     await app.listen(port);

@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Headers, Param } from '@nestjs/common';
+import { Controller, Get, Body, Headers, Param, UseGuards } from '@nestjs/common';
 import { findAddress } from '../../openDataSources/address/findAddress';
 import { inputAddressObject, AddressObject } from '../../openDataSources/address/interfaceAddress';
 import { analisysGaspar, callAllApiGasparPromiseAll } from '../../openDataSources/geoRisque/Georisque';
@@ -7,25 +7,24 @@ import { dataCalculation, qualiteEau } from '../../openDataSources/Eau/qualiteEa
 import { GasparAllObject, RateArrayGeoRisque } from '../../openDataSources/geoRisque/interfaceGeoRisque';
 import { ParamAnalyseEau } from '../../openDataSources/Eau/interfaceEau';
 import { eauAnalysis } from '../../openDataSources/Eau/eauAnalysis';
-import { TokenService } from '../service/createToken';
+import { TokenService } from '../service/token.service';
 import { AllRatingsDBService } from '../service/AllRatingsDB.service';
 import { AllRatings } from '../../openDataSources/interfaceRatings';
 import { PrismaService } from '../service/prisma.service';
+import { Roles, RolesGuard } from '../service/roles.guards';
 
 @Controller('ratingcontroller')
+@UseGuards(RolesGuard)
 export class RatingController {
   constructor(private tokenService: TokenService, private AllRatingsDBService: AllRatingsDBService) {} //Inport the token service so I can use it in the controller
 
   @Get('')
+  @Roles('user')
   async getRatingOfAnAddress(
     @Body() data: inputAddressObject,
     @Headers('authorization') authorization: string,
     @Headers('userid') userid: string,
   ) {
-    console.log('Received data: ', data);
-    console.log('Authorization: ', authorization);
-    console.log('UserID: ', userid);
-    // Your logic here
     try {
       let dataGaspar: GasparAllObject;
       let dataEau: ParamAnalyseEau[];
@@ -55,4 +54,6 @@ export class RatingController {
       console.log(err);
     }
   }
+
+  
 }

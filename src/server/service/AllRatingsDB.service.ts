@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
-import { AllRatings } from 'src/openDataSources/interfaceRatings';
+import { AllRatings } from '../../openDataSources/interfaceRatings';
 
 @Injectable()
 export class AllRatingsDBService {
