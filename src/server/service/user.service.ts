@@ -49,20 +49,22 @@ export class UserService {
 
   async updateUserByUUID(
     UUID: string,
-    email: string,
-    hashedPassword: string,
+    email?: string,
+    hashedPassword?: string,
     username?: string,
+    role?: string,
   ): Promise<User | null> {
-    try {
-      return await this.prisma.user.update({
-        where: { uuid: UUID },
-        data: {
-          username: username,
-          password: hashedPassword,
-          email: email,
-        },
-      });
-
+      try {
+        const updateData: any = {};
+        if (username !== undefined) updateData.username = username;
+        if (hashedPassword !== undefined) updateData.password = hashedPassword;
+        if (email !== undefined) updateData.email = email;
+        if (role !== undefined) updateData.role = role;
+  
+        return await this.prisma.user.update({
+          where: { uuid: UUID },
+          data: updateData,
+        });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2025') {
@@ -75,6 +77,7 @@ export class UserService {
       return null; // or you can throw a custom error or handle it as per your application's need
     }
   }
+  
 
   async hashPassword(password: string): Promise<string> {
     const saltRounds = 10;

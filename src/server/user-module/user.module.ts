@@ -10,10 +10,4 @@ import { AsUUID } from '@server/midleware/asUUID';
     controllers: [UsersController],
     providers: [PrismaService,TokenService,UserService], //Service and midlware  
 })
-export class UserModule {
-    configure(consumer: MiddlewareConsumer) {
-        consumer
-          .apply(AsUUID)
-          .forRoutes(UsersController); // Apply to all routes in RatingController
-      }
-}
+export class UserModule {}
