@@ -1,10 +1,23 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Post, Req, Res, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Patch,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { Roles, RolesGuard } from '../service/roles.guards';
 import { TokenService } from '../service/token.service';
 import { UserService } from '../service/user.service';
 import { User } from '@prisma/client';
 import { Request, Response, response } from 'express';
 import { CreateUserDto, LoginUserDto, serRoleUserDto } from '@server/users/userDTO';
+import { RequestExtendsJWT } from '@server/midleware/JWTValidation';
 
 @Controller('user')
 @UseGuards(RolesGuard)
@@ -14,17 +27,17 @@ export class UsersController {
     private userService: UserService,
   ) {} //Inport the token service so I can use it in the controller
 
-  @Get('login')
+  @Post('login')
   async loginUser(@Body() data: CreateUserDto, @Res() response: Response) {
     const user = await this.userService.findUserByEmail(data.email);
     if (!user) throw new HttpException('User does not exist ', HttpStatus.UNAUTHORIZED);
     //Verify password
-    if ( !this.userService.verifyPassword(data.password, user.password))
+    if (!this.userService.verifyPassword(data.password, user.password))
       throw new HttpException('Password incorect ', HttpStatus.UNAUTHORIZED);
 
     const signedJWT = this.tokenService.createJWT(user.id, user.role);
     // Set authorization header and send response
-    response.cookie('authorization',`Bearer ${signedJWT}`, {
+    response.cookie('authorization', `Bearer ${signedJWT}`, {
       httpOnly: true,
       expires: new Date(Date.now() + 3600000), // Expires in 1 hour
     });
@@ -34,7 +47,7 @@ export class UsersController {
   @Post('register')
   async registerUser(@Body() data: LoginUserDto, @Req() request: Request, @Res() response: Response) {
     // Verify if the email does not exist ?
-    let  user = await this.userService.findUserByEmail(data.email);
+    let user = await this.userService.findUserByEmail(data.email);
     if (user) {
       throw new HttpException('User already exists', HttpStatus.CONFLICT); // 409 Conflict
     }
@@ -49,27 +62,17 @@ export class UsersController {
       });
       await this.userService.createUserWithUUID(uuidToken);
     }
-    // Verify email
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if (!emailRegex.test(data.email) && data.email) {
-      throw new HttpException('Email not valid', HttpStatus.BAD_REQUEST); // 400 Bad Request
-    }
     // hash the password
-    const passwordRegex = /^.{9,}$/; //at least 8 char
-    if (!passwordRegex.test(data.password) && data.password) {
-      throw new HttpException(
-        'Password not valid, should contain more than 8 characters',
-        HttpStatus.BAD_REQUEST,
-      ); // 400 Bad Request
-    }
     const hashedPassword = await this.userService.hashPassword(data.password);
 
     // Update the user with UUID in the DB whith ashed password
     user = await this.userService.updateUserByUUID(uuidToken, data.email, hashedPassword);
-    return response.status(HttpStatus.OK).send({ success: true, message: `User created successfully ${user}` });
+    return response
+      .status(HttpStatus.OK)
+      .send({ success: true, message: `User created successfully ${user}` });
   }
   @Get('logout')
-  async logout(@Body() data: User) {
+  async logout() {
     try {
       response.clearCookie('authorization');
       return response.status(HttpStatus.OK).send({ success: true, message: 'Logged out successfully' });
@@ -79,13 +82,37 @@ export class UsersController {
   }
 
   @Post('setrole')
-  @Roles('lol')
+  @Roles('admin')
   async setUserRole(@Body() data: serRoleUserDto) {
-    let user = await this.userService.findUserByEmail(data.email);
-    if (!user) throw new HttpException('User does not exist ', HttpStatus.UNAUTHORIZED);
-    user = await this.userService.updateUserByUUID(user.uuid,undefined,undefined,undefined,data.role)
-
-      console.log(user)
+    try {
+      let user = await this.userService.findUserByEmail(data.email);
+      if (!user) throw new HttpException('User does not exist ', HttpStatus.UNAUTHORIZED);
+      user = await this.userService.updateUserByUUID(user.uuid, undefined, undefined, undefined, data.role);
+      return response
+        .status(HttpStatus.OK)
+        .send({ success: true, message: `Role successfully changed ${user}` });
+    } catch (err) {
+      throw new HttpException(`Role change error ${err}`, HttpStatus.CONFLICT);
+    }
   }
 
+  @Get('list')
+  @Roles('admin')
+  async getListUser(@Body() data: any) {}
+
+  @Get('listaddress')
+  @Roles('admin')
+  async getListAddressIDOfUser(@Body() data: any, @Req() request: RequestExtendsJWT) {
+    console.log(await this.userService.getAddressIDsByEmail(request?.user.userId));
+  }
+
+  @Delete('delet')
+  @Roles('user')
+  async deletUser(@Body() data: any) {}
+
+  @Get('user/:id')
+  async getProfileByID(@Body() data: any) {}
+
+  @Patch('user/:id')
+  async patchProfileByID(@Body() data: any) {}
 }

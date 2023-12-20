@@ -3,14 +3,14 @@ import { RatingController } from '../datarating-controller/rating.controller';
 import { AsUUID } from '../midleware/asUUID';
 import { TokenService } from '../service/token.service';
 import { PrismaService } from '../service/prisma.service';
-import { AllRatingsDBService } from '../service/AllRatingsDB.service';
+import { RatingsDBService } from '../service/AllRatingsDB.service';
 import { isConnected } from '../midleware/isConnected';
 import { UserService } from '../service/user.service';
 
 @Module({
   imports: [],
   controllers: [RatingController],
-  providers: [PrismaService,AllRatingsDBService,TokenService,UserService], //Service and midlware
+  providers: [PrismaService,RatingsDBService,TokenService,UserService], //Service and midlware
 })
 export class DataRatingModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

@@ -161,7 +161,7 @@ export const callAllApiGasparPromiseAll = async (addressObject: AddressObject): 
     { endpoint: 'gaspar/azi', type: 'AZIData', rayon: '1' /*1*/ },
     { endpoint: 'gaspar/catnat', type: 'CatnatData', rayon: '10000' },
     // { endpoint: 'cavites', type: 'CaviteData', rayon: '10000' },
-    { endpoint: 'installations_classees', type: 'InstallationsClasseesData', rayon: '10000' },
+    { endpoint: 'installations_classees', type: 'InstallationsClasseesData', rayon: '1000' },
     { endpoint: 'mvt', type: 'MVTData', rayon: '100' },
     // { endpoint: 'gaspar/papi', type: 'PAPIData', rayon: '10000' },
     // { endpoint: 'gaspar/pcs', type: 'PCSData', rayon: '10000' },

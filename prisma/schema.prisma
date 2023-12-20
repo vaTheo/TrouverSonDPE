@@ -39,6 +39,6 @@ model userAddressID {
   id         Int        @id @default(autoincrement())
   addressID  String     @unique
   userId     Int
-  allRatings AllRatings @relation(fields: [addressID], references: [addressID])
+  AllRatings AllRatings @relation(fields: [addressID], references: [addressID])
   user       User       @relation(fields: [userId], references: [id])
 }

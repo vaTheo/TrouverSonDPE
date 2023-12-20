@@ -3,6 +3,14 @@ import { TokenService } from '@server/service/token.service';
 import { UserService } from '@server/service/user.service';
 import { Request, Response, NextFunction } from 'express';
 
+// Extend request interface to pass the user informations
+export interface RequestExtendsJWT extends Request {
+  user?: {
+    userId: number;
+    role: string;
+  };
+}
+
 @Injectable()
 export class JWTValidation implements NestMiddleware {
   constructor(
@@ -10,7 +18,7 @@ export class JWTValidation implements NestMiddleware {
     private user: UserService,
   ) {}
   //manage JWT so for each call with the server the JWT is validate and renew if needed
-  async use(req: Request, res: Response, next: NextFunction) {
+  async use(req: RequestExtendsJWT, res: Response, next: NextFunction) {
     // Extract the Authorization header
     const authirizationString = await req.cookies['authorization'];
 
@@ -28,6 +36,11 @@ export class JWTValidation implements NestMiddleware {
       if (!payload) {
         return res.status(401).send({ message: 'JWT expired or invalid' }); // Unauthorized response for failed JWT verification
       }
+      // Add payload to req for future usage
+      req.user = {
+        userId: payload.userId,
+        role: payload.role,
+      };
       const signedJWT = this.tokenService.createJWT(payload.userId, payload.role);
       res.cookie('authorization', `Bearer ${signedJWT}`, {
         httpOnly: true,

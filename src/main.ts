@@ -10,12 +10,14 @@ async function bootstrap() {
     const app = await NestFactory.create(RootModule);
     app.enableCors(); // Enables CORS for all origins
     app.use(cookieParser());
-    app.useGlobalPipes(new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
-      exceptionFactory: (errors) => new BadRequestException(errors),
-    }));
+    app.useGlobalPipes(// use to validate types on HTTP requests
+      new ValidationPipe({
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        transform: true,
+        exceptionFactory: (errors) => new BadRequestException(errors),
+      }),
+    );
     const port = 3000;
     await app.listen(port);
     console.log(`Server is running on http://localhost:${port}`); // Log when the server starts

@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Headers, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Body, Headers, Param, UseGuards, Req, HttpStatus } from '@nestjs/common';
 import { findAddress } from '../../openDataSources/address/findAddress';
 import { inputAddressObject, AddressObject } from '../../openDataSources/address/interfaceAddress';
 import { analisysGaspar, callAllApiGasparPromiseAll } from '../../openDataSources/geoRisque/Georisque';
@@ -8,24 +8,29 @@ import { GasparAllObject, RateArrayGeoRisque } from '../../openDataSources/geoRi
 import { ParamAnalyseEau } from '../../openDataSources/Eau/interfaceEau';
 import { eauAnalysis } from '../../openDataSources/Eau/eauAnalysis';
 import { TokenService } from '../service/token.service';
-import { AllRatingsDBService } from '../service/AllRatingsDB.service';
-import { AllRatings } from '../../openDataSources/interfaceRatings';
+import { RatingsDBService } from '../service/AllRatingsDB.service';
+import { Ratings } from '../../openDataSources/interfaceRatings';
 import { PrismaService } from '../service/prisma.service';
 import { Roles, RolesGuard } from '../service/roles.guards';
+import { RequestExtendsJWT } from '@server/midleware/JWTValidation';
+import { response } from 'express';
 
 @Controller('ratingcontroller')
 @UseGuards(RolesGuard)
 export class RatingController {
-  constructor(private tokenService: TokenService, private AllRatingsDBService: AllRatingsDBService) {} //Inport the token service so I can use it in the controller
+  constructor(
+    private tokenService: TokenService,
+    private RatingsDBService: RatingsDBService,
+  ) {} //Inport the token service so I can use it in the controller
 
   @Get('')
+  @Roles('admin')
   @Roles('user')
   async getRatingOfAnAddress(
     @Body() data: inputAddressObject,
-    @Headers('authorization') authorization: string,
-    @Headers('userid') userid: string,
+    @Req() req: RequestExtendsJWT
   ) {
-    try {
+    try {    
       let dataGaspar: GasparAllObject;
       let dataEau: ParamAnalyseEau[];
       //Find the corresponding address
@@ -46,14 +51,17 @@ export class RatingController {
         ...addressID,
         ...resultGaspar,
         ...resultEau,
-      } as AllRatings;
-
-      const savedRating = await this.AllRatingsDBService.addRating(allRate);
-      return savedRating;
+      } as Ratings;
+      this
+      const savedRating = await this.RatingsDBService.addRating(allRate);
+      
+      // Link addressID with user ID
+      this.RatingsDBService.linkUserIDToAddressID(req?.user.userId,addressID.addressID)
+      // return response
+      // .status(HttpStatus.OK)
+      // .send({ success: true, message: `Data saved successfully` });;
     } catch (err) {
       console.log(err);
     }
   }
-
-  
 }

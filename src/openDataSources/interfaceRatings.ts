@@ -1,4 +1,4 @@
-export interface AllRatings {
+export interface Ratings {
     addressID : string;
     eauAnalysis: number;
     AZIData: number;
