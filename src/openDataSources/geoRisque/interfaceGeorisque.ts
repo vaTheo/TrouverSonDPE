@@ -21,7 +21,7 @@ export interface GasprAPIResponse {
   next: string | null;
   previous: string | null;
 }
-export interface GasparAllObject {
+export interface GeorisqueAllObject {
   AZIData?: AZIData[];
   CatnatData?: CatnatData[];
   CaviteData?: CaviteData[];

@@ -1,15 +1,76 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client-js" // Specifies the provider for the Prisma client, in this case, it's JavaScript.
 }
 
+// This section configures the datasource. Datasources in Prisma represent the database type and connection details.
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "postgresql" // Specifies the type of database, here it is PostgreSQL.
+  url      = env("DATABASE_URL") // The connection URL, taken from an environment variable for security and flexibility.
 }
 
+// Definition of the User model. This model represents a user in the system.
+model User {
+  id            Int             @id @default(autoincrement()) // Unique identifier, auto-increments.
+  uuid          String          @unique // A unique string identifier, often used for secure identification.
+  password      String?         // Optional field for the user's password.
+  email         String?         @unique // Optional unique email address for the user.
+  role          String          @default("user") // Role of the user, defaults to 'user'.
+  createdAt     DateTime        @default(now()) // Timestamp of when the user was created.
+  username      String?         @unique // Optional unique username.
+  DataSourceAddressID DataSourceAddressID[] // One-to-many relation to DataSourceAddressID.
+}
+
+// Definition of the DataSourceAddressID model. This model links users to addresses.
+model DataSourceAddressID {
+  id                  Int        @id @default(autoincrement())
+  addressID           String     @unique
+  street              String
+  city                String
+  postcode            String
+  citycode            String
+  userId              Int //Foreign key
+  // Other database linked 
+  AllRatings          AllRatings[]
+  jsonDataGeorisque   jsonDataGeorisque[]
+  jsonDataEau         jsonDataEau[]
+
+  // AllRatings AllRatings @relation(fields: [addressID], references: [addressID])
+  user       User       @relation(fields: [userId], references: [id])
+}
+
+model jsonDataEau {
+  id              Int @id @default(autoincrement())
+  addressID       Int @unique
+  eauPotable      Json
+
+  // Link to DataSourceAddressID
+  DataSourcesID   Int
+  dataSource      DataSourceAddressID?  @relation(fields: [DataSourcesID], references: [id])
+
+}
+
+model jsonDataGeorisque {
+  id                        Int           @id @default(autoincrement())
+  AZIData                   Json
+  CatnatData                Json
+  InstallationsClasseesData Json
+  MVTData                   Json
+  RadonData                 Json
+  RisquesData               Json
+  SISData                   Json
+  TRIData                   Json
+  ZonageSismiqueData        Json
+  // Link to DataSourceAddressID
+  DataSourcesID             Int           //Foreign key
+  dataSource                DataSourceAddressID?  @relation(fields: [DataSourcesID], references: [id])
+}
+
+
+// Definition of the AllRatings model. This model stores various ratings for an address.
 model AllRatings {
-  id                        Int            @id @default(autoincrement())
-  addressID                 String         @unique
+  id                        Int            @id @default(autoincrement()) // Unique identifier, auto-increments.
+  addressID                 String         @unique // Unique string to identify the address.
+  // Fields representing different types of data ratings:
   eauAnalysis               Int
   AZIData                   Int
   CatnatData                Int
@@ -20,25 +81,9 @@ model AllRatings {
   SISData                   Int
   TRIData                   Int
   ZonageSismiqueData        Int
-  createdAt                 DateTime       @default(now())
-  userAddressID             userAddressID?
-}
+  createdAt                 DateTime       @default(now()) // Timestamp of when the record was created.
+  // Link to DataSourceAddressID
+  DataSourcesID             Int?      //Foreign key
+  dataSource                DataSourceAddressID?    @relation(fields: [DataSourcesID], references: [id])
 
-model User {
-  id            Int             @id @default(autoincrement())
-  uuid          String          @unique
-  password      String?
-  email         String?         @unique
-  role          String          @default("user")
-  createdAt     DateTime        @default(now())
-  username      String?         @unique
-  userAddressID userAddressID[]
-}
-
-model userAddressID {
-  id         Int        @id @default(autoincrement())
-  addressID  String     @unique
-  userId     Int
-  AllRatings AllRatings @relation(fields: [addressID], references: [addressID])
-  user       User       @relation(fields: [userId], references: [id])
 }

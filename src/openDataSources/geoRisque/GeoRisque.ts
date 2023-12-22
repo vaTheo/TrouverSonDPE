@@ -1,4 +1,4 @@
-import { GasprAPIResponse, GasparAllObject, RateArrayGeoRisque } from './interfaceGeoRisque';
+import { GasprAPIResponse, GeorisqueAllObject, RateArrayGeoRisque } from './interfaceGeoRisque';
 import {
   AZIAnalysis,
   radonAnalysis,
@@ -156,7 +156,7 @@ const apiGaspar = async (addressObject: AddressObject, endpoint: string, rayon: 
   }
 };
 //API Gaspar management, given any valide endepoint return the response
-export const callAllApiGasparPromiseAll = async (addressObject: AddressObject): Promise<GasparAllObject> => {
+export const callAllApiGasparPromiseAll = async (addressObject: AddressObject): Promise<GeorisqueAllObject> => {
   const endpoints = [
     { endpoint: 'gaspar/azi', type: 'AZIData', rayon: '1' /*1*/ },
     { endpoint: 'gaspar/catnat', type: 'CatnatData', rayon: '10000' },
@@ -185,12 +185,12 @@ export const callAllApiGasparPromiseAll = async (addressObject: AddressObject): 
   return results;
 };
 
-export const analisysGaspar = (dataObject: GasparAllObject): RateArrayGeoRisque => {
+export const analisysGaspar = (dataObject: GeorisqueAllObject): RateArrayGeoRisque => {
   const gasparSizes: Record<string, number | undefined> = {};
   const gasparPoints: Record<string, number | undefined> = {};
   for (const key in dataObject) {
     if (dataObject.hasOwnProperty(key)) {
-      const element = dataObject[key as keyof GasparAllObject];
+      const element = dataObject[key as keyof GeorisqueAllObject];
       gasparSizes[key] = Array.isArray(element) ? element.length : undefined;
       gasparPoints[key] = undefined; //Construc gasparPoints structure for future usage
     }

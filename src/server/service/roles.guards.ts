@@ -19,7 +19,7 @@ export class RolesGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest();
     const JWT = request.cookies['authorization']?.split(' ')[1]; // Bearer TOKEN
-    console.log(JWT)
+    console.log('JWT = '+JWT)
     const requiredRoles = this.reflector.get<string[]>(ROLES_KEY, context.getHandler());
 
     if (!requiredRoles) return true;
@@ -27,7 +27,7 @@ export class RolesGuard implements CanActivate {
 
     try {
       request.user = this.tokenService.verifyJWT(JWT);
-
+      console.log()
       // Retrieve the required roles for the route
       const requiredRoles = this.reflector.get<string[]>(ROLES_KEY, context.getHandler());
       if (!requiredRoles) {
@@ -43,7 +43,9 @@ export class RolesGuard implements CanActivate {
 
       return true;
     } catch (error) {
-      throw new UnauthorizedException('Invalid token');
+      console.log("c a mar hce pas ici ?")
+      console.log(error)
+      throw new UnauthorizedException('Invalid token in RolesGuard');
     }
   }
 }

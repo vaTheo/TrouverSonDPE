@@ -3,7 +3,7 @@ import { RatingController } from '../datarating-controller/rating.controller';
 import { AsUUID } from '../midleware/asUUID';
 import { TokenService } from '../service/token.service';
 import { PrismaService } from '../service/prisma.service';
-import { RatingsDBService } from '../service/AllRatingsDB.service';
+import { RatingsDBService } from '../service/ratingsDB.service';
 import { isConnected } from '../midleware/isConnected';
 import { UserService } from '../service/user.service';
 

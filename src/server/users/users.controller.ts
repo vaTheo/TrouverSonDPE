@@ -18,6 +18,7 @@ import { User } from '@prisma/client';
 import { Request, Response, response } from 'express';
 import { CreateUserDto, LoginUserDto, serRoleUserDto } from '@server/users/userDTO';
 import { RequestExtendsJWT } from '@server/midleware/JWTValidation';
+import { PrismaCallDBService } from '@server/service/prismaDB.service';
 
 @Controller('user')
 @UseGuards(RolesGuard)
@@ -25,6 +26,7 @@ export class UsersController {
   constructor(
     private tokenService: TokenService,
     private userService: UserService,
+    private PrismaCallDBService: PrismaCallDBService,
   ) {} //Inport the token service so I can use it in the controller
 
   @Post('login')
@@ -102,8 +104,8 @@ export class UsersController {
 
   @Get('listaddress')
   @Roles('admin')
-  async getListAddressIDOfUser(@Body() data: any, @Req() request: RequestExtendsJWT) {
-    console.log(await this.userService.getAddressIDsByEmail(request?.user.userId));
+  async getListAddressIDsOfUser(@Body() data: any, @Req() request: RequestExtendsJWT) {
+    console.log(await this.PrismaCallDBService.findAddressIDsByID(request?.user.userId));
   }
 
   @Delete('delet')

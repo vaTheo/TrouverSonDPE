@@ -96,26 +96,6 @@ export class UserService {
     });
   }
 
-  async getAddressIDsByEmail(id: number): Promise<string[]> {
-    const userWithAddresses = await this.prisma.user.findUnique({
-      where: {
-        id: id,
-      },
-      include: {
-        userAddressID: true, // Includes the related userAddressID records
-      },
-    });
-
-    if (!userWithAddresses) {
-      throw new Error('User not found');
-    }
-
-    // Map the userAddressID records to their addressID
-    console.log(userWithAddresses)
-    const addressIDs = userWithAddresses.userAddressID.map((uAddress) => uAddress.addressID);
-
-    return addressIDs;
-  }
 
   // Additional methods as needed...
 }
