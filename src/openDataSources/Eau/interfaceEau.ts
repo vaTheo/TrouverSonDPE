@@ -737,7 +737,7 @@ export interface ReseauResultatDis {
   debit?: string;
 }
 
-export interface ParamAnalyseEau {
+export interface EauPotableData {
   libelle_parametre: string;
   min: number;
   max: number;
@@ -748,4 +748,18 @@ export interface ParamAnalyseEau {
 
 export interface RateEauAnalysis {
   eauAnalysis: number;
+}
+
+export interface CoursEauData {
+  libelle_parametre: string;
+  min: number;
+  max: number;
+  totalAverage: number;
+  countValue: number;
+  good: boolean | null;
+}
+
+export interface eauAllData{
+  eauPotable?:EauPotableData[]
+  coursEau?:CoursEauData[]
 }

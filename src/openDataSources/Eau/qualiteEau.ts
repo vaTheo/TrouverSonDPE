@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ParamAnalyseEau, ResultatDis, communes_udi } from './interfaceEau';
+import { EauPotableData, ResultatDis, communes_udi } from './interfaceEau';
 import { getFormattedDateYearsAgoAsString } from '../address/addressFunction';
 import { AddressObject } from '../address/interfaceAddress';
 
@@ -69,9 +69,9 @@ export const qualiteEau = async (adressObject: AddressObject): Promise<ResultatD
   }
 };
 
-export const dataCalculation = (resultatDis: ResultatDis): ParamAnalyseEau[] => {
+export const dataCalculation = (resultatDis: ResultatDis): EauPotableData[] => {
   // Creation of empty data and defining thresholds
-  let paramAnalyseEau: ParamAnalyseEau[] = [
+  let paramAnalyseEau: EauPotableData[] = [
     {
       libelle_parametre: 'Escherichia coli /100ml - MF',
       min: 0,

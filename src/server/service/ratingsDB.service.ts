@@ -3,7 +3,8 @@ import { PrismaService } from './prisma.service';
 import { Ratings } from '../../openDataSources/interfaceRatings';
 import { AddressObject } from '@openDataSources/address/interfaceAddress';
 import { AllRatings, Prisma } from '@prisma/client';
-import { GeorisqueAllObject, RateArrayGeoRisque } from '@openDataSources/geoRisque/interfaceGeoRisque';
+import { GeorisqueAllData, RateArrayGeoRisque } from '@openDataSources/geoRisque/interfaceGeoRisque';
+import { eauAllData } from '@openDataSources/Eau/interfaceEau';
 
 @Injectable()
 export class RatingsDBService {
@@ -63,21 +64,36 @@ export class RatingsDBService {
     return result.id;
   }
 
-  async addJsonGeorisque(dataSourceID: number, dataGeorisque: GeorisqueAllObject) {
+  async addJsonGeorisque(dataSourceID: number, dataGeorisque: GeorisqueAllData) {
     try {
       const createData: any = { DataSourcesID: dataSourceID };
-      const fields: Array<keyof GeorisqueAllObject> = [
-        'AZIData', 'CatnatData', 'InstallationsClasseesData', 
-        'MVTData', 'RadonData', 'RisquesData', 
-        'SISData', 'TRIData', 'ZonageSismiqueData'
-      ];
-  
-      fields.forEach(field => {
+      const fields: Array<keyof GeorisqueAllData> = Object.keys(dataGeorisque) as Array<
+        keyof GeorisqueAllData
+      >;
+
+      fields.forEach((field) => {
         if (dataGeorisque[field]) {
           createData[field] = JSON.stringify(dataGeorisque[field]);
         }
       });
-  
+
+      await this.prisma.jsonDataGeorisque.create({ data: createData });
+    } catch (err) {
+      console.log(`Error in addJsonGeorisque: ${err.message}`);
+    }
+  }
+
+  async addJsonEau(dataSourceID: number, dataEau: eauAllData) {
+    try {
+      const createData: any = { DataSourcesID: dataSourceID };
+      const fields: Array<keyof eauAllData> = Object.keys(dataEau) as Array<keyof eauAllData>;
+
+      fields.forEach((field) => {
+        if (dataEau[field]) {
+          createData[field] = JSON.stringify(dataEau[field]);
+        }
+      });
+
       await this.prisma.jsonDataGeorisque.create({ data: createData });
     } catch (err) {
       console.log(`Error in addJsonGeorisque: ${err.message}`);

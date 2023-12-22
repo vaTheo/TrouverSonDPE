@@ -4,8 +4,8 @@ import { inputAddressObject, AddressObject } from '../../openDataSources/address
 import { analisysGaspar, callAllApiGasparPromiseAll } from '../../openDataSources/geoRisque/Georisque';
 import { getDPE } from '../../openDataSources/DPE/getDPE';
 import { dataCalculation, qualiteEau } from '../../openDataSources/Eau/qualiteEau';
-import { GeorisqueAllObject, RateArrayGeoRisque } from '../../openDataSources/geoRisque/interfaceGeoRisque';
-import { ParamAnalyseEau } from '../../openDataSources/Eau/interfaceEau';
+import { GeorisqueAllData, RateArrayGeoRisque } from '../../openDataSources/geoRisque/interfaceGeoRisque';
+import { EauPotableData } from '../../openDataSources/Eau/interfaceEau';
 import { eauAnalysis } from '../../openDataSources/Eau/eauAnalysis';
 import { TokenService } from '../service/token.service';
 import { RatingsDBService } from '../service/ratingsDB.service';
@@ -23,15 +23,21 @@ export class RatingController {
     private RatingsDBService: RatingsDBService,
   ) {} //Inport the token service so I can use it in the controller
 
-  @Get('')
+  @Get('fetchrate')
   @Roles('admin','user')
-  async getRatingOfAnAddress(@Body() data: inputAddressObject, @Req() req: RequestExtendsJWT) {
+  async fetchRatingOfAnAddress(@Body() data: inputAddressObject, @Req() req: RequestExtendsJWT) {
     try {
-      let dataGeorisque: GeorisqueAllObject;
-      let dataEau: ParamAnalyseEau[];
+
+      let dataGeorisque: GeorisqueAllData;
+      let dataEau: EauPotableData[];
       //Find the corresponding address
       const addressObject: AddressObject = await findAddress(data);
       const addressID = { addressID: addressObject.properties.id }; //Unique ID of the address
+      
+      if (this.RatingsDBService.addresExist(addressObject)){
+
+      }
+
       console.log(addressObject);
       const resultGaspar: RateArrayGeoRisque = await callAllApiGasparPromiseAll(addressObject).then(
         (result) => {
@@ -73,4 +79,11 @@ export class RatingController {
       console.log(err);
     }
   }
+
+  @Get('getchrate')
+  @Roles('admin','user')
+  async getExistingRate(@Body() data: inputAddressObject, @Req() req: RequestExtendsJWT) {
+  
+  }
+
 }
