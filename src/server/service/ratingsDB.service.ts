@@ -6,6 +6,7 @@ import { AllRatings, Prisma } from '@prisma/client';
 import { GeorisqueAllData, RateArrayGeoRisque } from '@openDataSources/geoRisque/interfaceGeoRisque';
 import { eauAllData } from '@openDataSources/Eau/interfaceEau';
 
+
 @Injectable()
 export class RatingsDBService {
   constructor(private prisma: PrismaService) {}

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
 import { AllRatings } from '@prisma/client';
 
+
 @Injectable()
 export class PrismaCallDBService {
   constructor(private prisma: PrismaService) {}

@@ -8,6 +8,7 @@ export type JWTPayload = {
   role: string;
 };
 
+
 @Injectable()
 export class TokenService {
   constructor(private prisma: PrismaService) {}

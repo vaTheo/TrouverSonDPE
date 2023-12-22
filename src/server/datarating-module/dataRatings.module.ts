@@ -19,3 +19,4 @@ export class DataRatingModule implements NestModule {
       .forRoutes(RatingController); // Apply to all routes in RatingController
   }
 }
+

@@ -11,6 +11,7 @@ export interface RequestExtendsJWT extends Request {
   };
 }
 
+
 @Injectable()
 export class JWTValidation implements NestMiddleware {
   constructor(

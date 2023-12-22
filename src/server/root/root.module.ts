@@ -9,6 +9,7 @@ import { UserService } from '@server/service/user.service';
 import { PrismaService } from '@server/service/prisma.service';
 import { NextFunction, Request, Response } from 'express';
 
+
 @Module({
   imports: [UserModule, DataRatingModule],
   controllers: [],

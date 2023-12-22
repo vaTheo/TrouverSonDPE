@@ -4,6 +4,7 @@ import { RootModule } from './server/root/root.module';
 import cookieParser from 'cookie-parser';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
 
+
 //Nest server management
 async function bootstrap() {
   try {

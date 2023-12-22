@@ -25,6 +25,7 @@ export interface inputAddressObject {
     importance: 0.66885,
     street: 'Rue Clos Suiphon'
   }
+  
 }*/
 export interface AddressObject {
     type: string;

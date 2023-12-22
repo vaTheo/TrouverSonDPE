@@ -46,6 +46,7 @@ export class UserService {
     });
     return user;
   }
+  
 
   async updateUserByUUID(
     UUID: string,

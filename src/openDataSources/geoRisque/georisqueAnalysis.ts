@@ -143,6 +143,7 @@ export const sisAnalysis = (arraySIS: SISData[], numberOccurrences: number): num
   }
 };
 
+
 export const TRIAnalysis = (arrayTRI: TRIData[], numberOccurrences: number): number => {
   const arrayRisqueAvere = arrayTRI.map((item) => {
     if (item.date_arrete_pcb && !item.date_arrete_approbation) {

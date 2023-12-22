@@ -12,3 +12,4 @@ import { PrismaCallDBService } from '@server/service/prismaDB.service';
     providers: [PrismaService,TokenService,UserService,PrismaCallDBService], //Service and midlware  
 })
 export class UserModule {}
+

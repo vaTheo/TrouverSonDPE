@@ -155,6 +155,7 @@ const apiGaspar = async (addressObject: AddressObject, endpoint: string, rayon: 
     return []; // return an array, maybe later I'll return a error object??
   }
 };
+
 //API Gaspar management, given any valide endepoint return the response
 export const callAllApiGasparPromiseAll = async (addressObject: AddressObject): Promise<GeorisqueAllData> => {
   const endpoints = [
