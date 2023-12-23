@@ -20,12 +20,38 @@ import { AddressObject } from '../address/interfaceAddress';
  * 1000call/min
  */
 //API Gaspar management, given any valide endepoint return the response
+
+// Avec ton service tu fais 
+// const BASE_URL = 'https://www.georisques.gouv.fr/api/v1';
+// @Injectable()
+// export class GeoRisqueService {
+//   private client: AxiosInstance;
+
+//   constructor() {
+//     this.client = axios.create({
+//       baseURL: BASE_URL,
+//     })
+//   }
+
+//   getRadon(){
+//     // Tu crées ton type GetRadonResponse
+//     // Ici tu peux même itéré sur tes pages si t'as besoin mais déjà t'utilises ton client c'est plus propre et facil à lire
+//     const { data } = await this.client.get<GetRadonResponse>('/radon', {
+//       params: {
+//         code_insee: addressObject.properties.citycode,
+//         page:page
+//       },
+//     });
+//   }
+// }
+
 const apiGaspar = async (addressObject: AddressObject, endpoint: string, rayon: string) => {
   let dataResponse: GasprAPIResponse;
   let data: any = [];
   const URL = 'https://www.georisques.gouv.fr/api/v1/';
   const coordone = getCoordinatesAsString(addressObject);
   let page = 1;
+  // Toutes tes grosses listes là allourdissent la lecture de ton code, essaie de les extraires dans un fichier annexe pour que la logique importante soit plus facile à lire
   const keysToKeep = [
     'code_national_azi',
     'liste_libelle_risque',

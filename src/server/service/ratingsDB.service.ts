@@ -37,20 +37,20 @@ export class RatingsDBService {
 
   async userExist(userId: number): Promise<boolean> {
     // Check if userId exists in User table
-    const userExists = await this.prisma.user.findUnique({
+    const userExists = await this.userService.findUnique({
       where: { id: userId },
     });
     return userExists ? true : false;
   }
   async addresExist(addressObject: AddressObject): Promise<boolean> {
     // Check if addressID already exists in userAddressID table
-    const addressExists = await this.prisma.dataSourceAddressID.findUnique({
+    const addressExists = await this.addressService.findUnique({
       where: { addressID: addressObject.properties.id },
     });
     return addressExists ? true : false;
   }
   async createDataSourceAddressID(userId: number, addressObject: AddressObject): Promise<number> {
-    const result = await this.prisma.dataSourceAddressID.create({
+    const result = await this.addressService.create({
       data: {
         userId: userId,
         addressID: addressObject.properties.id,

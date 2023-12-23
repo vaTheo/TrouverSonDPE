@@ -8,10 +8,12 @@ import { inputAddressObject } from './address/interfaceAddress';
 import { eauAnalysis } from './Eau/eauAnalysis';
 const BANid = '';
 
+// Toutes tes open data sources devraient être des services avec leur module à mon avis !
+
 const address = {
   postalCode: '38430',
   City: 'St jean de moirans',
-  street: '49 sentier du pressoir',
+  street: '49 sentier du pressoir', // <= ça ça régale monfffz l'adresse des bitcoins
 } as inputAddressObject;
 
 //  findAddress('38430', '49 sentier du pressoir')

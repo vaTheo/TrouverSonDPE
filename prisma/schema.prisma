@@ -10,10 +10,13 @@ datasource db {
 
 // Definition of the User model. This model represents a user in the system.
 model User {
+  // En vrai là, mets ton id en String uuid  id String @id @default(uuid())
   id            Int             @id @default(autoincrement()) // Unique identifier, auto-increments.
   uuid          String          @unique // A unique string identifier, often used for secure identification.
+  // ça j'espère que c'est hashé 🫣 (pour pas stocker les passwords en clair)
   password      String?         // Optional field for the user's password.
   email         String?         @unique // Optional unique email address for the user.
+  // Pour le role il vaut mieux mettre une enum
   role          String          @default("user") // Role of the user, defaults to 'user'.
   createdAt     DateTime        @default(now()) // Timestamp of when the user was created.
   username      String?         @unique // Optional unique username.
@@ -39,8 +42,10 @@ model DataSourceAddressID {
 }
 
 model jsonDataEau {
+  // En vrai mets des uuid partout, c'est plus simple et standard
   id              Int @id @default(autoincrement())
   addressID       Int @unique
+  // Je suis pas sur que ça soit une bonne idée de stocker en json pck après tu peux pas query ta data facilement en SQL
   eauPotable      Json
 
   // Link to DataSourceAddressID
