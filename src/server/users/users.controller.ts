@@ -11,14 +11,14 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { Roles, RolesGuard } from '../service/roles.guards';
-import { TokenService } from '../service/token.service';
-import { UserService } from '../service/user.service';
+import { Roles, RolesGuard } from '../midleware/roles.guards';
+import { TokenService } from '../datarating/token/token.service';
+import { UserService } from './user.service';
 import { User } from '@prisma/client';
 import { Request, Response, response } from 'express';
-import { CreateUserDto, LoginUserDto, serRoleUserDto } from '@server/users/userDTO';
+import { CreateUserDto, LoginUserDto, serRoleUserDto } from '@server/users/user.dto';
 import { RequestExtendsJWT } from '@server/midleware/JWTValidation';
-import { PrismaCallDBService } from '@server/service/prismaDB.service';
+import { PrismaCallDBService } from '@server/prisma/prismaDB.service';
 
 
 @Controller('user')

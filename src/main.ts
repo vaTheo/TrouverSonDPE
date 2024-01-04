@@ -1,9 +1,8 @@
 import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
-import { RootModule } from './server/root/root.module';
+import { RootModule } from './server/root.module';
 import cookieParser from 'cookie-parser';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
-
 
 //Nest server management
 async function bootstrap() {
@@ -11,7 +10,8 @@ async function bootstrap() {
     const app = await NestFactory.create(RootModule);
     app.enableCors(); // Enables CORS for all origins
     app.use(cookieParser());
-    app.useGlobalPipes(// use to validate types on HTTP requests
+    app.useGlobalPipes(
+      // use to validate types on HTTP requests
       new ValidationPipe({
         whitelist: true,
         forbidNonWhitelisted: true,

@@ -1,12 +1,12 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
-import { TokenService } from '@server/service/token.service';
-import { UserService } from '@server/service/user.service';
+import { TokenService } from '@server/datarating/token/token.service';
+import { UserService } from '@server/users/user.service';
 import { Request, Response, NextFunction } from 'express';
 
 // Extend request interface to pass the user informations
 export interface RequestExtendsJWT extends Request {
   user?: {
-    userId: number;
+    userId: string;
     role: string;
   };
 }

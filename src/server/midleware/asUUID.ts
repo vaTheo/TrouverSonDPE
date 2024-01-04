@@ -1,7 +1,7 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { TokenService } from '../service/token.service';
-import { UserService } from '../service/user.service';
+import { TokenService } from '../datarating/token/token.service';
+import { UserService } from '../users/user.service';
 
 
 @Injectable()
