@@ -5,7 +5,7 @@ import { jsonEauMapping } from './jsonEau.const';
 import { eauAllData } from '@server/datarating/fetch-eau/eau';
 
 @Injectable()
-export class JsonEauDB {
+export class DBJsonEau {
   constructor(private prisma: PrismaService) {}
   /**
    *
@@ -20,7 +20,7 @@ export class JsonEauDB {
       throw new NotFoundException(`Invalid field name: ${jsonToGet}`);
     }
 
-    const dataSourceWithJsonData = await this.prisma.dataSourceAddressID.findUnique({
+    const dataSourceWithJsonData = await this.prisma.addressInfo.findUnique({
       where: { addressID: addressID },
       include: {
         jsonDataEau: {

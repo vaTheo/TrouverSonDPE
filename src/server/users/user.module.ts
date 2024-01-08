@@ -5,11 +5,12 @@ import { UserService } from './user.service';
 import { UsersController } from './users.controller';
 import { AsUUID } from '@server/midleware/asUUID';
 import { PrismaCallDBService } from '@server/prisma/prismaDB.service';
+import { DBUserAddressInfo } from '@server/datarating/ratings/DBUserAddressInfo/DBUserAddressInfo.service';
 
 @Module({
     imports: [],
     controllers: [UsersController],
-    providers: [PrismaService,TokenService,UserService,PrismaCallDBService], //Service and midlware  
+    providers: [PrismaService,TokenService,UserService,PrismaCallDBService,DBUserAddressInfo], //Service and midlware  
 })
 export class UserModule {}
 

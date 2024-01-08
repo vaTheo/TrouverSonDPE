@@ -9,7 +9,10 @@ import { UserService } from '../../users/user.service';
 import { FetchAddressService } from '@server/datarating/fetch-address/address.service';
 import { FetchEauService } from '@server/datarating/fetch-eau/fetch-eau.service';
 import { FetchGeorisqueService } from '@server/datarating/fetch-georisque/fetch-georisque.service';
-import { JsonGeorisqueDB } from './json-Georisque/jsonGeorisque.service';
+import { DBJsonGeorisque } from './DBjson-Georisque/DBjsonGeorisque.service';
+import { DBJsonEau } from './DBjson-Eau/DBjsonEau.service';
+import { DBUserAddressInfo } from './DBUserAddressInfo/DBUserAddressInfo.service';
+import { DBAddressInfo } from './DBaddressInfo/DBaddressInfo.service';
 
 @Module({
   imports: [],
@@ -22,7 +25,11 @@ import { JsonGeorisqueDB } from './json-Georisque/jsonGeorisque.service';
     FetchAddressService,
     FetchEauService,
     FetchGeorisqueService,
-    JsonGeorisqueDB
+    DBJsonGeorisque,
+    DBJsonEau,
+    DBUserAddressInfo,
+    DBAddressInfo,
+  
   ], //Service and midlware
 })
 export class DataRatingModule implements NestModule {

@@ -8,39 +8,46 @@ datasource db {
 }
 
 model User {
-  id                  String                @id @default(uuid())
+  id                  String                  @id @default(uuid())
   password            String?
-  email               String?               @unique
-  createdAt           DateTime              @default(now())
-  username            String?               @unique
-  role                String                @default("user")
-  uuid                String                @unique
-  DataSourceAddressID DataSourceAddressID[]
+  email               String?                 @unique
+  createdAt           DateTime                @default(now())
+  username            String?                 @unique
+  role                String                  @default("user")
+  uuid                String                  @unique
+  dataSourceAddresses UserAddressInfo[]
 }
 
-model DataSourceAddressID {
-  id                String              @id @default(uuid())
-  addressID         String              @unique
-  street            String
-  city              String
-  postcode          String
-  citycode          String
+model AddressInfo {
+  id                  String                  @id @default(uuid())
+  addressID           String                  @unique
+  street              String
+  city                String
+  postcode            String
+  citycode            String
+  latitude            Float
+  longitude           Float
+  AllRatings          AllRatings[]
+  jsonDataEau         jsonDataEau[]
+  jsonDataGeorisque   jsonDataGeorisque[]
+  users               UserAddressInfo[]
+}
+
+model UserAddressInfo {
   userId            String
-  latitude          Float
-  longitude         Float
-  AllRatings        AllRatings[]
+  addressInfoId      String
   user              User                @relation(fields: [userId], references: [id])
-  jsonDataEau       jsonDataEau[]
-  jsonDataGeorisque jsonDataGeorisque[]
-}
+  addressInfo       AddressInfo   @relation(fields: [addressInfoId], references: [id])
 
+  @@id([userId, addressInfoId])
+}
 model jsonDataEau {
   id            String              @id @default(uuid())
   addressID     Int                 @unique
   eauPotable    Json?
   DataSourcesID String
   coursEau      Json?
-  dataSource    DataSourceAddressID @relation(fields: [DataSourcesID], references: [id])
+  dataSource    AddressInfo @relation(fields: [DataSourcesID], references: [id])
 }
 
 model jsonDataGeorisque {
@@ -55,7 +62,7 @@ model jsonDataGeorisque {
   TRIData                   Json?
   ZonageSismiqueData        Json?
   DataSourcesID             String
-  dataSource                DataSourceAddressID @relation(fields: [DataSourcesID], references: [id])
+  dataSource                AddressInfo @relation(fields: [DataSourcesID], references: [id])
 }
 
 model AllRatings {
@@ -66,12 +73,12 @@ model AllRatings {
   CatnatData                Int
   InstallationsClasseesData Int
   MVTData                   Int
-  RadonData                  Int
+  RadonData                 Int
   RisquesData               Int
   SISData                   Int
   TRIData                   Int
   ZonageSismiqueData        Int
   createdAt                 DateTime             @default(now())
   DataSourcesID             String?
-  dataSource                DataSourceAddressID? @relation(fields: [DataSourcesID], references: [id])
+  dataSource                AddressInfo? @relation(fields: [DataSourcesID], references: [id])
 }

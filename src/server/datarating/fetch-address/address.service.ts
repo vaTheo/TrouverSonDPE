@@ -18,9 +18,12 @@ export class FetchAddressService {
       if (response.data.features.length >> 1) {
         throw new HttpException('Multiple address find ', HttpStatus.PRECONDITION_FAILED);
       }
+      if (!response.data.features[0]){
+        throw new HttpException('No address find', HttpStatus.PRECONDITION_FAILED);  
+      }
       return response.data.features[0]; //Return the first adresse (Usually there is only one)
     } catch (err) {
-      console.log(err);
+      console.error(err);
       throw err;
     }
   }

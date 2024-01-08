@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
@@ -21,6 +21,13 @@ export class UserService {
       where: { id: id },
     });
     return user;
+  }
+  async userExist(userId: string): Promise<boolean> {
+    // Check if userId exists in User table
+    const userExists = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+    return userExists ? true : false;
   }
 
   async findUserByUUID(uuid: string): Promise<User | null> {
@@ -46,8 +53,6 @@ export class UserService {
     });
     return user;
   }
-  
-
   async updateUserByUUID(
     UUID: string,
     email?: string,
@@ -96,7 +101,6 @@ export class UserService {
       },
     });
   }
-
 
   // Additional methods as needed...
 }

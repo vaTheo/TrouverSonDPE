@@ -24,6 +24,7 @@ export class TokenService {
         uuid: uuid,
       },
     });
+
     return user !== null;
   }
   createJWT(userId: string, role: string): string {

@@ -25,9 +25,10 @@ export class RootModule {
       .apply(
         //As nest can't inject services in midlware automaticaly, do it like this
         (req: Request, res: Response, next: NextFunction) =>
-          new AsUUID(this.tokenService, this.userService).use(req, res, next),
-        (req: Request, res: Response, next: NextFunction) =>
           new JWTValidation(this.tokenService, this.userService).use(req, res, next),
+        (req: Request, res: Response, next: NextFunction) =>
+          new AsUUID(this.tokenService, this.userService).use(req, res, next),
+        
       )
       .forRoutes('*');
   }

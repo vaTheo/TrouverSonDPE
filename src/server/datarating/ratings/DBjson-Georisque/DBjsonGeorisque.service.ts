@@ -5,7 +5,7 @@ import { jsonGeorisqueMapping } from './jsonGeorisque.const';
 import { GeorisqueAllData } from '../../fetch-georisque/Georisque';
 
 @Injectable()
-export class JsonGeorisqueDB {
+export class DBJsonGeorisque {
   constructor(private prisma: PrismaService) {}
 
   /**
@@ -21,7 +21,7 @@ export class JsonGeorisqueDB {
       throw new NotFoundException(`Invalid field name: ${jsonToGet}`);
     }
 
-    const dataSourceWithJsonData = await this.prisma.dataSourceAddressID.findUnique({
+    const dataSourceWithJsonData = await this.prisma.addressInfo.findUnique({
       where: { addressID: addressID },
       include: {
         jsonDataGeorisque: {

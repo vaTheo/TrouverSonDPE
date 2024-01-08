@@ -6,11 +6,11 @@ import { Request, Response, NextFunction } from 'express';
 // Extend request interface to pass the user informations
 export interface RequestExtendsJWT extends Request {
   user?: {
-    userId: string;
-    role: string;
+    userId?: string;
+    role?: string;
+    uuid?: string;
   };
 }
-
 
 @Injectable()
 export class JWTValidation implements NestMiddleware {
@@ -22,9 +22,15 @@ export class JWTValidation implements NestMiddleware {
   async use(req: RequestExtendsJWT, res: Response, next: NextFunction) {
     // Extract the Authorization header
     const authirizationString = await req.cookies['authorization'];
-
+     
     if (!authirizationString) {
-      console.log('No Auth header in JWTValidation midleware');
+      // TODO: make logic for that
+      console.error('No Auth header in JWTValidation midleware');
+      req.user = {
+        userId: '',
+        role: '',
+        uuid:''
+      };
     } else {
       // Split the Authorization header into 'Bearer' and the token
       const parts = authirizationString.split(' ');
@@ -41,6 +47,7 @@ export class JWTValidation implements NestMiddleware {
       req.user = {
         userId: payload.userId,
         role: payload.role,
+        uuid:''
       };
       const signedJWT = this.tokenService.createJWT(payload.userId, payload.role);
       res.cookie('authorization', `Bearer ${signedJWT}`, {

@@ -14,26 +14,29 @@ export const Roles = (...roles: string[]) => SetMetadata(ROLES_KEY, roles);
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor(private reflector: Reflector, private tokenService:TokenService) {}
+  constructor(
+    private reflector: Reflector,
+    private tokenService: TokenService,
+  ) {}
 
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest();
-    const JWT = request.cookies['authorization']?.split(' ')[1]; // Bearer TOKEN
-    console.log('JWT = '+JWT)
     const requiredRoles = this.reflector.get<string[]>(ROLES_KEY, context.getHandler());
 
-    if (!requiredRoles) return true;
+    if (!requiredRoles) {
+      console.log('No roles required');
+      return true;
+    }
+    const JWT = request.cookies['authorization']?.split(' ')[1]; // Bearer TOKEN
+    console.log('JWT = ' + JWT);
+
     if (!JWT) throw new UnauthorizedException('No token provided');
 
     try {
       request.user = this.tokenService.verifyJWT(JWT);
-      console.log()
+      console.log();
       // Retrieve the required roles for the route
       const requiredRoles = this.reflector.get<string[]>(ROLES_KEY, context.getHandler());
-      if (!requiredRoles) {
-        console.log('PASS you have the good role ')
-        return true; // If no specific roles are required, allow access
-      }
 
       // Check if the user's role matches any of the required roles
       const hasRole = requiredRoles.some((role) => request.user.role === role);
@@ -43,10 +46,7 @@ export class RolesGuard implements CanActivate {
 
       return true;
     } catch (error) {
-      console.log("c a mar hce pas ici ?")
-      console.log(error)
       throw new UnauthorizedException('Invalid token in RolesGuard');
     }
   }
 }
-
