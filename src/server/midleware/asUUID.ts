@@ -28,11 +28,7 @@ export class AsUUID implements NestMiddleware {
       });
     }
     //Pass the uuid to the req so the rest of the code have it
-    req.user.uuid = uuidToken;
-    if (!req.user.userId) {
-      const user = await this.user.findUserByUUID(uuidToken);
-      req.user.userId = user.id;
-    }
+    req.user.userUUID = uuidToken;
     next();
   }
 }

@@ -6,9 +6,8 @@ import { Request, Response, NextFunction } from 'express';
 // Extend request interface to pass the user informations
 export interface RequestExtendsJWT extends Request {
   user?: {
-    userId?: string;
     role?: string;
-    uuid?: string;
+    userUUID?: string;
   };
 }
 
@@ -27,9 +26,8 @@ export class JWTValidation implements NestMiddleware {
       // TODO: make logic for that
       console.error('No Auth header in JWTValidation midleware');
       req.user = {
-        userId: '',
         role: '',
-        uuid:''
+        userUUID:''
       };
     } else {
       // Split the Authorization header into 'Bearer' and the token
@@ -45,11 +43,10 @@ export class JWTValidation implements NestMiddleware {
       }
       // Add payload to req for future usage
       req.user = {
-        userId: payload.userId,
         role: payload.role,
-        uuid:''
+        userUUID:''
       };
-      const signedJWT = this.tokenService.createJWT(payload.userId, payload.role);
+      const signedJWT = this.tokenService.createJWT(payload.userUUID, payload.role);
       res.cookie('authorization', `Bearer ${signedJWT}`, {
         httpOnly: true,
         expires: new Date(Date.now() + 3600000), // Expires in 1 hour

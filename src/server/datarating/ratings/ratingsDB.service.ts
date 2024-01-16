@@ -8,35 +8,7 @@ import { eauAllData } from '../fetch-eau/eau';
 @Injectable()
 export class RatingsDBService {
   constructor(private prisma: PrismaService) {}
-  /**
-   *
-   * @param dataSourceID
-   * @param rating
-   * @returns
-   */
-  async addRating(dataSourceID: string, rating: Ratings): Promise<string> {
-    try {
-      const result = await this.prisma.allRatings.create({
-        data: {
-          addressID: rating.addressID,
-          eauAnalysis: rating.eauPotable,
-          AZIData: rating.AZIData,
-          CatnatData: rating.CatnatData,
-          InstallationsClasseesData: rating.InstallationsClasseesData,
-          MVTData: rating.MVTData,
-          RadonData: rating.RadonData,
-          RisquesData: rating.RisquesData,
-          SISData: rating.SISData,
-          TRIData: rating.TRIData,
-          ZonageSismiqueData: rating.ZonageSismiqueData,
-          DataSourcesID: dataSourceID,
-        },
-      });
-      return result.addressID;
-    } catch (err) {
-      throw new Error(`Error saving data to database: ${err.message}`);
-    }
-  }
+
   /**
    *
    * @param addressID
@@ -44,20 +16,10 @@ export class RatingsDBService {
    */
   async getAZIDataByAddressID(addressID: string): Promise<Prisma.JsonValue | null> {
     console.log(`Retrieving AZIData for addressID: ${addressID}`);
-    try {
-      // First, find the DataSourcesID associated with the addressID
-      const dataSourceRecord = await this.prisma.addressInfo.findUnique({
-        where: { addressID: addressID },
-      });
-
-      if (!dataSourceRecord) {
-        console.log('No DataSourceRecord found for the provided addressID.');
-        return null;
-      }
-
       // Then, use that DataSourcesID to retrieve the AZIData
+      try{
       const jsonDataGeorisqueRecord = await this.prisma.jsonDataGeorisque.findFirst({
-        where: { DataSourcesID: dataSourceRecord.id },
+        where: { addressID: addressID },
       });
 
       if (jsonDataGeorisqueRecord) {

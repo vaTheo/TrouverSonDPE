@@ -4,10 +4,9 @@ import { PrismaService } from '../../prisma/prisma.service';
 import * as jwt from 'jsonwebtoken';
 
 export type JWTPayload = {
-  userId: string;
   role: string;
+  userUUID: string;
 };
-
 
 @Injectable()
 export class TokenService {
@@ -21,14 +20,14 @@ export class TokenService {
   async isUUIDExistingInDB(uuid: string): Promise<boolean> {
     const user = await this.prisma.user.findFirst({
       where: {
-        uuid: uuid,
+        userUUID: uuid,
       },
     });
 
     return user !== null;
   }
-  createJWT(userId: string, role: string): string {
-    const payload = { userId, role } as JWTPayload;
+  createJWT(userUUID: string, role: string): string {
+    const payload = { userUUID, role } as JWTPayload;
     return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
   }
 
@@ -42,7 +41,6 @@ export class TokenService {
       return null; // Or handle it in another appropriate way
     }
   }
-  
 
   // Additional methods as needed...
 }

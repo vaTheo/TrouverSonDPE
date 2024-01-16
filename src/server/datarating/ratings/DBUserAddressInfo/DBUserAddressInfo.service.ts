@@ -4,13 +4,13 @@ import { PrismaService } from '@server/prisma/prisma.service';
 export class DBUserAddressInfo {
   constructor(private prisma: PrismaService) {}
 
-  async associatAddresseToUser(userID: string, addressInfoId: string) {
-    console.log(userID)
+  async associatAddresseToUser(userUUID: string, addressInfoId: string) {
+    console.log(userUUID)
     console.log(addressInfoId)
     try {
       const userAddressInfo = await this.prisma.userAddressInfo.create({
         data: {
-          userId: userID,
+          userUUID: userUUID,
           addressInfoId: addressInfoId,
         },
       });
@@ -20,10 +20,10 @@ export class DBUserAddressInfo {
     }
   }
 
-  async findUsersAddressIDsByID(userID: string): Promise<string[]> {
+  async findUsersAddressIDsByID(userUUID: string): Promise<string[]> {
     const userAddresses = await this.prisma.userAddressInfo.findMany({
       where: {
-        userId: userID,
+        userUUID: userUUID,
       },
       select: {
         addressInfoId: true, // Only select the dataSourceId (address ID)

@@ -13,6 +13,7 @@ import { DBJsonGeorisque } from './DBjson-Georisque/DBjsonGeorisque.service';
 import { DBJsonEau } from './DBjson-Eau/DBjsonEau.service';
 import { DBUserAddressInfo } from './DBUserAddressInfo/DBUserAddressInfo.service';
 import { DBAddressInfo } from './DBaddressInfo/DBaddressInfo.service';
+import { DBAllRatings } from './DBallRatings/DBallRatings.service';
 
 @Module({
   imports: [],
@@ -29,6 +30,7 @@ import { DBAddressInfo } from './DBaddressInfo/DBaddressInfo.service';
     DBJsonEau,
     DBUserAddressInfo,
     DBAddressInfo,
+    DBAllRatings,
   
   ], //Service and midlware
 })

@@ -10,7 +10,7 @@ export class DBAddressInfo {
   async createEntry(userUUID: string, addressObject: AddressObject): Promise<AddressInfo | null> {
     // First, find the user by UUID
     const user = await this.prisma.user.findUnique({
-      where: { uuid: userUUID },
+      where: { userUUID: userUUID },
     });
     if (!user) {
       throw new NotFoundException('User not found');
@@ -30,18 +30,18 @@ export class DBAddressInfo {
     return addressInfo;
   }
 
-  async addressExists(addressObject: AddressObject): Promise<boolean> {
+  async addressExists(addressID: string): Promise<boolean> {
     const address = await this.prisma.addressInfo.findUnique({
-      where: { addressID: addressObject.properties.id },
+      where: { addressID:addressID},
     });
 
     return address !== null;
   }
 
-  async findAddressInfo(addressObject: AddressObject): Promise<AddressInfo | null> {
+  async findAddressInfo(addressID: string): Promise<AddressInfo | null> {
     try {
       const address = await this.prisma.addressInfo.findUnique({
-        where: { addressID: addressObject.properties.id },
+        where: { addressID: addressID },
       });
       return address;
     } catch (err) {

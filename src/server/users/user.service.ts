@@ -15,25 +15,25 @@ export class UserService {
     return 0;
   }
 
-  async findUserByID(id: string): Promise<User | null> {
+  async findUserByID(userUUID: string): Promise<User | null> {
     // find user based on his ID
     const user = await this.prisma.user.findUnique({
-      where: { id: id },
+      where: { userUUID: userUUID },
     });
     return user;
   }
-  async userExist(userId: string): Promise<boolean> {
+  async userExist(userUUID: string): Promise<boolean> {
     // Check if userId exists in User table
     const userExists = await this.prisma.user.findUnique({
-      where: { id: userId },
+      where: { userUUID: userUUID },
     });
     return userExists ? true : false;
   }
 
-  async findUserByUUID(uuid: string): Promise<User | null> {
+  async findUserByUUID(userUUID: string): Promise<User | null> {
     // find user based on his ID
     const user = await this.prisma.user.findUnique({
-      where: { uuid: uuid },
+      where: { userUUID: userUUID },
     });
     return user;
   }
@@ -68,7 +68,7 @@ export class UserService {
       if (role !== undefined) updateData.role = role;
 
       return await this.prisma.user.update({
-        where: { uuid: UUID },
+        where: { userUUID: UUID },
         data: updateData,
       });
     } catch (error) {
@@ -97,7 +97,7 @@ export class UserService {
     // Create a new user in the database with the given token
     return await this.prisma.user.create({
       data: {
-        uuid: uuid,
+        userUUID: uuid,
       },
     });
   }

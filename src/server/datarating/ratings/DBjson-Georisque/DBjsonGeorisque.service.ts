@@ -51,9 +51,9 @@ export class DBJsonGeorisque {
    * @param dataSourceID
    * @param dataGeorisque
    */
-  async addJsonGeorisque(dataSourceID: string, dataGeorisque: GeorisqueAllData) {
+  async addJsonGeorisque(addressID: string, dataGeorisque: GeorisqueAllData) {
     try {
-      const createData: any = { DataSourcesID: dataSourceID };
+      const createData: any = { addressID: addressID };
       const fields: Array<keyof GeorisqueAllData> = Object.keys(dataGeorisque) as Array<
         keyof GeorisqueAllData
       >;
@@ -67,6 +67,21 @@ export class DBJsonGeorisque {
       await this.prisma.jsonDataGeorisque.create({ data: createData });
     } catch (err) {
       console.error(`Error in addJsonGeorisque: ${err.message}`);
+    }
+  }
+
+  async isFilled(addressId: string): Promise<boolean> {
+    try {
+      const count = await this.prisma.jsonDataGeorisque.count({
+        where: {
+          addressID: addressId,
+        },
+      });
+
+      return count > 0 || false;
+    } catch (err) {
+      console.log('Nothing as been find in isFilled function');
+      return false;
     }
   }
 }

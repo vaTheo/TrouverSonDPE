@@ -15,7 +15,7 @@ import {
 } from '@server/datarating/fetch-georisque/georisqueAnalysis';
 import { GeorisqueAllData, RatesGeoRisque } from '@server/datarating/fetch-georisque/Georisque';
 import axios from 'axios';
-import { GasprAPIResponse} from './api-georisque';
+import { GasprAPIResponse } from './api-georisque';
 import { KEYSTOKEEPGEORISQUE } from './api-keysToKeep';
 
 @Injectable()
@@ -24,6 +24,7 @@ export class FetchGeorisqueService {
    *DATASHEET API : https://www.georisques.gouv.fr/doc-api
    * 1000call/min
    */
+
   //API Gaspar management, given any valide endepoint return the response
   async apiGaspar(addressObject: AddressObject, endpoint: string, rayon: string) {
     let dataResponse: GasprAPIResponse;
@@ -32,7 +33,6 @@ export class FetchGeorisqueService {
     const coordone = getCoordinatesAsString(addressObject);
     let page = 1;
     // TODO: Remove all the keys to keep
-     
 
     try {
       do {
@@ -115,18 +115,15 @@ export class FetchGeorisqueService {
   //API Gaspar management, given any valide endepoint return the response
   async callAllApiGasparPromiseAll(addressObject: AddressObject): Promise<GeorisqueAllData> {
     const endpoints = [
-      { endpoint: 'gaspar/azi', type: 'AZIData', rayon: '1' /*1*/ },
-      { endpoint: 'gaspar/catnat', type: 'CatnatData', rayon: '10000' },
-      // { endpoint: 'cavites', type: 'CaviteData', rayon: '10000' },
+      { endpoint: 'gaspar/azi', type: 'AZIData', rayon: '1' },
+      { endpoint: 'gaspar/catnat', type: 'CatnatData', rayon: '1000' },
       { endpoint: 'installations_classees', type: 'InstallationsClasseesData', rayon: '1000' },
-      { endpoint: 'mvt', type: 'MVTData', rayon: '100' },
-      // { endpoint: 'gaspar/papi', type: 'PAPIData', rayon: '10000' },
-      // { endpoint: 'gaspar/pcs', type: 'PCSData', rayon: '10000' },
-      { endpoint: 'radon', type: 'RadonData', rayon: '10000' },
-      { endpoint: 'gaspar/risques', type: 'RisquesData', rayon: '1' /*1*/ },
-      { endpoint: 'sis', type: 'SISData', rayon: '10000' },
+      { endpoint: 'mvt', type: 'MVTData', rayon: '1000' },
+      { endpoint: 'radon', type: 'RadonData', rayon: '1' },
+      { endpoint: 'gaspar/risques', type: 'RisquesData', rayon: '1' },
+      { endpoint: 'sis', type: 'SISData', rayon: '1000' },
       { endpoint: 'gaspar/tri', type: 'TRIData', rayon: '1' },
-      { endpoint: 'zonage_sismique', type: 'ZonageSismiqueData', rayon: '1' /*1*/ },
+      { endpoint: 'zonage_sismique', type: 'ZonageSismiqueData', rayon: '1' },
     ];
 
     // Create an array of API call promises

@@ -8,18 +8,16 @@ datasource db {
 }
 
 model User {
-  id                  String                  @id @default(uuid())
+  userUUID            String                  @unique
   password            String?
   email               String?                 @unique
   createdAt           DateTime                @default(now())
   username            String?                 @unique
   role                String                  @default("user")
-  uuid                String                  @unique
   dataSourceAddresses UserAddressInfo[]
 }
 
 model AddressInfo {
-  id                  String                  @id @default(uuid())
   addressID           String                  @unique
   street              String
   city                String
@@ -34,24 +32,21 @@ model AddressInfo {
 }
 
 model UserAddressInfo {
-  userId            String
-  addressInfoId      String
-  user              User                @relation(fields: [userId], references: [id])
-  addressInfo       AddressInfo   @relation(fields: [addressInfoId], references: [id])
-
-  @@id([userId, addressInfoId])
+  userUUID          String
+  addressInfoId     String
+  user              User          @relation(fields: [userUUID], references: [userUUID])
+  addressInfo       AddressInfo   @relation(fields: [addressInfoId], references: [addressID])
+  @@id([userUUID, addressInfoId])
 }
 model jsonDataEau {
-  id            String              @id @default(uuid())
-  addressID     Int                 @unique
+  addressID     String      @unique
   eauPotable    Json?
-  DataSourcesID String
   coursEau      Json?
-  dataSource    AddressInfo @relation(fields: [DataSourcesID], references: [id])
+  dataSource    AddressInfo @relation(fields: [addressID], references: [addressID])
 }
 
 model jsonDataGeorisque {
-  id                        String              @id @default(uuid())
+  addressID                 String      @unique
   AZIData                   Json?
   CatnatData                Json?
   InstallationsClasseesData Json?
@@ -61,24 +56,22 @@ model jsonDataGeorisque {
   SISData                   Json?
   TRIData                   Json?
   ZonageSismiqueData        Json?
-  DataSourcesID             String
-  dataSource                AddressInfo @relation(fields: [DataSourcesID], references: [id])
+  dataSource                AddressInfo @relation(fields: [addressID], references: [addressID])
 }
 
 model AllRatings {
-  id                        String               @id @default(uuid())
-  addressID                 String               @unique
-  eauAnalysis               Int
-  AZIData                   Int
-  CatnatData                Int
-  InstallationsClasseesData Int
-  MVTData                   Int
-  RadonData                 Int
-  RisquesData               Int
-  SISData                   Int
-  TRIData                   Int
-  ZonageSismiqueData        Int
-  createdAt                 DateTime             @default(now())
-  DataSourcesID             String?
-  dataSource                AddressInfo? @relation(fields: [DataSourcesID], references: [id])
+  addressID                 String       @unique
+  eauPotable                Int?
+  coursEau                  Int?
+  AZIData                   Int?
+  CatnatData                Int?
+  InstallationsClasseesData Int?
+  MVTData                   Int?
+  RadonData                 Int?
+  RisquesData               Int?
+  SISData                   Int?
+  TRIData                   Int?
+  ZonageSismiqueData        Int?
+  createdAt                 DateTime     @default(now())
+  dataSource                AddressInfo? @relation(fields: [addressID], references: [addressID])
 }

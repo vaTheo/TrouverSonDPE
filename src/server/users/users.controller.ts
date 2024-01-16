@@ -41,7 +41,7 @@ export class UsersController {
     if (!this.userService.verifyPassword(data.password, user.password))
       throw new HttpException('Password incorect ', HttpStatus.UNAUTHORIZED);
 
-    const signedJWT = this.tokenService.createJWT(user.id, user.role);
+    const signedJWT = this.tokenService.createJWT(user.userUUID, user.role);
     // Set authorization header and send response
     response.cookie('authorization', `Bearer ${signedJWT}`, {
       httpOnly: true,
@@ -93,7 +93,7 @@ export class UsersController {
     try {
       let user = await this.userService.findUserByEmail(data.email);
       if (!user) throw new HttpException('User does not exist ', HttpStatus.UNAUTHORIZED);
-      user = await this.userService.updateUserByUUID(user.uuid, undefined, undefined, undefined, data.role);
+      user = await this.userService.updateUserByUUID(user.userUUID, undefined, undefined, undefined, data.role);
       return response
         .status(HttpStatus.OK)
         .send({ success: true, message: `Role successfully changed ${user}` });
@@ -109,7 +109,7 @@ export class UsersController {
   @Get('listaddress')
   @Roles('admin')
   async getListAddressIDsOfUser(@Body() data: any, @Req() request: RequestExtendsJWT) {
-    console.log(await this.DBUserAddressInfo.findUsersAddressIDsByID(request?.user.userId));
+    console.log(await this.DBUserAddressInfo.findUsersAddressIDsByID(request?.user.userUUID));
   }
 
   @Delete('delet')

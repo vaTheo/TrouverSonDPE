@@ -49,9 +49,9 @@ export class DBJsonEau {
    * @param dataSourceID
    * @param dataEau
    */
-  async addJsonEau(dataSourceID: string, dataEau: eauAllData) {
+  async addJsonEau(addressID: string, dataEau: eauAllData) {
     try {
-      const createData: any = { DataSourcesID: dataSourceID };
+      const createData: any = { addressID: addressID };
       const fields: Array<keyof eauAllData> = Object.keys(dataEau) as Array<keyof eauAllData>;
 
       fields.forEach((field) => {
@@ -65,4 +65,20 @@ export class DBJsonEau {
       console.error(`Error in addJsonGeorisque: ${err.message}`);
     }
   }
+  async isFilled(addressID: string): Promise<boolean> {
+    try {
+      const count = await this.prisma.jsonDataEau.count({
+        where: {
+          addressID: addressID,
+        },
+      });
+
+      return count > 0 || false;
+    } catch (err) {
+      console.log('Nothing as been find in isFilled function');
+      return false;
+    }
+  }
+
+
 }
