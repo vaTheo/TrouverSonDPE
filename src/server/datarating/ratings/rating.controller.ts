@@ -28,6 +28,7 @@ import { DBJsonEau } from './DBjson-Eau/DBjsonEau.service';
 import { DBUserAddressInfo } from './DBUserAddressInfo/DBUserAddressInfo.service';
 import { DBAddressInfo } from './DBaddressInfo/DBaddressInfo.service';
 import { DBAllRatings } from './DBallRatings/DBallRatings.service';
+import axios from 'axios';
 
 @Controller('ratingcontroller')
 @UseGuards(RolesGuard)
@@ -120,7 +121,7 @@ export class RatingController {
    * @returns     A Promise resolving to the Georisque rates associated with the address ID if found,
    *              or null if no data is available.
    */
-  @Get('fetchGeorisque/:addressID')
+  @Get('fetchgeorisque/:addressID')
   async fetchGerosiqueByAddressID(
     @Param('addressID') param: string,
     @Req() req: RequestExtendsJWT,
@@ -148,7 +149,7 @@ export class RatingController {
    *
    * @returns          A Promise resolving to the analyzed Georisque rates for the provided address.
    */
-  @Post('fetchGeorisque')
+  @Post('fetchgeorisque')
   async postGerosique(
     @Body() addressObject: AddressObject,
     @Req() req: RequestExtendsJWT,
@@ -163,11 +164,11 @@ export class RatingController {
         return this.fetchGeorisqueService.analisysGaspar(result);
       });
     await this.DBjsonGeorisque.addJsonGeorisque(addressObject.properties.id, dataGeorisque);
-    await this.DBAllRatings.addRating(addressObject.properties.id, resultGaspar);
+    await this.DBAllRatings.updateRating(addressObject.properties.id, resultGaspar);
     return resultGaspar;
   }
 
-  @Get('fetchEau/:addressID')
+  @Get('fetcheau/:addressID')
   async fetchEauByAddressID(
     @Param('addressID') param: string,
     @Req() req: RequestExtendsJWT,
@@ -178,16 +179,19 @@ export class RatingController {
       return null;
     }
   }
-  @Post('fetchEau')
+  @Post('fetcheau')
   async postEau(@Body() addressObject: AddressObject, @Req() req: RequestExtendsJWT): Promise<RatesEau> {
     let dataEauPotable: EauPotableData[];
     let eauAllData: eauAllData;
     const resultEau: RatesEau = await this.fetchEauService.qualiteEau(addressObject).then((res) => {
       dataEauPotable = this.fetchEauService.dataCalculation(res);
+      console.log(dataEauPotable);
       return eauAnalysis(dataEauPotable);
     });
     eauAllData = { eauPotable: dataEauPotable };
     await this.DBjsonEau.addJsonEau(addressObject.properties.id, eauAllData);
+    await this.DBAllRatings.updateRating(addressObject.properties.id, resultEau);
+
     return resultEau;
   }
 
@@ -233,6 +237,9 @@ export class RatingController {
         req.user.userUUID,
         addressInfo.addressID,
       );
+      if (!(await this.DBAllRatings.entryExists(addressObject.properties.id))) {
+        await this.DBAllRatings.createEntry(addressObject.properties.id);
+      }
       // Return the address object
       return addressObject;
     } catch (err) {
@@ -249,5 +256,18 @@ export class RatingController {
   // @Roles('admin', 'user')
   async getJsonEau(@Body() dataQuerry: JsonEauDTO) {
     return await this.DBjsonEau.getSpecificJsonDataEau(dataQuerry.addressID, dataQuerry.jsonData);
+  }
+  @Get('testnewapi')
+  // @Roles('admin', 'user')
+  async testnewapi(@Body() dataQuerry: any) {
+    try {
+      const response = await axios.get(
+        `https://api.vigieau.beta.gouv.fr/reglementation?commune=38430`,
+      );
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+    // const response = await axios.get(`https://api.vigieau.beta.gouv.fr/reglementation?commune=${dataQuerry}&profil={profil}`)
   }
 }

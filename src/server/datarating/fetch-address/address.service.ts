@@ -16,7 +16,8 @@ export class FetchAddressService {
         throw new Error('Error undifined value return by getBANid');
       }
       if (response.data.features.length >> 1) {
-        throw new HttpException('Multiple address find ', HttpStatus.PRECONDITION_FAILED);
+        // throw new HttpException('Multiple address find ', HttpStatus.PRECONDITION_FAILED);
+        console.error('Multiple address find ' + response.data.features);
       }
       if (!response.data.features[0]) {
         throw new HttpException('No address find', HttpStatus.PRECONDITION_FAILED);

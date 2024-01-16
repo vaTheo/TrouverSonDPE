@@ -15,22 +15,34 @@ export class DBAllRatings {
    * @param rating
    * @returns
    */
-  async addRating(addressID: string, rating: Ratings): Promise<string> {
+  async createEntry(addressID: string): Promise<string> {
     try {
       const result = await this.prisma.allRatings.create({
-        data: {
+       data : {
           addressID: addressID,
-          eauPotable: rating.eauPotable,
-          coursEau: rating.coursEau,
-          AZIData: rating.AZIData,
-          CatnatData: rating.CatnatData,
-          InstallationsClasseesData: rating.InstallationsClasseesData,
-          MVTData: rating.MVTData,
-          RadonData: rating.RadonData,
-          RisquesData: rating.RisquesData,
-          SISData: rating.SISData,
-          TRIData: rating.TRIData,
-          ZonageSismiqueData: rating.ZonageSismiqueData,
+        },
+      });
+      return result.addressID;
+    } catch (err) {
+      throw new Error(`Error saving data to database: ${err.message}`);
+    }
+  }
+  async updateRating(addressID: string, rating: Ratings): Promise<string> {
+    try {
+      const result = await this.prisma.allRatings.update({
+        where: { addressID: addressID },
+        data: {
+          eauPotable: rating?.eauPotable,
+          coursEau: rating?.coursEau,
+          AZIData: rating?.AZIData,
+          CatnatData: rating?.CatnatData,
+          InstallationsClasseesData: rating?.InstallationsClasseesData,
+          MVTData: rating?.MVTData,
+          RadonData: rating?.RadonData,
+          RisquesData: rating?.RisquesData,
+          SISData: rating?.SISData,
+          TRIData: rating?.TRIData,
+          ZonageSismiqueData: rating?.ZonageSismiqueData,
         },
       });
       return result.addressID;
@@ -76,13 +88,17 @@ export class DBAllRatings {
     };
     return rateGeorisque;
   }
-
-  // Method to update a rating
-  async updateRating(addressId: string, data: Prisma.AllRatingsUpdateInput): Promise<AllRatings> {
-    return this.prisma.allRatings.update({
-      where: { addressID: addressId },
-      data,
+  /**
+   * Checks if an entry with the given addressID already exists in the database.
+   * 
+   * @param addressID The ID of the address to check.
+   * @returns true if the entry exists, false otherwise.
+   */
+  async entryExists(addressID: string): Promise<boolean> {
+    const entry = await this.prisma.allRatings.findUnique({
+      where: { addressID: addressID },
     });
+    return entry !== null;
   }
 
   // Method to delete a rating

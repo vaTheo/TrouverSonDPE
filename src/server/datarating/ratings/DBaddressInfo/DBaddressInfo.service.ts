@@ -47,9 +47,6 @@ export class DBAddressInfo {
     } catch (err) {
       // Log the error for debugging purposes
       console.error('Error in findAddressInfo:', err);
-
-      // Decide how to handle the error
-      // For example, you might return null or rethrow the error
       return null;
     }
   }
