@@ -24,11 +24,14 @@ import { FetchGeorisqueService } from '@server/datarating/fetch-georisque/fetch-
 import { EauPotableData, RatesEau, eauAllData } from '../fetch-eau/eau';
 import { AddressObjectDTO, JsonEauDTO, JsonGeorisqueDTO } from './rating.dto';
 import { DBJsonGeorisque } from './DBjson-Georisque/DBjsonGeorisque.service';
-import { DBJsonEau } from './DBjson-Eau/DBjsonEau.service';
+import { DBJsonParcCarto } from './DBJson-ParcCarto/DBjsonParcCarto.service';
 import { DBUserAddressInfo } from './DBUserAddressInfo/DBUserAddressInfo.service';
 import { DBAddressInfo } from './DBaddressInfo/DBaddressInfo.service';
 import { DBAllRatings } from './DBallRatings/DBallRatings.service';
 import axios from 'axios';
+import { FetchParcCarto } from '../fetch-cartoParc/fetch-cartoParc.service';
+import { RatesParcCarto } from '../fetch-cartoParc/cartoParc';
+import { DBJsonEau } from './DBjson-Eau/DBjsonEau.service';
 
 @Controller('ratingcontroller')
 @UseGuards(RolesGuard)
@@ -44,6 +47,8 @@ export class RatingController {
     private DBAddressInfo: DBAddressInfo,
     private DBUserAddressInfo: DBUserAddressInfo,
     private DBAllRatings: DBAllRatings,
+    private fetchParcCarto: FetchParcCarto,
+    private DBJsonParcCarto: DBJsonParcCarto,
   ) {} //Inport the token service so I can use it in the controller
 
   @Get('fetchrate')
@@ -80,8 +85,6 @@ export class RatingController {
   @Get('getrate')
   // @Roles('admin', 'user')
   async getExistingRate(@Body() dataQuery: any /*AddressObjectDTO*/, @Req() req: RequestExtendsJWT) {
-    console.log('on va la ou pas ??????????');
-    console.log(dataQuery);
     try {
       const addressObject = await this.fetchAddressService.findAddress(dataQuery);
 
@@ -154,8 +157,6 @@ export class RatingController {
     @Body() addressObject: AddressObject,
     @Req() req: RequestExtendsJWT,
   ): Promise<RatesGeoRisque> {
-    console.log('fetchGeorisque');
-    console.log(addressObject);
     let dataGeorisque: GeorisqueAllData;
     const resultGaspar: RatesGeoRisque = await this.fetchGeorisqueService
       .callAllApiGasparPromiseAll(addressObject)
@@ -195,6 +196,38 @@ export class RatingController {
     return resultEau;
   }
 
+  @Get('fethParcCarto/:addressID')
+  async fethParcCartoByAddressID(
+    @Param('addressID') param: string,
+    @Req() req: RequestExtendsJWT,
+  ): Promise<RatesParcCarto | null> {
+    if (await this.DBJsonParcCarto.isFilled(param)) {
+      return this.DBAllRatings.getRatingParcCartoByAddressId(param);
+    } else {
+      return null;
+    }
+  }
+  @Post('fethParcCarto')
+  async postParcCarto(
+    @Body() addressObject: AddressObject,
+    @Req() req: RequestExtendsJWT,
+  ): Promise<RatesParcCarto> {
+    // Create a circle around th coordonate to search inside
+    const geoJsonAreaAroundPoint = this.fetchParcCarto.createGeoJSONCircleString(
+      addressObject.geometry.coordinates[1],
+      addressObject.geometry.coordinates[0],
+      5000, //Rayon
+      10, // Number of point
+    );
+    // Getting the data from the API
+    const parcCartoAllData = await this.fetchParcCarto.getNatureDatas(geoJsonAreaAroundPoint);
+    // Calculate Rates
+    const rateParcCarto = this.fetchParcCarto.getCartoRates(parcCartoAllData);
+    // Update DB
+    this.DBAllRatings.updateRating(addressObject.properties.id, rateParcCarto);
+    this.DBJsonParcCarto.addJsonParcCarto(addressObject.properties.id, parcCartoAllData);
+    return rateParcCarto;
+  }
   /**
    * Handles a POST request to obtain rate information for a specified address.
    *
@@ -241,6 +274,7 @@ export class RatingController {
         await this.DBAllRatings.createEntry(addressObject.properties.id);
       }
       // Return the address object
+      console.error(addressObject);
       return addressObject;
     } catch (err) {
       throw new HttpException('error in Post getrate' + err, HttpStatus.BAD_REQUEST);
@@ -261,9 +295,7 @@ export class RatingController {
   // @Roles('admin', 'user')
   async testnewapi(@Body() dataQuerry: any) {
     try {
-      const response = await axios.get(
-        `https://api.vigieau.beta.gouv.fr/reglementation?commune=38430`,
-      );
+      const response = await axios.get(`https://api.vigieau.beta.gouv.fr/reglementation?commune=38430`);
       console.log(response.data);
     } catch (err) {
       console.log(err);

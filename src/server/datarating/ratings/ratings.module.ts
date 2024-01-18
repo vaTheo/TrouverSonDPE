@@ -10,10 +10,12 @@ import { FetchAddressService } from '@server/datarating/fetch-address/address.se
 import { FetchEauService } from '@server/datarating/fetch-eau/fetch-eau.service';
 import { FetchGeorisqueService } from '@server/datarating/fetch-georisque/fetch-georisque.service';
 import { DBJsonGeorisque } from './DBjson-Georisque/DBjsonGeorisque.service';
-import { DBJsonEau } from './DBjson-Eau/DBjsonEau.service';
 import { DBUserAddressInfo } from './DBUserAddressInfo/DBUserAddressInfo.service';
 import { DBAddressInfo } from './DBaddressInfo/DBaddressInfo.service';
 import { DBAllRatings } from './DBallRatings/DBallRatings.service';
+import { FetchParcCarto } from '../fetch-cartoParc/fetch-cartoParc.service';
+import { DBJsonEau } from './DBjson-Eau/DBjsonEau.service';
+import { DBJsonParcCarto } from './DBJson-ParcCarto/DBjsonParcCarto.service';
 
 @Module({
   imports: [],
@@ -31,6 +33,8 @@ import { DBAllRatings } from './DBallRatings/DBallRatings.service';
     DBUserAddressInfo,
     DBAddressInfo,
     DBAllRatings,
+    FetchParcCarto,
+    DBJsonParcCarto
   
   ], //Service and midlware
 })

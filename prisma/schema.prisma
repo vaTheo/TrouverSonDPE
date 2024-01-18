@@ -28,6 +28,7 @@ model AddressInfo {
   AllRatings          AllRatings[]
   jsonDataEau         jsonDataEau[]
   jsonDataGeorisque   jsonDataGeorisque[]
+  jsonDataParcCarto   jsonDataParcCarto[]
   users               UserAddressInfo[]
 }
 
@@ -59,6 +60,21 @@ model jsonDataGeorisque {
   dataSource                AddressInfo @relation(fields: [addressID], references: [addressID])
 }
 
+model jsonDataParcCarto{
+   addressID                String      @unique
+    naturaHabitat           Json?            
+    naturaOiseaux           Json?            
+    rnc                     Json?  
+    rnn                     Json?  
+    znieff1                 Json?      
+    znieff2                 Json?      
+    pn                      Json?  
+    pnr                     Json?  
+    rncf                    Json?    
+  dataSource                AddressInfo @relation(fields: [addressID], references: [addressID])
+}
+
+
 model AllRatings {
   addressID                 String       @unique
   eauPotable                Int?
@@ -72,6 +88,15 @@ model AllRatings {
   SISData                   Int?
   TRIData                   Int?
   ZonageSismiqueData        Int?
-  createdAt                 DateTime     @default(now())
+  naturaHabitat             Int?
+  naturaOiseaux             Int?        
+  rnc                       Int?               
+  rnn                       Int?               
+  znieff1                   Int?                   
+  znieff2                   Int?                   
+  pn                        Int?             
+  pnr                       Int?               
+  rncf                      Int?               
+  reatedAt                  DateTime     @default(now())
   dataSource                AddressInfo? @relation(fields: [addressID], references: [addressID])
 }

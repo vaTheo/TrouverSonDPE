@@ -48,7 +48,7 @@ export class FetchGeorisqueService {
         }
         await delay(250);
       } while (dataResponse.next != null); //Continue untill response is not NULL
-      const yearsToInclude = ['2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015'];
+      const yearsToInclude = ['2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010'];
       //Filter the data
       let filteredObjects = filterObjectKeys(data, KEYSTOKEEPGEORISQUE);
       if (endpoint == 'gaspar/catnat') {
@@ -116,7 +116,7 @@ export class FetchGeorisqueService {
   async callAllApiGasparPromiseAll(addressObject: AddressObject): Promise<GeorisqueAllData> {
     const endpoints = [
       { endpoint: 'gaspar/azi', type: 'AZIData', rayon: '1' },
-      { endpoint: 'gaspar/catnat', type: 'CatnatData', rayon: '1000' },
+      { endpoint: 'gaspar/catnat', type: 'CatnatData', rayon: '1' },
       { endpoint: 'installations_classees', type: 'InstallationsClasseesData', rayon: '1000' },
       { endpoint: 'mvt', type: 'MVTData', rayon: '1000' },
       { endpoint: 'radon', type: 'RadonData', rayon: '1' },

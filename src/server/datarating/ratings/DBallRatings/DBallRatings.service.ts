@@ -4,6 +4,7 @@ import { PrismaService } from '@server/prisma/prisma.service';
 import { Ratings } from '../ratings';
 import { RatesGeoRisque } from '@server/datarating/fetch-georisque/Georisque';
 import { RatesEau } from '@server/datarating/fetch-eau/eau';
+import { RatesParcCarto } from '@server/datarating/fetch-cartoParc/cartoParc';
 
 @Injectable()
 export class DBAllRatings {
@@ -18,7 +19,7 @@ export class DBAllRatings {
   async createEntry(addressID: string): Promise<string> {
     try {
       const result = await this.prisma.allRatings.create({
-       data : {
+        data: {
           addressID: addressID,
         },
       });
@@ -43,6 +44,15 @@ export class DBAllRatings {
           SISData: rating?.SISData,
           TRIData: rating?.TRIData,
           ZonageSismiqueData: rating?.ZonageSismiqueData,
+          naturaHabitat: rating?.naturaHabitat,
+          naturaOiseaux: rating?.naturaOiseaux,
+          pn: rating?.pn,
+          pnr: rating?.pnr,
+          rnc: rating?.rnc,
+          rncf: rating?.rncf,
+          rnn: rating?.rnn,
+          znieff1: rating?.znieff1,
+          znieff2: rating?.znieff2,
         },
       });
       return result.addressID;
@@ -64,7 +74,7 @@ export class DBAllRatings {
     const rating = await this.prisma.allRatings.findUnique({
       where: { addressID: addressId },
     });
-    const rateGeorisque = {
+    const rate = {
       AZIData: rating.AZIData,
       CatnatData: rating.CatnatData,
       InstallationsClasseesData: rating.InstallationsClasseesData,
@@ -75,22 +85,40 @@ export class DBAllRatings {
       TRIData: rating.TRIData,
       ZonageSismiqueData: rating.ZonageSismiqueData,
     };
-    return rateGeorisque;
+    return rate;
   }
 
   async getRatingEauByAddressId(addressId: string): Promise<RatesEau | null> {
     const rating = await this.prisma.allRatings.findUnique({
       where: { addressID: addressId },
     });
-    const rateGeorisque: RatesEau = {
+    const rate: RatesEau = {
       coursEau: rating.coursEau,
       eauPotable: rating.eauPotable,
     };
-    return rateGeorisque;
+    return rate;
+  }
+
+  async getRatingParcCartoByAddressId(addressId: string): Promise<RatesParcCarto | null> {
+    const rating = await this.prisma.allRatings.findUnique({
+      where: { addressID: addressId },
+    });
+    const rate: RatesParcCarto = {
+      naturaHabitat: rating.naturaHabitat,
+      naturaOiseaux: rating.naturaOiseaux,
+      pn: rating.pn,
+      pnr: rating.pnr,
+      rnc: rating.rnc,
+      rncf: rating.rncf,
+      rnn: rating.rnn,
+      znieff1: rating.znieff1,
+      znieff2: rating.znieff2,
+    };
+    return rate;
   }
   /**
    * Checks if an entry with the given addressID already exists in the database.
-   * 
+   *
    * @param addressID The ID of the address to check.
    * @returns true if the entry exists, false otherwise.
    */
