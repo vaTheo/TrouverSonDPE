@@ -23,15 +23,18 @@ import { FetchEauService } from '@server/datarating/fetch-eau/fetch-eau.service'
 import { FetchGeorisqueService } from '@server/datarating/fetch-georisque/fetch-georisque.service';
 import { EauPotableData, RatesEau, eauAllData } from '../fetch-eau/eau';
 import { AddressObjectDTO, JsonEauDTO, JsonGeorisqueDTO } from './rating.dto';
-import { DBJsonGeorisque } from './DBjson-Georisque/DBjsonGeorisque.service';
-import { DBJsonParcCarto } from './DBJson-ParcCarto/DBjsonParcCarto.service';
-import { DBUserAddressInfo } from './DBUserAddressInfo/DBUserAddressInfo.service';
-import { DBAddressInfo } from './DBaddressInfo/DBaddressInfo.service';
-import { DBAllRatings } from './DBallRatings/DBallRatings.service';
+import { DBJsonGeorisque } from '../../DBjson-Georisque/DBjsonGeorisque.service';
+import { DBJsonParcCarto } from '../../DBJson-ParcCarto/DBjsonParcCarto.service';
+import { DBUserAddressInfo } from '../../DBUserAddressInfo/DBUserAddressInfo.service';
+import { DBAddressInfo } from '../../DBaddressInfo/DBaddressInfo.service';
+import { DBAllRatings } from '../../DBallRatings/DBallRatings.service';
 import axios from 'axios';
 import { FetchParcCarto } from '../fetch-cartoParc/fetch-cartoParc.service';
 import { RatesParcCarto } from '../fetch-cartoParc/cartoParc';
-import { DBJsonEau } from './DBjson-Eau/DBjsonEau.service';
+import { DBJsonEau } from '../../DBjson-Eau/DBjsonEau.service';
+import { FetchDPE } from '../fetch-dpe/fetch-DPE.service';
+import { DBJsonDPE } from '@server/DBJson-DPE/DBjsonDPE.service';
+import { RatesDPE } from '../fetch-dpe/DPE';
 
 @Controller('ratingcontroller')
 @UseGuards(RolesGuard)
@@ -42,13 +45,15 @@ export class RatingController {
     private fetchAddressService: FetchAddressService,
     private fetchEauService: FetchEauService,
     private fetchGeorisqueService: FetchGeorisqueService,
+    private fetchParcCarto: FetchParcCarto,
+    private fetchDPE: FetchDPE,
+    private DBAllRatings: DBAllRatings,
     private DBjsonGeorisque: DBJsonGeorisque,
     private DBjsonEau: DBJsonEau,
     private DBAddressInfo: DBAddressInfo,
     private DBUserAddressInfo: DBUserAddressInfo,
-    private DBAllRatings: DBAllRatings,
-    private fetchParcCarto: FetchParcCarto,
     private DBJsonParcCarto: DBJsonParcCarto,
+    private DBJsonDPE: DBJsonDPE,
   ) {} //Inport the token service so I can use it in the controller
 
   @Get('fetchrate')
@@ -222,11 +227,33 @@ export class RatingController {
     // Getting the data from the API
     const parcCartoAllData = await this.fetchParcCarto.getNatureDatas(geoJsonAreaAroundPoint);
     // Calculate Rates
-    const rateParcCarto = this.fetchParcCarto.getCartoRates(parcCartoAllData);
+    const rateParcCarto = this.fetchParcCarto.getRate(parcCartoAllData);
     // Update DB
     this.DBAllRatings.updateRating(addressObject.properties.id, rateParcCarto);
-    this.DBJsonParcCarto.addJsonParcCarto(addressObject.properties.id, parcCartoAllData);
+    this.DBJsonParcCarto.addJson(addressObject.properties.id, parcCartoAllData);
     return rateParcCarto;
+  }
+
+  @Get('fethDPE/:addressID')
+  async fethDPEByAddressID(
+    @Param('addressID') param: string,
+    @Req() req: RequestExtendsJWT,
+  ): Promise<RatesParcCarto | null> {
+    if (await this.DBJsonDPE.isFilled(param)) {
+      return this.DBAllRatings.getRatingParcCartoByAddressId(param);
+    } else {
+      return null;
+    }
+  }
+  @Post('fethDPE')
+  async postDPE(@Body() addressObject: AddressObject, @Req() req: RequestExtendsJWT): Promise<RatesDPE> {
+    const resultDPEHabitat = await this.fetchDPE.getDPE(addressObject);
+    const ratesDPEHabitat = this.fetchDPE.getRate({ DPEHabitat: resultDPEHabitat });
+    // Update DB
+    this.DBAllRatings.updateRating(addressObject.properties.id, ratesDPEHabitat);
+    this.DBJsonDPE.addJson(addressObject.properties.id, { DPEHabitat: resultDPEHabitat });
+    console.log(ratesDPEHabitat)
+    return ratesDPEHabitat;
   }
   /**
    * Handles a POST request to obtain rate information for a specified address.
@@ -291,9 +318,9 @@ export class RatingController {
   async getJsonEau(@Body() dataQuerry: JsonEauDTO) {
     return await this.DBjsonEau.getSpecificJsonDataEau(dataQuerry.addressID, dataQuerry.jsonData);
   }
-  @Get('testnewapi')
+  @Get('vigieau')
   // @Roles('admin', 'user')
-  async testnewapi(@Body() dataQuerry: any) {
+  async vigieau(@Body() dataQuerry: any) {
     try {
       const response = await axios.get(`https://api.vigieau.beta.gouv.fr/reglementation?commune=38430`);
       console.log(response.data);
@@ -301,5 +328,15 @@ export class RatingController {
       console.log(err);
     }
     // const response = await axios.get(`https://api.vigieau.beta.gouv.fr/reglementation?commune=${dataQuerry}&profil={profil}`)
+  }
+  @Get('testnewapi')
+  // @Roles('admin', 'user')
+  async testnewapi(@Body() dataQuerry: any) {
+    try {
+      console.log('log');
+      // this.fetchDPE.getDPE();
+    } catch (err) {
+      console.log(err);
+    }
   }
 }

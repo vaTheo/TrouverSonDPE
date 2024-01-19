@@ -19,7 +19,7 @@ import { Request, Response, response } from 'express';
 import { CreateUserDto, LoginUserDto, serRoleUserDto } from '@server/users/user.dto';
 import { RequestExtendsJWT } from '@server/midleware/JWTValidation';
 import { PrismaCallDBService } from '@server/prisma/prismaDB.service';
-import { DBUserAddressInfo } from '@server/datarating/ratings/DBUserAddressInfo/DBUserAddressInfo.service';
+import { DBUserAddressInfo } from '@server/DBUserAddressInfo/DBUserAddressInfo.service';
 
 
 @Controller('user')

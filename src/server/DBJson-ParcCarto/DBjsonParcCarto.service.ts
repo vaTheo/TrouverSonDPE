@@ -1,11 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../../../prisma/prisma.service';
-import { jsonEau } from './jsonEau';
-import { jsonEauMapping } from './jsonEau.const';
-import { eauAllData } from '@server/datarating/fetch-eau/eau';
-
+import { PrismaService } from '../prisma/prisma.service';
+import {  jsonParcCarto } from './jsonParcCarto';
+import {  jsonParcCartoMapping } from './jsonParcCarto.const';
+import { ParcCartoAllData } from '@server/datarating/fetch-cartoParc/cartoParc';
 @Injectable()
-export class DBJsonEau {
+export class DBJsonParcCarto {
   constructor(private prisma: PrismaService) {}
   /**
    *
@@ -13,9 +12,9 @@ export class DBJsonEau {
    * @param jsonToGet
    * @returns
    */
-  async getSpecificJsonDataEau(addressID: string, jsonToGet: keyof jsonEau): Promise<any | null> {
+  async getSpecificJson(addressID: string, jsonToGet: keyof jsonParcCarto): Promise<any | null> {
     // Convert jsonToGet to actual database field
-    const dbField = jsonEauMapping[jsonToGet];
+    const dbField = jsonParcCartoMapping[jsonToGet];
     if (!dbField) {
       throw new NotFoundException(`Invalid field name: ${jsonToGet}`);
     }
@@ -23,7 +22,7 @@ export class DBJsonEau {
     const dataSourceWithJsonData = await this.prisma.addressInfo.findUnique({
       where: { addressID: addressID },
       include: {
-        jsonDataEau: {
+        jsonDataParcCarto: {
           select: { [dbField]: true },
           take: 1, // Assuming one-to-one relation or taking the first entry
         },
@@ -31,13 +30,13 @@ export class DBJsonEau {
     });
     if (
       !dataSourceWithJsonData ||
-      !dataSourceWithJsonData.jsonDataEau ||
-      dataSourceWithJsonData.jsonDataEau.length === 0
+      !dataSourceWithJsonData.jsonDataParcCarto ||
+      dataSourceWithJsonData.jsonDataParcCarto.length === 0
     ) {
       throw new NotFoundException(`No JSON data found for addressID: ${addressID}`);
     }
 
-    const jsonData = dataSourceWithJsonData.jsonDataEau[0][dbField] as string;
+    const jsonData = dataSourceWithJsonData.jsonDataParcCarto[0][dbField] as string;
     if (jsonData === null || jsonData === undefined) {
       throw new NotFoundException(`No JSON data found for addressID: ${addressID} and field: ${jsonToGet}`);
     }
@@ -47,27 +46,27 @@ export class DBJsonEau {
   /**
    *
    * @param dataSourceID
-   * @param dataEau
+   * 
    */
-  async addJsonEau(addressID: string, dataEau: eauAllData) {
+  async addJson(addressID: string, dataParcCarto: ParcCartoAllData) {
     try {
       const createData: any = { addressID: addressID };
-      const fields: Array<keyof eauAllData> = Object.keys(dataEau) as Array<keyof eauAllData>;
+      const fields: Array<keyof ParcCartoAllData> = Object.keys(dataParcCarto) as Array<keyof ParcCartoAllData>;
 
       fields.forEach((field) => {
-        if (dataEau[field]) {
-          createData[field] = JSON.stringify(dataEau[field]);
+        if (dataParcCarto[field]) {
+          createData[field] = JSON.stringify(dataParcCarto[field]);
         }
       });
 
-      await this.prisma.jsonDataEau.create({ data: createData });
+      await this.prisma.jsonDataParcCarto.create({ data: createData });
     } catch (err) {
-      console.error(`Error in addJsonEau: ${err.message}`);
+      console.error(`Error in addJsonParcCarto: ${err.message}`);
     }
   }
   async isFilled(addressID: string): Promise<boolean> {
     try {
-      const count = await this.prisma.jsonDataEau.count({
+      const count = await this.prisma.jsonDataParcCarto.count({
         where: {
           addressID: addressID,
         },
@@ -75,7 +74,6 @@ export class DBJsonEau {
 
       return count > 0 || false;
     } catch (err) {
-      console.log('Nothing as been find in isFilled function');
       return false;
     }
   }

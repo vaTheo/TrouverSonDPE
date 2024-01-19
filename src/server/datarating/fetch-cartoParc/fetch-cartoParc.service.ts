@@ -105,7 +105,7 @@ export class FetchParcCarto {
     }
   }
 
-  getCartoRates(cartoAllData: ParcCartoAllData): RatesParcCarto {
+  getRate(cartoAllData: ParcCartoAllData): RatesParcCarto {
     let ratesCarto: RatesParcCarto = {};
 
     type CartoAllDataKey = keyof ParcCartoAllData; // Define a type for the keys of CartoAllData

@@ -9,13 +9,15 @@ import { UserService } from '../../users/user.service';
 import { FetchAddressService } from '@server/datarating/fetch-address/address.service';
 import { FetchEauService } from '@server/datarating/fetch-eau/fetch-eau.service';
 import { FetchGeorisqueService } from '@server/datarating/fetch-georisque/fetch-georisque.service';
-import { DBJsonGeorisque } from './DBjson-Georisque/DBjsonGeorisque.service';
-import { DBUserAddressInfo } from './DBUserAddressInfo/DBUserAddressInfo.service';
-import { DBAddressInfo } from './DBaddressInfo/DBaddressInfo.service';
-import { DBAllRatings } from './DBallRatings/DBallRatings.service';
+import { DBJsonGeorisque } from '../../DBjson-Georisque/DBjsonGeorisque.service';
+import { DBUserAddressInfo } from '../../DBUserAddressInfo/DBUserAddressInfo.service';
+import { DBAddressInfo } from '../../DBaddressInfo/DBaddressInfo.service';
+import { DBAllRatings } from '../../DBallRatings/DBallRatings.service';
 import { FetchParcCarto } from '../fetch-cartoParc/fetch-cartoParc.service';
-import { DBJsonEau } from './DBjson-Eau/DBjsonEau.service';
-import { DBJsonParcCarto } from './DBJson-ParcCarto/DBjsonParcCarto.service';
+import { DBJsonEau } from '../../DBjson-Eau/DBjsonEau.service';
+import { DBJsonParcCarto } from '../../DBJson-ParcCarto/DBjsonParcCarto.service';
+import { FetchDPE } from '../fetch-dpe/fetch-DPE.service';
+import { DBJsonDPE } from '@server/DBJson-DPE/DBjsonDPE.service';
 
 @Module({
   imports: [],
@@ -34,8 +36,9 @@ import { DBJsonParcCarto } from './DBJson-ParcCarto/DBjsonParcCarto.service';
     DBAddressInfo,
     DBAllRatings,
     FetchParcCarto,
-    DBJsonParcCarto
-  
+    DBJsonParcCarto,
+    FetchDPE,
+    DBJsonDPE,
   ], //Service and midlware
 })
 export class DataRatingModule implements NestModule {

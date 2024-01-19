@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { AllRatings, Prisma } from '@prisma/client';
 import { PrismaService } from '@server/prisma/prisma.service';
-import { Ratings } from '../ratings';
+import { Ratings } from '../datarating/ratings/ratings';
 import { RatesGeoRisque } from '@server/datarating/fetch-georisque/Georisque';
 import { RatesEau } from '@server/datarating/fetch-eau/eau';
 import { RatesParcCarto } from '@server/datarating/fetch-cartoParc/cartoParc';
@@ -53,6 +53,8 @@ export class DBAllRatings {
           rnn: rating?.rnn,
           znieff1: rating?.znieff1,
           znieff2: rating?.znieff2,
+          DPEHabitat:rating?.DPEHabitat,
+          DPETertiaire:rating?.DPETertiaire
         },
       });
       return result.addressID;

@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../../../prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { jsonGeorisque } from './jsonGeorisque';
 import { jsonGeorisqueMapping } from './jsonGeorisque.const';
-import { GeorisqueAllData } from '../../fetch-georisque/Georisque';
+import { GeorisqueAllData } from '../datarating/fetch-georisque/Georisque';
 
 @Injectable()
 export class DBJsonGeorisque {

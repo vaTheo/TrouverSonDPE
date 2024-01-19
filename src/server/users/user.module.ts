@@ -5,7 +5,7 @@ import { UserService } from './user.service';
 import { UsersController } from './users.controller';
 import { AsUUID } from '@server/midleware/asUUID';
 import { PrismaCallDBService } from '@server/prisma/prismaDB.service';
-import { DBUserAddressInfo } from '@server/datarating/ratings/DBUserAddressInfo/DBUserAddressInfo.service';
+import { DBUserAddressInfo } from '@server/DBUserAddressInfo/DBUserAddressInfo.service';
 
 @Module({
     imports: [],

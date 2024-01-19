@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../../../prisma/prisma.service';
-import {  jsonParcCarto } from './jsonParcCarto';
-import {  jsonParcCartoMapping } from './jsonParcCarto.const';
-import { ParcCartoAllData } from '@server/datarating/fetch-cartoParc/cartoParc';
+import { PrismaService } from '../prisma/prisma.service';
+import { jsonDPE } from './jsonDPE';
+import { jsonDPEMapping } from './jsonDPE.const';
+import { DPEAllData } from '@server/datarating/fetch-dpe/DPE';
 @Injectable()
-export class DBJsonParcCarto {
+export class DBJsonDPE {
   constructor(private prisma: PrismaService) {}
   /**
    *
@@ -12,9 +12,9 @@ export class DBJsonParcCarto {
    * @param jsonToGet
    * @returns
    */
-  async getSpecificJsonParcCarto(addressID: string, jsonToGet: keyof jsonParcCarto): Promise<any | null> {
+  async getSpecificJson(addressID: string, jsonToGet: keyof jsonDPE): Promise<any | null> {
     // Convert jsonToGet to actual database field
-    const dbField = jsonParcCartoMapping[jsonToGet];
+    const dbField = jsonDPEMapping[jsonToGet];
     if (!dbField) {
       throw new NotFoundException(`Invalid field name: ${jsonToGet}`);
     }
@@ -22,7 +22,7 @@ export class DBJsonParcCarto {
     const dataSourceWithJsonData = await this.prisma.addressInfo.findUnique({
       where: { addressID: addressID },
       include: {
-        jsonDataParcCarto: {
+        jsonDataDPE: {
           select: { [dbField]: true },
           take: 1, // Assuming one-to-one relation or taking the first entry
         },
@@ -30,13 +30,13 @@ export class DBJsonParcCarto {
     });
     if (
       !dataSourceWithJsonData ||
-      !dataSourceWithJsonData.jsonDataParcCarto ||
-      dataSourceWithJsonData.jsonDataParcCarto.length === 0
+      !dataSourceWithJsonData.jsonDataDPE ||
+      dataSourceWithJsonData.jsonDataDPE.length === 0
     ) {
       throw new NotFoundException(`No JSON data found for addressID: ${addressID}`);
     }
 
-    const jsonData = dataSourceWithJsonData.jsonDataParcCarto[0][dbField] as string;
+    const jsonData = dataSourceWithJsonData.jsonDataDPE[0][dbField] as string;
     if (jsonData === null || jsonData === undefined) {
       throw new NotFoundException(`No JSON data found for addressID: ${addressID} and field: ${jsonToGet}`);
     }
@@ -48,25 +48,25 @@ export class DBJsonParcCarto {
    * @param dataSourceID
    * 
    */
-  async addJsonParcCarto(addressID: string, dataParcCarto: ParcCartoAllData) {
+  async addJson(addressID: string, dataDPE: DPEAllData) {
     try {
       const createData: any = { addressID: addressID };
-      const fields: Array<keyof ParcCartoAllData> = Object.keys(dataParcCarto) as Array<keyof ParcCartoAllData>;
+      const fields: Array<keyof DPEAllData> = Object.keys(dataDPE) as Array<keyof DPEAllData>;
 
       fields.forEach((field) => {
-        if (dataParcCarto[field]) {
-          createData[field] = JSON.stringify(dataParcCarto[field]);
+        if (dataDPE[field]) {
+          createData[field] = JSON.stringify(dataDPE[field]);
         }
       });
 
-      await this.prisma.jsonDataParcCarto.create({ data: createData });
+      await this.prisma.jsonDataDPE.create({ data: createData });
     } catch (err) {
-      console.error(`Error in addJsonParcCarto: ${err.message}`);
+      console.error(`Error in addJsonDPE: ${err.message}`);
     }
   }
   async isFilled(addressID: string): Promise<boolean> {
     try {
-      const count = await this.prisma.jsonDataParcCarto.count({
+      const count = await this.prisma.jsonDataDPE.count({
         where: {
           addressID: addressID,
         },
