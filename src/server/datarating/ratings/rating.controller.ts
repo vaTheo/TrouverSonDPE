@@ -10,7 +10,6 @@ import {
   Param,
 } from '@nestjs/common';
 import { AddressObject } from '../fetch-address/address';
-import { getDPE } from '../fetch-dpe/getDPE';
 import { GeorisqueAllData, RatesGeoRisque } from '../fetch-georisque/Georisque';
 import { eauAnalysis } from '../fetch-eau/eauAnalysis';
 import { TokenService } from '../token/token.service';
@@ -55,37 +54,6 @@ export class RatingController {
     private DBJsonParcCarto: DBJsonParcCarto,
     private DBJsonDPE: DBJsonDPE,
   ) {} //Inport the token service so I can use it in the controller
-
-  @Get('fetchrate')
-  // @Roles('admin', 'user')
-  async fetchRatingOfAnAddress(@Body() dataQuerry: AddressObjectDTO, @Req() req: RequestExtendsJWT) {
-    try {
-      let dataGeorisque: GeorisqueAllData;
-      //Find the corresponding address
-      const addressObject: AddressObject = await this.fetchAddressService.findAddress(dataQuerry);
-
-      const addressID = { addressID: addressObject.properties.id }; //Unique BAN ID of the address
-
-      const resultDPE = await getDPE(addressObject).then((result) => {});
-      // Concatenate alle ratings Data
-      const allRate = {
-        ...addressID,
-      } as Ratings;
-      //TODO:
-      // const dataSourceID = await this.dataSourceAddresseID.createEntry(
-      //   req.user.userId,
-      //   addressObject,
-      // );
-
-      // const dataSourceIDSaved = await this.RatingsDBService.addRating(dataSourceID, allRate);
-
-      const json = await this.RatingsDBService.getAZIDataByAddressID(addressObject.properties.id);
-
-      return allRate;
-    } catch (err) {
-      throw err;
-    }
-  }
 
   @Get('getrate')
   // @Roles('admin', 'user')
@@ -247,12 +215,12 @@ export class RatingController {
   }
   @Post('fethDPE')
   async postDPE(@Body() addressObject: AddressObject, @Req() req: RequestExtendsJWT): Promise<RatesDPE> {
-    const resultDPEHabitat = await this.fetchDPE.getDPE(addressObject);
-    const ratesDPEHabitat = this.fetchDPE.getRate({ DPEHabitat: resultDPEHabitat });
+    const resultDPEHabitat = await this.fetchDPE.getDPEDatas(addressObject);
+    const ratesDPEHabitat = this.fetchDPE.getDPERates(resultDPEHabitat);
     // Update DB
     this.DBAllRatings.updateRating(addressObject.properties.id, ratesDPEHabitat);
-    this.DBJsonDPE.addJson(addressObject.properties.id, { DPEHabitat: resultDPEHabitat });
-    console.log(ratesDPEHabitat)
+    this.DBJsonDPE.addJson(addressObject.properties.id, resultDPEHabitat);
+    console.log(ratesDPEHabitat);
     return ratesDPEHabitat;
   }
   /**
@@ -321,20 +289,21 @@ export class RatingController {
   @Get('vigieau')
   // @Roles('admin', 'user')
   async vigieau(@Body() dataQuerry: any) {
-    try {
-      const response = await axios.get(`https://api.vigieau.beta.gouv.fr/reglementation?commune=38430`);
-      console.log(response.data);
-    } catch (err) {
-      console.log(err);
-    }
+    const response = await axios.get(
+      `https://api.vigieau.gouv.fr/reglementation?lon=3.117428&lat=43.355801&commune=34155&profil=exploitation`,
+    );
+    console.log(response.data);
+
     // const response = await axios.get(`https://api.vigieau.beta.gouv.fr/reglementation?commune=${dataQuerry}&profil={profil}`)
   }
   @Get('testnewapi')
   // @Roles('admin', 'user')
   async testnewapi(@Body() dataQuerry: any) {
     try {
-      console.log('log');
-      // this.fetchDPE.getDPE();
+      const response = await axios.get(
+        `https://api.vigieau.beta.gouv.fr/reglementation?commune=66048_7xolnt`,
+      );
+      console.log(response.data);
     } catch (err) {
       console.log(err);
     }

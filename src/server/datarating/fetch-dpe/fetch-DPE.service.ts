@@ -9,24 +9,50 @@ import { DPEAllData, RatesDPE } from './DPE';
 @Injectable()
 export class FetchDPE {
   // 100 requêtes/ 5 secondes
-  async getDPE(addressObject: AddressObject): Promise<ResultItemDPE[] | null> {
+  async callDPE(addressObject: AddressObject, endpoint: string): Promise<ResultItemDPE[] | null> {
     try {
       const agg_size = '64'; //Max result in the response
-      const URLAPI = 'https://data.ademe.fr/data-fair/api/v1/datasets/dpe-v2-logements-existants/';
+      const URLAPI = `https://data.ademe.fr/data-fair/api/v1/datasets/${endpoint}/`;
       const response = await axios.get(
         `${URLAPI}geo_agg?q=${addressObject.properties.id}&q_fields=Identifiant__BAN&size=50`,
       );
+      console.log(`${endpoint} -- callDPE`);
       const data: ApiResponse = response.data;
+      if (data.total === 0) {
+        return [];
+      }
       let filteredObjects = filterObjectKeys(data.aggs[0].results, KEYSTOKEEDPE) as ResultItemDPE[];
       return filteredObjects;
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error(`Error fetching data endpoint ${endpoint}`, error);
       return null;
     }
   }
 
-  getRate(DPEAllData: DPEAllData): RatesDPE {
+  async getDPEDatas(addressObject: AddressObject): Promise<DPEAllData> {
+    const endpoints = ['dpe-v2-logements-existants', 'dpe-v2-tertiaire-2', 'dpe-v2-logements-neufs','dpe-tertiaire','dpe-france'];
+    const DPEDataPromise = endpoints.map((endpoint) => this.callDPE(addressObject, endpoint));
+    try {
+      const results = await Promise.all(DPEDataPromise);
+      return {
+        DPEHabitatExistant: results[0],
+        DPEHabitatNeuf: results[1],
+        DPETertiaire: results[2],
+        DPETertiaireAvant2021: results[3],
+        DPEHabitatExistantAvant2021: results[4],
+      } as DPEAllData;
+    } catch (error) {
+      console.error('Error fetching nature data:', error);
+      // Return an empty object or handle the error as per your application's needs
+      return {};
+    }
+  }
+
+  RateDPE(DPE: ResultItemDPE[]): number {
     // Convert letters to numbers
+    if (!DPE || !DPE[0]) {
+      return 0;
+    }
     const letterToNumber = (letter: string): number => {
       switch (letter) {
         case 'A':
@@ -49,8 +75,8 @@ export class FetchDPE {
     };
 
     // Calculate average
-    const num1 = letterToNumber(DPEAllData.DPEHabitat[0].Etiquette_GES);
-    const num2 = letterToNumber(DPEAllData.DPEHabitat[0].Etiquette_DPE);
+    const num1 = letterToNumber(DPE[0].Etiquette_GES);
+    const num2 = letterToNumber(DPE[0].Etiquette_DPE);
     const average = (num1 + num2) / 2;
 
     // Map average to a value between 0 and 3
@@ -60,6 +86,16 @@ export class FetchDPE {
     else if (average >= 1) rate = 1; // Closer to 'E'
     else rate = 0; // Closer to 'G'
 
-    return { DPEHabitat: rate };
+    return rate;
+  }
+
+  getDPERates(DPEAllData: DPEAllData): RatesDPE {
+    return {
+      DPEHabitatExistant: this.RateDPE(DPEAllData.DPEHabitatExistant),
+      DPEHabitatNeuf: this.RateDPE(DPEAllData.DPEHabitatNeuf),
+      DPETertiaire: this.RateDPE(DPEAllData.DPETertiaire),
+      DPETertiaireAvant2021: this.RateDPE(DPEAllData.DPETertiaireAvant2021),
+      DPEHabitatExistantAvant2021: this.RateDPE(DPEAllData.DPEHabitatExistantAvant2021),
+    };
   }
 }

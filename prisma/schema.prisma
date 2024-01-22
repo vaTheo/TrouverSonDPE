@@ -76,37 +76,44 @@ model jsonDataParcCarto{
 }
 
 model jsonDataDPE{
-  addressID                 String      @unique
-  DPEHabitat                Json?            
-  DPETertiaire              Json?            
+  addressID                   String      @unique
+  DPEHabitatExistant          Json?
+  DPEHabitatExistantAvant2021 Json?            
+  DPEHabitatNeuf              Json?            
+  DPETertiaire                Json?
+  DPETertiaireAvant2021       Json?
+  
   dataSource                AddressInfo @relation(fields: [addressID], references: [addressID])
 }
 
 
 model AllRatings {
-  addressID                 String       @unique
-  eauPotable                Int?
-  coursEau                  Int?
-  AZIData                   Int?
-  CatnatData                Int?
-  InstallationsClasseesData Int?
-  MVTData                   Int?
-  RadonData                 Int?
-  RisquesData               Int?
-  SISData                   Int?
-  TRIData                   Int?
-  ZonageSismiqueData        Int?
-  naturaHabitat             Int?
-  naturaOiseaux             Int?        
-  rnc                       Int?               
-  rnn                       Int?               
-  znieff1                   Int?                   
-  znieff2                   Int?                   
-  pn                        Int?             
-  pnr                       Int?               
-  rncf                      Int?
-  DPEHabitat                Int?
-  DPETertiaire              Int?               
-  reatedAt                  DateTime     @default(now())
-  dataSource                AddressInfo? @relation(fields: [addressID], references: [addressID])
+  addressID                   String       @unique
+  eauPotable                  Int?
+  coursEau                    Int?
+  AZIData                     Int?
+  CatnatData                  Int?
+  InstallationsClasseesData   Int?
+  MVTData                     Int?
+  RadonData                   Int?
+  RisquesData                 Int?
+  SISData                     Int?
+  TRIData                     Int?
+  ZonageSismiqueData          Int?
+  naturaHabitat               Int?
+  naturaOiseaux               Int?        
+  rnc                         Int?               
+  rnn                         Int?               
+  znieff1                     Int?                   
+  znieff2                     Int?                   
+  pn                          Int?             
+  pnr                         Int?               
+  rncf                        Int?
+  DPEHabitatExistant          Int?
+  DPEHabitatExistantAvant2021 Int?
+  DPEHabitatNeuf              Int?               
+  DPETertiaire                Int?
+  DPETertiaireAvant2021       Int?
+  reatedAt                    DateTime     @default(now())
+  dataSource                  AddressInfo? @relation(fields: [addressID], references: [addressID])
 }

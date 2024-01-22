@@ -53,8 +53,12 @@ export class DBAllRatings {
           rnn: rating?.rnn,
           znieff1: rating?.znieff1,
           znieff2: rating?.znieff2,
-          DPEHabitat:rating?.DPEHabitat,
-          DPETertiaire:rating?.DPETertiaire
+          DPEHabitatExistant:rating?.DPEHabitatExistant,
+          DPEHabitatNeuf:rating?.DPEHabitatExistant,
+          DPETertiaire:rating?.DPETertiaire,
+          DPEHabitatExistantAvant2021:rating?.DPEHabitatExistantAvant2021,
+          DPETertiaireAvant2021:rating?.DPETertiaireAvant2021,
+        
         },
       });
       return result.addressID;

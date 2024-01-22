@@ -8,12 +8,6 @@ import { KEYSTOKEEPCARTO } from './api-keysToKeep';
 import * as turf from '@turf/turf';
 import { ParcCartoAllData, RatesParcCarto } from './cartoParc';
 
-interface ApiParams {
-  sitecode?: string;
-  geom?: string; // GeoJSON as string
-  _limit?: number;
-  _start?: number;
-}
 
 @Injectable()
 export class FetchParcCarto {
