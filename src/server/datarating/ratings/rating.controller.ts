@@ -21,7 +21,7 @@ import { FetchAddressService } from '@server/datarating/fetch-address/address.se
 import { FetchEauService } from '@server/datarating/fetch-eau/fetch-eau.service';
 import { FetchGeorisqueService } from '@server/datarating/fetch-georisque/fetch-georisque.service';
 import { EauPotableData, RatesEau, eauAllData } from '../fetch-eau/eau';
-import { AddressObjectDTO, JsonEauDTO, JsonGeorisqueDTO } from './rating.dto';
+import { AddressObjectDTO, AddressObjectThreeValueDTO, JsonEauDTO, JsonGeorisqueDTO } from './rating.dto';
 import { DBJsonGeorisque } from '../../DBjson-Georisque/DBjsonGeorisque.service';
 import { DBJsonParcCarto } from '../../DBJson-ParcCarto/DBjsonParcCarto.service';
 import { DBUserAddressInfo } from '../../DBUserAddressInfo/DBUserAddressInfo.service';
@@ -57,7 +57,7 @@ export class RatingController {
 
   @Get('getrate')
   // @Roles('admin', 'user')
-  async getExistingRate(@Body() dataQuery: any /*AddressObjectDTO*/, @Req() req: RequestExtendsJWT) {
+  async getExistingRate(@Body() dataQuery: any/*AddressObjectDTO*/, @Req() req: RequestExtendsJWT) {
     try {
       const addressObject = await this.fetchAddressService.findAddress(dataQuery);
 
@@ -250,9 +250,7 @@ export class RatingController {
     try {
       // Get address ID of the specific address
       let inputaddressObject: AddressObjectDTO = {
-        city: dataQuery.city,
-        postCode: dataQuery.postCode,
-        street: dataQuery.street,
+        address: dataQuery.address,
       };
       const addressObject: AddressObject = await this.fetchAddressService.findAddress(inputaddressObject);
       let addressInfo = await this.DBAddressInfo.findAddressInfo(addressObject.properties.id);

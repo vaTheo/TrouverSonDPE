@@ -2,7 +2,7 @@ import { IsString, Length } from 'class-validator';
 import { jsonGeorisque } from '../../DBjson-Georisque/jsonGeorisque';
 import { jsonEau } from '../../DBjson-Eau/jsonEau';
 
-export class AddressObjectDTO {
+export class AddressObjectThreeValueDTO {
   @Length(5, 5)
   @IsString()
   postCode: string;
@@ -13,7 +13,10 @@ export class AddressObjectDTO {
   @IsString()
   street: string;
 }
-
+export class AddressObjectDTO{
+  @IsString()
+  address:string;
+}
 export class JsonGeorisqueDTO{
   @IsString()
   addressID:string

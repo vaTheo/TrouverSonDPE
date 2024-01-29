@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { AddressObject } from '../fetch-address/address';
 import { ApiResponse, ResultItemDPE } from './api-DPE';
@@ -25,6 +25,7 @@ export class FetchDPE {
       return filteredObjects;
     } catch (error) {
       console.error(`Error fetching data endpoint ${endpoint}`, error);
+      throw new HttpException(`Error fetching data endpoint ${endpoint}`, HttpStatus.NOT_FOUND);
       return null;
     }
   }
