@@ -8,7 +8,6 @@ import { KEYSTOKEEPCARTO } from './api-keysToKeep';
 import * as turf from '@turf/turf';
 import { ParcCartoAllData, RatesParcCarto } from './cartoParc';
 
-
 @Injectable()
 export class FetchParcCarto {
   createGeoJSONCircleString(
@@ -107,18 +106,13 @@ export class FetchParcCarto {
     Object.keys(cartoAllData).forEach((key) => {
       const typedKey = key as CartoAllDataKey; // Assert the key type
       const data = cartoAllData[typedKey];
-
+      let rate = 100;
       if (!data || data.length === 0) {
-        ratesCarto[typedKey] = 0;
-      } else if (data.length <= 1) {
-        ratesCarto[typedKey] = 1;
-      } else if (data.length <= 2) {
-        ratesCarto[typedKey] = 2;
+        ratesCarto[typedKey] = null;
       } else {
-        ratesCarto[typedKey] = 3;
+        ratesCarto[typedKey] = rate - 20 * data.length;
       }
     });
-
     return ratesCarto;
   }
 }

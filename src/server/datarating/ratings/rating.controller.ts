@@ -130,16 +130,11 @@ export class RatingController {
     @Body() addressObject: AddressObject,
     @Req() req: RequestExtendsJWT,
   ): Promise<RatesGeoRisque> {
-    let dataGeorisque: GeorisqueAllData;
-    const resultGaspar: RatesGeoRisque = await this.fetchGeorisqueService
-      .callAllApiGasparPromiseAll(addressObject)
-      .then((result) => {
-        dataGeorisque = result;
-        return this.fetchGeorisqueService.analisysGaspar(result);
-      });
-    await this.DBjsonGeorisque.addJsonGeorisque(addressObject.properties.id, dataGeorisque);
-    await this.DBAllRatings.updateRating(addressObject.properties.id, resultGaspar);
-    return resultGaspar;
+    const ratesGaspar = this.fetchGeorisqueService.analisysGaspar(await this.fetchGeorisqueService.callAllApiGasparPromiseAll(addressObject));
+
+    await this.DBjsonGeorisque.addJsonGeorisque(addressObject.properties.id, await this.fetchGeorisqueService.callAllApiGasparPromiseAll(addressObject));
+    await this.DBAllRatings.updateRating(addressObject.properties.id, ratesGaspar);
+    return ratesGaspar;
   }
 
   @Get('fetcheau/:addressID')
@@ -157,16 +152,15 @@ export class RatingController {
   async postEau(@Body() addressObject: AddressObject, @Req() req: RequestExtendsJWT): Promise<RatesEau> {
     let dataEauPotable: EauPotableData[];
     let eauAllData: eauAllData;
-    const resultEau: RatesEau = await this.fetchEauService.qualiteEau(addressObject).then((res) => {
+    const resultEauPotable: number = await this.fetchEauService.qualiteEau(addressObject).then((res) => {
       dataEauPotable = this.fetchEauService.dataCalculation(res);
-      console.log(dataEauPotable);
       return eauAnalysis(dataEauPotable);
     });
     eauAllData = { eauPotable: dataEauPotable };
     await this.DBjsonEau.addJsonEau(addressObject.properties.id, eauAllData);
-    await this.DBAllRatings.updateRating(addressObject.properties.id, resultEau);
+    await this.DBAllRatings.updateRating(addressObject.properties.id, {eauPotable:resultEauPotable});
 
-    return resultEau;
+    return {eauPotable:resultEauPotable};
   }
 
   @Get('fethParcCarto/:addressID')

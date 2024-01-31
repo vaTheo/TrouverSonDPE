@@ -1,23 +1,18 @@
 import { EauPotableData, RatesEau } from "./eau";
 
-export const eauAnalysis = (result: EauPotableData[]): RatesEau => {
+export const eauAnalysis = (eauPotableData: EauPotableData[]): number => {
   let numberFail = 0;
-  result.forEach((element) => {
+  eauPotableData.forEach((element) => {
     if (!element.good) {
       numberFail += 1;
       console.log(element);
     }
   });
-  console.log(numberFail);
-  if (numberFail == 0) {
-    return { eauPotable: 0,coursEau:0 };
-  } else if (numberFail <= 1) {
-    return { eauPotable: 1,coursEau:0 };
-  } else if (numberFail <= 2) {
-    return { eauPotable: 2 ,coursEau:0};
-  } else if (numberFail >= 3) {
-    return { eauPotable: 3 ,coursEau:0};
-  } else {
-    console.log('ERROR in eauAnalysis');
+
+  if (!eauPotableData.length) {
+    return null;
   }
+
+  let rate = 100 - (20 * numberFail);
+  return rate > 0 ? rate : 0;
 };

@@ -159,6 +159,11 @@ interface ResultItemDPE {
   'Conso_chauffage_é_finale_énergie_n°1': number;
   _score: null;
   _id: string;
+  'date_etablissement_dpe':string;
+  'annee_construction':number;
+  'surface_thermique_lot':number;
+  'classe_consommation_energie':string;
+  'classe_estimation_ges':string;
 }
 
 // Define the type for each aggregation object

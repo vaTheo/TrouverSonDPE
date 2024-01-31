@@ -32,7 +32,6 @@ export class FetchGeorisqueService {
     const URL = 'https://www.georisques.gouv.fr/api/v1/';
     const coordone = getCoordinatesAsString(addressObject);
     let page = 1;
-    // TODO: Remove all the keys to keep
 
     try {
       do {
@@ -46,9 +45,25 @@ export class FetchGeorisqueService {
         if (dataResponse.next) {
           page++;
         }
-        await delay(250);
+        await delay(350);
       } while (dataResponse.next != null); //Continue untill response is not NULL
-      const yearsToInclude = ['2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010'];
+      const yearsToInclude = [
+        '2024',
+        '2023',
+        '2022',
+        '2021',
+        '2020',
+        '2019',
+        '2018',
+        '2017',
+        '2016',
+        '2015',
+        '2014',
+        '2013',
+        '2012',
+        '2011',
+        '2010',
+      ];
       //Filter the data
       let filteredObjects = filterObjectKeys(data, KEYSTOKEEPGEORISQUE);
       if (endpoint == 'gaspar/catnat') {
@@ -65,6 +80,7 @@ export class FetchGeorisqueService {
         });
       }
       console.log('Finished getting : ' + endpoint + ', at page ' + page);
+
       return filteredObjects;
     } catch (err) {
       const URLsend = endpoint.includes('radon')
@@ -150,21 +166,15 @@ export class FetchGeorisqueService {
       }
     }
     // Function call for note managements of each parameters
-    gasparPoints.RadonData = radonAnalysis(dataObject.RadonData, gasparSizes.radonData);
-    gasparPoints.MVTData = mvtAnalysis(dataObject.MVTData, gasparSizes.mvt);
-    gasparPoints.SISData = sisAnalysis(dataObject.SISData, gasparSizes.SISData);
-    gasparPoints.TRIData = TRIAnalysis(dataObject.TRIData, gasparSizes.TRIData);
-    gasparPoints.AZIData = AZIAnalysis(dataObject.AZIData, gasparSizes.AZIdata);
-    gasparPoints.RisquesData = risqueAnalysis(dataObject.RisquesData, gasparSizes.RisquesData);
-    gasparPoints.CatnatData = CATNATAnalysis(dataObject.CatnatData, gasparSizes.catnatData);
-    gasparPoints.ZonageSismiqueData = sysmiqueAnalysis(
-      dataObject.ZonageSismiqueData,
-      gasparSizes.zonage_sismique,
-    );
-    gasparPoints.InstallationsClasseesData = installationClasseAnalysis(
-      dataObject.InstallationsClasseesData,
-      gasparSizes.installations_classees,
-    );
+    gasparPoints.RadonData = radonAnalysis(dataObject.RadonData);
+    gasparPoints.MVTData = mvtAnalysis(dataObject.MVTData);
+    gasparPoints.SISData = sisAnalysis(dataObject.SISData);
+    gasparPoints.TRIData = TRIAnalysis(dataObject.TRIData);
+    gasparPoints.AZIData = AZIAnalysis(dataObject.AZIData);
+    gasparPoints.RisquesData = risqueAnalysis(dataObject.RisquesData);
+    gasparPoints.CatnatData = CATNATAnalysis(dataObject.CatnatData);
+    gasparPoints.ZonageSismiqueData = sysmiqueAnalysis(dataObject.ZonageSismiqueData);
+    gasparPoints.InstallationsClasseesData = installationClasseAnalysis(dataObject.InstallationsClasseesData);
     return gasparPoints;
   }
 }

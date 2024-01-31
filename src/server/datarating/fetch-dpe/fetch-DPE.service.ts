@@ -26,7 +26,6 @@ export class FetchDPE {
     } catch (error) {
       console.error(`Error fetching data endpoint ${endpoint}`, error);
       throw new HttpException(`Error fetching data endpoint ${endpoint}`, HttpStatus.NOT_FOUND);
-      return null;
     }
   }
 
@@ -50,45 +49,44 @@ export class FetchDPE {
   }
 
   RateDPE(DPE: ResultItemDPE[]): number {
-    // Convert letters to numbers
-    if (!DPE || !DPE[0]) {
-      return 0;
-    }
     const letterToNumber = (letter: string): number => {
       switch (letter) {
-        case 'A':
-          return 6;
-        case 'B':
-          return 5;
-        case 'C':
-          return 4;
-        case 'D':
-          return 3;
-        case 'E':
-          return 2;
-        case 'F':
-          return 1;
-        case 'G':
-          return 0;
-        default:
-          return 0; // Adjust default case as needed
+        case 'A': return 6;
+        case 'B': return 5;
+        case 'C': return 4;
+        case 'D': return 3;
+        case 'E': return 2;
+        case 'F': return 1;
+        case 'G': return 0;
+        default:  return 0; // Adjust default case as needed
       }
     };
-
-    // Calculate average
-    const num1 = letterToNumber(DPE[0].Etiquette_GES);
-    const num2 = letterToNumber(DPE[0].Etiquette_DPE);
-    const average = (num1 + num2) / 2;
-
-    // Map average to a value between 0 and 3
-    let rate;
-    if (average >= 5) rate = 3; // Closer to 'A'
-    else if (average >= 3) rate = 2; // Closer to 'C'
-    else if (average >= 1) rate = 1; // Closer to 'E'
-    else rate = 0; // Closer to 'G'
-
+  
+    if (!DPE || DPE.length === 0) {
+      return 0;
+    }
+  
+    let totalScore = 0;
+    DPE.forEach(item => {
+      // Use Etiquette_GES or classe_estimation_ges, whichever is present
+      const gesScore = item.Etiquette_GES 
+                       ? letterToNumber(item.Etiquette_GES) 
+                       : letterToNumber(item.classe_estimation_ges);
+  
+      // Use Etiquette_DPE or classe_consommation_energie, whichever is present
+      const dpeScore = item.Etiquette_DPE 
+                       ? letterToNumber(item.Etiquette_DPE) 
+                       : letterToNumber(item.classe_consommation_energie);
+  
+      totalScore += gesScore + dpeScore;
+    });
+  
+    const average = totalScore / (DPE.length * 2);
+    const rate = average / 6 * 100;
+  
     return rate;
   }
+  
 
   getDPERates(DPEAllData: DPEAllData): RatesDPE {
     return {

@@ -491,15 +491,15 @@ export interface GasprAPIResponse {
    *SIS
    */
   export interface SISData {
-    adresse: string;
-    adresse_lieudit: string;
-    code_insee: string;
-    fiche_risque: string;
-    geom: Geom;
-    id_sis: string;
-    nom: string;
-    nom_commune: string;
-    superficie: number;
+    adresse?: string;
+    adresse_lieudit?: string;
+    code_insee?: string;
+    fiche_risque?: string;
+    geom?: Geom;
+    id_sis?: string;
+    nom?: string;
+    nom_commune?: string;
+    superficie?: number;
   }
   
   export interface Geom {

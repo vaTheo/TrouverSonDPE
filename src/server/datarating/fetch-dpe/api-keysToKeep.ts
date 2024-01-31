@@ -46,4 +46,11 @@ export const KEYSTOKEEDPE = [
     'Qualité_isolation_plancher_bas',
     'Hauteur_sous-plafond',
     'Deperditions_enveloppe',
+    'date_etablissement_dpe',
+    'annee_construction',
+    'surface_thermique_lot',
+    'classe_consommation_energie',
+    'classe_estimation_ges',
+    
+
 ];
