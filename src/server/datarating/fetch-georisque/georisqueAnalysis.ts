@@ -31,23 +31,28 @@ export const AZIAnalysis = (arrayAZI: AZIData[]): number => {
 export const sysmiqueAnalysis = (arraySismique: ZonageSismiqueData[]): number => {
   // Zonage Sismique Data Risque = 1-Très faible 2-faible 3-Moderée 4-Moyen 5-Fort
   const risqueLieu = parseInt(arraySismique[0].code_zone);
-  if (risqueLieu <= 2) {
-    return 0;
-  } else if (risqueLieu > 2 && risqueLieu <= 3) {
-    return 1;
+  
+  if (risqueLieu  ==1) {
+    return 100
+  } else if (risqueLieu  ==2) {
+    return 95;
+  } else if (risqueLieu == 3) {
+    return 90;
   } else if (risqueLieu == 4) {
-    return 2;
+    return 70;
   } else if (risqueLieu == 5) {
-    return 3;
+    return 50;
   } else {
     console.log('SysmiqueAnalysis unknown error with code : ' + arraySismique[0].code_zone);
+    return null
+
   }
 };
 
 export const CATNATAnalysis = (arrayCATNAT: CatnatData[]): number | null => {
   let rate = 100;
   if (!arrayCATNAT.length) {
-    return null;
+    return 100;
   }
   rate = 100 - (20 * arrayCATNAT.length);
   return rate > 0 ? rate : 0;
@@ -110,7 +115,7 @@ export const risqueAnalysis = (arrayRisque: RisquesData[]): number => {
 export const mvtAnalysis = (arrayMvt: MVTData[]): number => {
   // This type of data are not very useful
   if (!arrayMvt.length) {
-    return null;
+    return 100;
   }
 
   let rate = 100 - (10 * arrayMvt.length);
@@ -119,10 +124,10 @@ export const mvtAnalysis = (arrayMvt: MVTData[]): number => {
 
 export const sisAnalysis = (arraySIS: SISData[]): number => {
   if (!arraySIS.length) {
-    return null;
+    return 100;
   }
 
-  let rate = 100 - (10 * arraySIS.length);
+  let rate = 100 - (20 * arraySIS.length);
   return rate > 0 ? rate : 0;
 };
 

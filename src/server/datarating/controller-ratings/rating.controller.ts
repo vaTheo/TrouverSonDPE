@@ -198,11 +198,11 @@ export class RatingController {
 
   @Get('fethDPE/:addressID')
   async fethDPEByAddressID(
-    @Param('addressID') param: string,
+    @Param('addressID') addressID: string,
     @Req() req: RequestExtendsJWT,
   ): Promise<RatesParcCarto | null> {
-    if (await this.DBJsonDPE.isFilled(param)) {
-      return this.DBAllRatings.getRatingParcCartoByAddressId(param);
+    if (await this.DBJsonDPE.isFilled(addressID)) {
+      return this.DBAllRatings.getRatingParcCartoByAddressId(addressID);
     } else {
       return null;
     }

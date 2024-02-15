@@ -106,13 +106,17 @@ export class FetchParcCarto {
     Object.keys(cartoAllData).forEach((key) => {
       const typedKey = key as CartoAllDataKey; // Assert the key type
       const data = cartoAllData[typedKey];
-      let rate = 100;
-      if (!data || data.length === 0) {
+      let rate = 0;
+      if (!data) {
         ratesCarto[typedKey] = null;
       } else {
-        ratesCarto[typedKey] = rate - 20 * data.length;
+        ratesCarto[typedKey] = rate + 20 * data.length;
+        if (ratesCarto[typedKey] <= 0) {
+          ratesCarto[typedKey] = 100;
+        }
       }
     });
+
     return ratesCarto;
   }
 }

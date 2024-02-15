@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { AllRatings, Prisma } from '@prisma/client';
 import { PrismaService } from '@server/prisma/prisma.service';
-import { Ratings } from '../datarating/ratings/ratings';
+import { Ratings } from '../datarating/controller-ratings/ratings';
 import { RatesGeoRisque } from '@server/datarating/fetch-georisque/Georisque';
 import { RatesEau } from '@server/datarating/fetch-eau/eau';
 import { RatesParcCarto } from '@server/datarating/fetch-cartoParc/cartoParc';

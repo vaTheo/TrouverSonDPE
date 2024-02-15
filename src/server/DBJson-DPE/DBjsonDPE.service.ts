@@ -12,7 +12,7 @@ export class DBJsonDPE {
    * @param jsonToGet
    * @returns
    */
-  async getSpecificJson(addressID: string, jsonToGet: keyof jsonDPE): Promise<any | null> {
+  async JgetSpecificJson(addressID: string, jsonToGet: keyof jsonDPE): Promise<any | null> {
     // Convert jsonToGet to actual database field
     const dbField = jsonDPEMapping[jsonToGet];
     if (!dbField) {
@@ -46,7 +46,7 @@ export class DBJsonDPE {
   /**
    *
    * @param dataSourceID
-   * 
+   *
    */
   async addJson(addressID: string, dataDPE: DPEAllData) {
     try {
@@ -78,5 +78,27 @@ export class DBJsonDPE {
     }
   }
 
+  /**
+   * Retrieves all JSON fields for a given addressID.
+   *
+   * @param addressID The unique identifier for the address.
+   * @returns A promise that resolves with an object containing all JSON data.
+   */
+  async getAllJson(addressID: string){
+    const prismaWithJsonData = await this.prisma.jsonDataDPE.findUnique({
+      where: { addressID: addressID },
+    });
 
+    if (!prismaWithJsonData) {
+      throw new NotFoundException(`No JSON data found for addressID: ${addressID}`);
+    }
+
+    const JSONDPE:DPEAllData = {DPETertiaireAvant2021:JSON.parse(prismaWithJsonData.DPETertiaireAvant2021 as string),
+      DPEHabitatExistant:JSON.parse(prismaWithJsonData.DPEHabitatExistant as string),
+      DPEHabitatExistantAvant2021:JSON.parse(prismaWithJsonData.DPEHabitatExistantAvant2021 as string),
+      DPEHabitatNeuf:JSON.parse(prismaWithJsonData.DPEHabitatNeuf as string),
+      DPETertiaire:JSON.parse(prismaWithJsonData.DPETertiaire as string),}
+
+  return JSONDPE;
+  }
 }

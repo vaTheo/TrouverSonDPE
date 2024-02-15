@@ -13,9 +13,18 @@ export class FetchDPE {
     try {
       const agg_size = '64'; //Max result in the response
       const URLAPI = `https://data.ademe.fr/data-fair/api/v1/datasets/${endpoint}/`;
+    //  TODO:
+      // if (endpoint == 'dpe-france' || endpoint == 'dpe-tertiaire') {
+      // const response = await axios.get(
+      //   `${URLAPI}geo_agg?q=${addressObject.properties.id}&q_fields=Identifiant__BAN&size=50&geo_distance=5`,
+      // );
+      
+      // }
       const response = await axios.get(
         `${URLAPI}geo_agg?q=${addressObject.properties.id}&q_fields=Identifiant__BAN&size=50`,
       );
+      // presque bon call pour dpe-france : https://data.ademe.fr/data-fair/api/v1/datasets/dpe-france/lines?q=3%20Impasse%20du%20Foyer%20Rural%2001160%20Varambon&q_fields=geo_adresse
+      // Peut être qu'il faudrait mieux creer une box de 10m/10m autour pour avoir par coordonnées
       console.log(`${endpoint} -- callDPE`);
       const data: ApiResponse = response.data;
       if (data.total === 0) {
@@ -30,7 +39,13 @@ export class FetchDPE {
   }
 
   async getDPEDatas(addressObject: AddressObject): Promise<DPEAllData> {
-    const endpoints = ['dpe-v2-logements-existants', 'dpe-v2-tertiaire-2', 'dpe-v2-logements-neufs','dpe-tertiaire','dpe-france'];
+    const endpoints = [
+      'dpe-v2-logements-existants',
+      'dpe-v2-tertiaire-2',
+      'dpe-v2-logements-neufs',
+      'dpe-tertiaire',
+      'dpe-france',
+    ];
     const DPEDataPromise = endpoints.map((endpoint) => this.callDPE(addressObject, endpoint));
     try {
       const results = await Promise.all(DPEDataPromise);
@@ -51,42 +66,49 @@ export class FetchDPE {
   RateDPE(DPE: ResultItemDPE[]): number {
     const letterToNumber = (letter: string): number => {
       switch (letter) {
-        case 'A': return 6;
-        case 'B': return 5;
-        case 'C': return 4;
-        case 'D': return 3;
-        case 'E': return 2;
-        case 'F': return 1;
-        case 'G': return 0;
-        default:  return 0; // Adjust default case as needed
+        case 'A':
+          return 6;
+        case 'B':
+          return 5;
+        case 'C':
+          return 4;
+        case 'D':
+          return 3;
+        case 'E':
+          return 2;
+        case 'F':
+          return 1;
+        case 'G':
+          return 0;
+        default:
+          return 0; // Adjust default case as needed
       }
     };
-  
+
     if (!DPE || DPE.length === 0) {
       return 0;
     }
-  
+
     let totalScore = 0;
-    DPE.forEach(item => {
+    DPE.forEach((item) => {
       // Use Etiquette_GES or classe_estimation_ges, whichever is present
-      const gesScore = item.Etiquette_GES 
-                       ? letterToNumber(item.Etiquette_GES) 
-                       : letterToNumber(item.classe_estimation_ges);
-  
+      const gesScore = item.Etiquette_GES
+        ? letterToNumber(item.Etiquette_GES)
+        : letterToNumber(item.classe_estimation_ges);
+
       // Use Etiquette_DPE or classe_consommation_energie, whichever is present
-      const dpeScore = item.Etiquette_DPE 
-                       ? letterToNumber(item.Etiquette_DPE) 
-                       : letterToNumber(item.classe_consommation_energie);
-  
+      const dpeScore = item.Etiquette_DPE
+        ? letterToNumber(item.Etiquette_DPE)
+        : letterToNumber(item.classe_consommation_energie);
+
       totalScore += gesScore + dpeScore;
     });
-  
+
     const average = totalScore / (DPE.length * 2);
-    const rate = average / 6 * 100;
-  
+    const rate = (average / 6) * 100;
+
     return rate;
   }
-  
 
   getDPERates(DPEAllData: DPEAllData): RatesDPE {
     return {

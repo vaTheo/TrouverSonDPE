@@ -1,5 +1,5 @@
 import { MiddlewareConsumer, Module, Req } from '@nestjs/common';
-import { DataRatingModule } from './datarating/ratings/ratings.module';
+import { DataRatingModule } from './datarating/controller-ratings/ratings.module';
 import { UserModule } from './users/user.module';
 import { AsUUID } from '@server/midleware/asUUID';
 import { UsersController } from '@server/users/users.controller';
@@ -8,9 +8,10 @@ import { TokenService } from '@server/datarating/token/token.service';
 import { UserService } from '@server/users/user.service';
 import { PrismaService } from '@server/prisma/prisma.service';
 import { NextFunction, Request, Response } from 'express';
+import { FrontDataModule } from './datarating/controller-frontData/frontData.module';
 
 @Module({
-  imports: [UserModule, DataRatingModule],
+  imports: [UserModule, DataRatingModule,FrontDataModule],
   controllers: [],
   providers: [TokenService, UserService, PrismaService], //Service and midlware
 })

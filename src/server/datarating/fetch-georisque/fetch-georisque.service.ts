@@ -133,11 +133,11 @@ export class FetchGeorisqueService {
     const endpoints = [
       { endpoint: 'gaspar/azi', type: 'AZIData', rayon: '1' },
       { endpoint: 'gaspar/catnat', type: 'CatnatData', rayon: '1' },
-      { endpoint: 'installations_classees', type: 'InstallationsClasseesData', rayon: '1000' },
-      { endpoint: 'mvt', type: 'MVTData', rayon: '1000' },
+      { endpoint: 'installations_classees', type: 'InstallationsClasseesData', rayon: '5000' },
+      { endpoint: 'mvt', type: 'MVTData', rayon: '5000' },
       { endpoint: 'radon', type: 'RadonData', rayon: '1' },
       { endpoint: 'gaspar/risques', type: 'RisquesData', rayon: '1' },
-      { endpoint: 'sis', type: 'SISData', rayon: '1000' },
+      { endpoint: 'sis', type: 'SISData', rayon: '5000' },
       { endpoint: 'gaspar/tri', type: 'TRIData', rayon: '1' },
       { endpoint: 'zonage_sismique', type: 'ZonageSismiqueData', rayon: '1' },
     ];
