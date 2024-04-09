@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { AddressObject } from '@server/datarating/fetch-address/address';
 import axios from 'axios';
-import { AddressObjectDTO, AddressObjectThreeValueDTO } from '../controller-ratings/rating.dto';
+import { AddressObjectDTO, AddressObjectThreeValueDTO } from '../../controller-ratings/rating.dto';
 const URLapi = 'https://api-adresse.data.gouv.fr/search/?q=';
 
 @Injectable()

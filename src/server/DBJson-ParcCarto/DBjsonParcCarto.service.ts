@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import {  jsonParcCarto } from './jsonParcCarto';
-import {  jsonParcCartoMapping } from './jsonParcCarto.const';
+import { jsonParcCarto } from './jsonParcCarto';
+import { jsonParcCartoMapping } from './jsonParcCarto.const';
 import { ParcCartoAllData } from '@server/datarating/fetch-cartoParc/cartoParc';
 @Injectable()
 export class DBJsonParcCarto {
@@ -16,7 +16,7 @@ export class DBJsonParcCarto {
     // Convert jsonToGet to actual database field
     const dbField = jsonParcCartoMapping[jsonToGet];
     if (!dbField) {
-      throw new NotFoundException(`Invalid field name: ${jsonToGet}`);
+      return null;
     }
 
     const dataSourceWithJsonData = await this.prisma.addressInfo.findUnique({
@@ -33,12 +33,12 @@ export class DBJsonParcCarto {
       !dataSourceWithJsonData.jsonDataParcCarto ||
       dataSourceWithJsonData.jsonDataParcCarto.length === 0
     ) {
-      throw new NotFoundException(`No JSON data found for addressID: ${addressID}`);
+      return null;
     }
 
     const jsonData = dataSourceWithJsonData.jsonDataParcCarto[0][dbField] as string;
     if (jsonData === null || jsonData === undefined) {
-      throw new NotFoundException(`No JSON data found for addressID: ${addressID} and field: ${jsonToGet}`);
+      return null;
     }
     return await JSON.parse(jsonData);
   }
@@ -46,12 +46,14 @@ export class DBJsonParcCarto {
   /**
    *
    * @param dataSourceID
-   * 
+   *
    */
   async addJson(addressID: string, dataParcCarto: ParcCartoAllData) {
     try {
       const createData: any = { addressID: addressID };
-      const fields: Array<keyof ParcCartoAllData> = Object.keys(dataParcCarto) as Array<keyof ParcCartoAllData>;
+      const fields: Array<keyof ParcCartoAllData> = Object.keys(dataParcCarto) as Array<
+        keyof ParcCartoAllData
+      >;
 
       fields.forEach((field) => {
         if (dataParcCarto[field]) {
@@ -77,6 +79,4 @@ export class DBJsonParcCarto {
       return false;
     }
   }
-
-
 }

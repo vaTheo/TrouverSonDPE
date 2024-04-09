@@ -18,8 +18,7 @@ export class DBJsonGeorisque {
     // Convert jsonToGet to actual database field
     const dbField = jsonGeorisqueMapping[jsonToGet];
     if (!dbField) {
-      throw new NotFoundException(`Invalid field name: ${jsonToGet}`);
-    }
+      return null    }
 
     const dataSourceWithJsonData = await this.prisma.addressInfo.findUnique({
       where: { addressID: addressID },
@@ -35,12 +34,12 @@ export class DBJsonGeorisque {
       !dataSourceWithJsonData.jsonDataGeorisque ||
       dataSourceWithJsonData.jsonDataGeorisque.length === 0
     ) {
-      throw new NotFoundException(`No JSON data found for addressID: ${addressID}`);
+      return null;
     }
 
     const jsonData = dataSourceWithJsonData.jsonDataGeorisque[0][dbField] as string;
     if (jsonData === null || jsonData === undefined) {
-      throw new NotFoundException(`No JSON data found for addressID: ${addressID} and field: ${jsonToGet}`);
+      return null;
     }
     // TODO: Why JSON data is type never when I remove the as string ?.???
     return await JSON.parse(jsonData);

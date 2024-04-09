@@ -10,7 +10,7 @@ import {
   Param,
 } from '@nestjs/common';
 import { RolesGuard } from '@server/midleware/roles.guards';
-import { TokenService } from '../token/token.service';
+import { TokenService } from '../datarating/token/token.service';
 import { RatingsDBService } from '../controller-ratings/ratingsDB.service';
 import { DBAllRatings } from '@server/DBallRatings/DBallRatings.service';
 import { RequestExtendsJWT } from '@server/midleware/JWTValidation';
@@ -20,10 +20,10 @@ import { DBJsonDPE } from '@server/DBJson-DPE/DBjsonDPE.service';
 import { DBJsonEau } from '@server/DBjson-Eau/DBjsonEau.service';
 import { DBJsonGeorisque } from '@server/DBjson-Georisque/DBjsonGeorisque.service';
 import { DBJsonParcCarto } from '@server/DBJson-ParcCarto/DBjsonParcCarto.service';
-import { DPEAllData } from '../fetch-dpe/DPE';
-import { eauAllData } from '../fetch-eau/eau';
-import { GeorisqueAllData } from '../fetch-georisque/Georisque';
-import { AZIData, CatnatData } from '../fetch-georisque/api-georisque';
+import { DPEAllData } from '../datarating/fetch-dpe/DPE';
+import { eauAllData } from '../datarating/fetch-eau/eau';
+import { GeorisqueAllData } from '../datarating/fetch-georisque/Georisque';
+import { AZIData, CatnatData } from '../datarating/fetch-georisque/api-georisque';
 import {
   frontCatastropheNaturelle,
   frontDPEBatiment,
@@ -83,6 +83,7 @@ export class FrontData {
     @Param('addressID') addressID: string,
     @Req() req: RequestExtendsJWT,
   ): Promise<frontDPEBatiment> {
+    console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
     const allData: frontDPEBatiment = {
       DPEBatiment: {
         DPEHabitatExistant: await this.DBJsonDPE.JgetSpecificJson(addressID, 'DPEHabitatExistant'),
@@ -101,14 +102,20 @@ export class FrontData {
 
   @Get('geteau/:addressID')
   async getJSONeau(@Param('addressID') addressID: string, @Req() req: RequestExtendsJWT): Promise<frontEau> {
-    const allData: frontEau = {
-      eau: {
-        coursEau: await this.DBJsonEau.getSpecificJsonDataEau(addressID, 'coursEau'),
-        eauPotable: await this.DBJsonEau.getSpecificJsonDataEau(addressID, 'eauPotable'),
-      },
-    };
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    try {
+      const allData: frontEau = {
+        eau: {
+          coursEau: await this.DBJsonEau.getSpecificJsonDataEau(addressID, 'coursEau'),
+          eauPotable: await this.DBJsonEau.getSpecificJsonDataEau(addressID, 'eauPotable'),
+        },
+      };
 
-    return allData;
+      return allData;
+    } catch (e) {
+      console.log(e);
+      throw new Error(e);
+    }
   }
 
   @Get('getzoneinnondable/:addressID')
@@ -116,11 +123,16 @@ export class FrontData {
     @Param('addressID') addressID: string,
     @Req() req: RequestExtendsJWT,
   ): Promise<frontzoneInnondable> {
-    const allData: frontzoneInnondable = {
-      zoneInnondable: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(addressID, 'AZI'),
-    };
+    try {
+      const allData: frontzoneInnondable = {
+        zoneInnondable: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(addressID, 'AZI'),
+      };
 
-    return allData;
+      return allData;
+    } catch (e) {
+      console.log(e);
+      throw new Error(e);
+    }
   }
 
   @Get('getcatastrophenaturelle/:addressID')
@@ -128,11 +140,16 @@ export class FrontData {
     @Param('addressID') addressID: string,
     @Req() req: RequestExtendsJWT,
   ): Promise<frontCatastropheNaturelle> {
-    const allData: frontCatastropheNaturelle = {
-      CatastropheNaturelle: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(addressID, 'Catnat'),
-    };
+    try {
+      const allData: frontCatastropheNaturelle = {
+        CatastropheNaturelle: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(addressID, 'Catnat'),
+      };
 
-    return allData;
+      return allData;
+    } catch (e) {
+      console.log(e);
+      throw new Error(e);
+    }
   }
 
   @Get('getinstallationclassees/:addressID')
@@ -140,14 +157,19 @@ export class FrontData {
     @Param('addressID') addressID: string,
     @Req() req: RequestExtendsJWT,
   ): Promise<frontInstallationClassees> {
-    const allData: frontInstallationClassees = {
-      InstallationClassees: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(
-        addressID,
-        'InstallationsClassees',
-      ),
-    };
+    try {
+      const allData: frontInstallationClassees = {
+        InstallationClassees: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(
+          addressID,
+          'InstallationsClassees',
+        ),
+      };
 
-    return allData;
+      return allData;
+    } catch (e) {
+      console.log(e);
+      throw new Error(e);
+    }
   }
 
   @Get('getrisquelocaux/:addressID')
@@ -155,18 +177,23 @@ export class FrontData {
     @Param('addressID') addressID: string,
     @Req() req: RequestExtendsJWT,
   ): Promise<frontrisqueLocaux> {
-    const allData: frontrisqueLocaux = {
-      risqueLocaux: {
-        MVTData: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(addressID, 'MVT'),
-        RadonData: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(addressID, 'Radon'),
-        ZonageSismiqueData: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(
-          addressID,
-          'ZonageSismique',
-        ),
-      },
-    };
+    try {
+      const allData: frontrisqueLocaux = {
+        risqueLocaux: {
+          MVTData: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(addressID, 'MVT'),
+          RadonData: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(addressID, 'Radon'),
+          ZonageSismiqueData: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(
+            addressID,
+            'ZonageSismique',
+          ),
+        },
+      };
 
-    return allData;
+      return allData;
+    } catch (e) {
+      console.log(e);
+      throw new Error(e);
+    }
   }
 
   @Get('getzonenaturelle/:addressID')
@@ -174,16 +201,21 @@ export class FrontData {
     @Param('addressID') addressID: string,
     @Req() req: RequestExtendsJWT,
   ): Promise<frontzoneNaturelle> {
-    const allData: frontzoneNaturelle = {
-      zoneNaturelle: {
-        naturaHabitat: await this.DBJsonParcCarto.getSpecificJson(addressID, 'naturaHabitat'),
-        naturaOiseaux: await this.DBJsonParcCarto.getSpecificJson(addressID, 'naturaOiseaux'),
-        znieff1: await this.DBJsonParcCarto.getSpecificJson(addressID, 'znieff1'),
-        znieff2: await this.DBJsonParcCarto.getSpecificJson(addressID, 'znieff2'),
-      },
-    };
+    try {
+      const allData: frontzoneNaturelle = {
+        zoneNaturelle: {
+          naturaHabitat: await this.DBJsonParcCarto.getSpecificJson(addressID, 'naturaHabitat'),
+          naturaOiseaux: await this.DBJsonParcCarto.getSpecificJson(addressID, 'naturaOiseaux'),
+          znieff1: await this.DBJsonParcCarto.getSpecificJson(addressID, 'znieff1'),
+          znieff2: await this.DBJsonParcCarto.getSpecificJson(addressID, 'znieff2'),
+        },
+      };
 
-    return allData;
+      return allData;
+    } catch (e) {
+      console.log(e);
+      throw new Error(e);
+    }
   }
 
   @Get('getparcnaturelle/:addressID')
@@ -191,29 +223,39 @@ export class FrontData {
     @Param('addressID') addressID: string,
     @Req() req: RequestExtendsJWT,
   ): Promise<frontParcNaturelle> {
-    const allData: frontParcNaturelle = {
-      parcNaturelle: {
-        pn: await this.DBJsonParcCarto.getSpecificJson(addressID, 'pn'),
-        pnr: await this.DBJsonParcCarto.getSpecificJson(addressID, 'pnr'),
-        rnc: await this.DBJsonParcCarto.getSpecificJson(addressID, 'rnc'),
-        rncf: await this.DBJsonParcCarto.getSpecificJson(addressID, 'rncf'),
-        rnn: await this.DBJsonParcCarto.getSpecificJson(addressID, 'rnn'),
-      },
-    };
+    try {
+      const allData: frontParcNaturelle = {
+        parcNaturelle: {
+          pn: await this.DBJsonParcCarto.getSpecificJson(addressID, 'pn'),
+          pnr: await this.DBJsonParcCarto.getSpecificJson(addressID, 'pnr'),
+          rnc: await this.DBJsonParcCarto.getSpecificJson(addressID, 'rnc'),
+          rncf: await this.DBJsonParcCarto.getSpecificJson(addressID, 'rncf'),
+          rnn: await this.DBJsonParcCarto.getSpecificJson(addressID, 'rnn'),
+        },
+      };
 
-    return allData;
+      return allData;
+    } catch (e) {
+      console.log(e);
+      throw new Error(e);
+    }
   }
   @Get('getpollutionsol/:addressID')
   async getJSONpollutionsol(
     @Param('addressID') addressID: string,
     @Req() req: RequestExtendsJWT,
   ): Promise<frontpollutionSol> {
-    const allData: frontpollutionSol = {
-      pollutionSol: {
-        sis: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(addressID, 'SIS'),
-       
-      },
-    };
+    try {
+      const allData: frontpollutionSol = {
+        pollutionSol: {
+          sis: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(addressID, 'SIS'),
+        },
+      };
 
-    return allData;
-  }}
+      return allData;
+    } catch (e) {
+      console.log(e);
+      throw new Error(e);
+    }
+  }
+}

@@ -1,7 +1,7 @@
-import { FeatureCarto } from '../fetch-cartoParc/api-cartoParc';
-import { ParcCartoAllData } from '../fetch-cartoParc/cartoParc';
-import { DPEAllData } from '../fetch-dpe/DPE';
-import { eauAllData } from '../fetch-eau/eau';
+import { FeatureCarto } from '../datarating/fetch-cartoParc/api-cartoParc';
+import { ParcCartoAllData } from '../datarating/fetch-cartoParc/cartoParc';
+import { DPEAllData } from '../datarating/fetch-dpe/DPE';
+import { eauAllData } from '../datarating/fetch-eau/eau';
 import {
   AZIData,
   CatnatData,
@@ -10,7 +10,7 @@ import {
   RadonData,
   SISData,
   ZonageSismiqueData,
-} from '../fetch-georisque/api-georisque';
+} from '../datarating/fetch-georisque/api-georisque';
 
 interface frontzoneInnondable {
   zoneInnondable: AZIData[];

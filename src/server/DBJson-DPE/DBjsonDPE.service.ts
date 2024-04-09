@@ -16,8 +16,7 @@ export class DBJsonDPE {
     // Convert jsonToGet to actual database field
     const dbField = jsonDPEMapping[jsonToGet];
     if (!dbField) {
-      throw new NotFoundException(`Invalid field name: ${jsonToGet}`);
-    }
+      return null    }
 
     const dataSourceWithJsonData = await this.prisma.addressInfo.findUnique({
       where: { addressID: addressID },
@@ -33,8 +32,7 @@ export class DBJsonDPE {
       !dataSourceWithJsonData.jsonDataDPE ||
       dataSourceWithJsonData.jsonDataDPE.length === 0
     ) {
-      throw new NotFoundException(`No JSON data found for addressID: ${addressID}`);
-    }
+      return null    }
 
     const jsonData = dataSourceWithJsonData.jsonDataDPE[0][dbField] as string;
     if (jsonData === null || jsonData === undefined) {

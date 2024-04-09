@@ -34,12 +34,12 @@ export class DBJsonEau {
       !dataSourceWithJsonData.jsonDataEau ||
       dataSourceWithJsonData.jsonDataEau.length === 0
     ) {
-      throw new NotFoundException(`No JSON data found for addressID: ${addressID}`);
+      return null
     }
 
     const jsonData = dataSourceWithJsonData.jsonDataEau[0][dbField] as string;
     if (jsonData === null || jsonData === undefined) {
-      throw new NotFoundException(`No JSON data found for addressID: ${addressID} and field: ${jsonToGet}`);
+      return null
     }
     return await JSON.parse(jsonData);
   }

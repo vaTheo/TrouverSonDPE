@@ -9,31 +9,31 @@ import {
   Post,
   Param,
 } from '@nestjs/common';
-import { AddressObject } from '../fetch-address/address';
-import { GeorisqueAllData, RatesGeoRisque } from '../fetch-georisque/Georisque';
-import { eauAnalysis } from '../fetch-eau/eauAnalysis';
-import { TokenService } from '../token/token.service';
+import { AddressObject } from '../datarating/fetch-address/address';
+import { GeorisqueAllData, RatesGeoRisque } from '../datarating/fetch-georisque/Georisque';
+import { eauAnalysis } from '../datarating/fetch-eau/eauAnalysis';
+import { TokenService } from '../datarating/token/token.service';
 import { RatingsDBService } from './ratingsDB.service';
 import { Ratings } from './ratings';
-import { RolesGuard } from '../../midleware/roles.guards';
+import { RolesGuard } from '../midleware/roles.guards';
 import { RequestExtendsJWT } from '@server/midleware/JWTValidation';
 import { FetchAddressService } from '@server/datarating/fetch-address/address.service';
 import { FetchEauService } from '@server/datarating/fetch-eau/fetch-eau.service';
 import { FetchGeorisqueService } from '@server/datarating/fetch-georisque/fetch-georisque.service';
-import { EauPotableData, RatesEau, eauAllData } from '../fetch-eau/eau';
+import { EauPotableData, RatesEau, eauAllData } from '../datarating/fetch-eau/eau';
 import { AddressObjectDTO, AddressObjectThreeValueDTO, JsonEauDTO, JsonGeorisqueDTO } from './rating.dto';
-import { DBJsonGeorisque } from '../../DBjson-Georisque/DBjsonGeorisque.service';
-import { DBJsonParcCarto } from '../../DBJson-ParcCarto/DBjsonParcCarto.service';
-import { DBUserAddressInfo } from '../../DBUserAddressInfo/DBUserAddressInfo.service';
-import { DBAddressInfo } from '../../DBaddressInfo/DBaddressInfo.service';
-import { DBAllRatings } from '../../DBallRatings/DBallRatings.service';
+import { DBJsonGeorisque } from '../DBjson-Georisque/DBjsonGeorisque.service';
+import { DBJsonParcCarto } from '../DBJson-ParcCarto/DBjsonParcCarto.service';
+import { DBUserAddressInfo } from '../DBUserAddressInfo/DBUserAddressInfo.service';
+import { DBAddressInfo } from '../DBaddressInfo/DBaddressInfo.service';
+import { DBAllRatings } from '../DBallRatings/DBallRatings.service';
 import axios from 'axios';
-import { FetchParcCarto } from '../fetch-cartoParc/fetch-cartoParc.service';
-import { RatesParcCarto } from '../fetch-cartoParc/cartoParc';
-import { DBJsonEau } from '../../DBjson-Eau/DBjsonEau.service';
-import { FetchDPE } from '../fetch-dpe/fetch-DPE.service';
+import { FetchParcCarto } from '../datarating/fetch-cartoParc/fetch-cartoParc.service';
+import { RatesParcCarto } from '../datarating/fetch-cartoParc/cartoParc';
+import { DBJsonEau } from '../DBjson-Eau/DBjsonEau.service';
+import { FetchDPE } from '../datarating/fetch-dpe/fetch-DPE.service';
 import { DBJsonDPE } from '@server/DBJson-DPE/DBjsonDPE.service';
-import { RatesDPE } from '../fetch-dpe/DPE';
+import { RatesDPE } from '../datarating/fetch-dpe/DPE';
 
 @Controller('ratingcontroller')
 @UseGuards(RolesGuard)

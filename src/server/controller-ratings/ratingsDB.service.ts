@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { Ratings } from './ratings';
 import { AddressObject } from '@server/datarating/fetch-address/address';
 import { AllRatings, Prisma, jsonDataGeorisque } from '@prisma/client';
-import { eauAllData } from '../fetch-eau/eau';
+import { eauAllData } from '../datarating/fetch-eau/eau';
 
 @Injectable()
 export class RatingsDBService {
