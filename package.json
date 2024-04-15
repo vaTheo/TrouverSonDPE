@@ -33,7 +33,10 @@
     "testEau": "nodemon --watch src/**/* -e ts,tsx --exec ts-node -r tsconfig-paths/register src/openDataSources/appOpenDataSources.ts",
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
     "start:dev": "nest start --watch -r tsconfig-paths/register",
-    "start:prod": "node dist/main"
+    "start:prod": "node dist/main",
+    "build": "nest build",
+    "docker-b" :"docker build -t geonote ."
+
   },
   "name": "TrouverSonDPE",
   "version": "1.0.0",

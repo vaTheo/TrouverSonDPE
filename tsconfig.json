@@ -1,14 +1,17 @@
 {
     "compilerOptions": {
         "module": "CommonJS", 
+        "removeComments": true,
+        "declaration": true,
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "target": "ES6",
         "noImplicitAny": true,
         "moduleResolution": "node",
         "sourceMap": true,
-        // "outDir": "dist",
+        "outDir": "./dist",
         "baseUrl": ".",
+        "incremental": true,
         "paths": {
             // "@app/*": ["src/*"],
             "@server/*": ["src/server/*"],
