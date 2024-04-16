@@ -3,7 +3,10 @@ import { NestFactory } from '@nestjs/core';
 import { RootModule } from './server/root.module';
 import cookieParser from 'cookie-parser';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
+import * as dotenv from 'dotenv';
 
+//Dotenv for environment variables
+dotenv.config();
 //Nest server management
 async function bootstrap() {
   try {
@@ -11,9 +14,9 @@ async function bootstrap() {
     app.enableCors({
       origin: 'http://localhost:3000', // Your frontend's origin
       credentials: true,
-    }); 
+    });
     app.use(cookieParser());
-        app.useGlobalPipes(
+    app.useGlobalPipes(
       // use to validate types on HTTP requests
       new ValidationPipe({
         whitelist: true,

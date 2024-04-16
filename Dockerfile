@@ -1,32 +1,53 @@
-# Use the official Node.js 18 image as a parent image
-FROM node:18-alpine
+# syntax = docker/dockerfile:1
 
-# Set the working directory
-WORKDIR /usr/src/app
+# Adjust NODE_VERSION as desired
+ARG NODE_VERSION=20.11.0
+FROM node:${NODE_VERSION}-slim as base
 
-# Install Python and build dependencies for native modules
-RUN apk --no-cache add python3 make g++ && \
-    if [ ! -e /usr/bin/python ]; then ln -s python3 /usr/bin/python; fi
+LABEL fly_launch_runtime="NestJS/Prisma"
 
-# Copy package.json and yarn.lock files
-COPY package.json yarn.lock ./
+# NestJS/Prisma app lives here
+WORKDIR /app
 
-# Install dependencies and rebuild bcrypt with all dependencies in place
-RUN yarn install --frozen-lockfile && \
-    yarn add bcrypt --build-from-source
+# Set production environment
+ENV NODE_ENV="production"
+ARG YARN_VERSION=1.22.19
+RUN npm install -g yarn@$YARN_VERSION --force
 
-# Bundle app source inside Docker image
-COPY . .
 
-# Build the application using Nest CLI
-RUN yarn build
+# Throw-away build stage to reduce size of final image
+FROM base as build
 
-# Expose the port the app runs on
+# Install packages needed to build node modules
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y build-essential node-gyp openssl pkg-config python-is-python3
+
+# Install node modules
+COPY --link package-lock.json package.json yarn.lock ./
+RUN yarn install --frozen-lockfile --production=false
+
+# Generate Prisma Client
+COPY --link prisma .
+RUN npx prisma generate
+
+# Copy application code
+COPY --link . .
+
+# Build application
+RUN yarn run build
+
+
+# Final stage for app image
+FROM base
+
+# Install packages needed for deployment
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y openssl && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Copy built application
+COPY --from=build /app /app
+
+# Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-
-# Command to run the application
-CMD ["node", "dist/main"]
-
-# Clean up build tools to keep the image slim
-RUN apk del make g++ && \
-    rm -rf /var/cache/apk/*
+CMD [ "yarn", "run", "start" ]
