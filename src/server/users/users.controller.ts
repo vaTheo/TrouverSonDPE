@@ -121,4 +121,9 @@ export class UsersController {
 
   @Patch('user/:id')
   async patchProfileByID(@Body() data: any) {}
+
+  @Get('ping')
+  async ping(@Body() data: any) {
+    return { success: true, message: 'Pong', status: HttpStatus.OK };
+  }
 }

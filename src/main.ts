@@ -12,7 +12,7 @@ async function bootstrap() {
   try {
     const app = await NestFactory.create(RootModule);
     app.enableCors({
-      origin: 'http://localhost:3000', // Your frontend's origin
+      origin: ['https://geonote.fly.dev','http://localhost:3000'], // Your frontend's origin
       credentials: true,
     });
     app.use(cookieParser());
@@ -25,7 +25,7 @@ async function bootstrap() {
         exceptionFactory: (errors) => new BadRequestException(errors),
       }),
     );
-    const port = 3001;
+    const port = 3000;
     await app.listen(port);
     console.log(`Server is running on http://localhost:${port}`); // Log when the server starts
   } catch (error) {
