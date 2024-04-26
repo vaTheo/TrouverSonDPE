@@ -104,30 +104,6 @@ export class FetchGeorisqueService {
     }
   }
 
-  // TODO: creeer service AXIOS de type
-  /*    // @Injectable()
-// export class GeoRisqueService {
-//   private client: AxiosInstance;
-
-//   constructor() {
-//     this.client = axios.create({
-//       baseURL: BASE_URL,
-//     })
-//   }
-
-//   getRadon(){
-//     // Tu crées ton type GetRadonResponse
-//     // Ici tu peux même itéré sur tes pages si t'as besoin mais déjà t'utilises ton client c'est plus propre et facil à lire
-//     const { data } = await this.client.get<GetRadonResponse>('/radon', {
-//       params: {
-//         code_insee: addressObject.properties.citycode,
-//         page:page
-//       },
-//     });
-//   }
-// }
-
-*/
   //API Gaspar management, given any valide endepoint return the response
   async callAllApiGasparPromiseAll(addressObject: AddressObject): Promise<GeorisqueAllData> {
     const endpoints = [

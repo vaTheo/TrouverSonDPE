@@ -38,6 +38,7 @@ export type AddressObject ={
       x: number;
       y: number;
       city: string;
+      district: string,
       context: string;
       type: string;
       importance: number;

@@ -11,22 +11,22 @@ export class FetchDPE {
   // 100 requêtes/ 5 secondes
   async callDPE(addressObject: AddressObject, endpoint: string): Promise<ResultItemDPE[] | null> {
     try {
-      const agg_size = '64'; //Max result in the response
+      const agg_size = '32'; //Max result in the response
       const URLAPI = `https://data.ademe.fr/data-fair/api/v1/datasets/${endpoint}/`;
-    //  TODO:
-      // if (endpoint == 'dpe-france' || endpoint == 'dpe-tertiaire') {
-      // const response = await axios.get(
-      //   `${URLAPI}geo_agg?q=${addressObject.properties.id}&q_fields=Identifiant__BAN&size=50&geo_distance=5`,
-      // );
-      
-      // }
-      const response = await axios.get(
-        `${URLAPI}geo_agg?q=${addressObject.properties.id}&q_fields=Identifiant__BAN&size=50`,
-      );
-      // presque bon call pour dpe-france : https://data.ademe.fr/data-fair/api/v1/datasets/dpe-france/lines?q=3%20Impasse%20du%20Foyer%20Rural%2001160%20Varambon&q_fields=geo_adresse
-      // Peut être qu'il faudrait mieux creer une box de 10m/10m autour pour avoir par coordonnées
-      console.log(`${endpoint} -- callDPE`);
-      const data: ApiResponse = response.data;
+      let data: ApiResponse;
+      if (endpoint == 'dpe-france' || endpoint == 'dpe-tertiaire') {
+        // For old DPE need to search with coordinates. Evens the coordinates are some times not precise so we search 50m around
+        const lat = addressObject.geometry.coordinates[1];
+        const long = addressObject.geometry.coordinates[0];
+        const aroundMeters = 50;
+        const response = await axios.get(`${URLAPI}geo_agg?geo_distance=${long}:${lat}:${aroundMeters}`);
+        data = response.data;
+      } else {
+        const response = await axios.get(
+          `${URLAPI}geo_agg?q=${addressObject.properties.id}&q_fields=Identifiant__BAN&size=50`,
+        );
+        data = response.data;
+      }
       if (data.total === 0) {
         return [];
       }
