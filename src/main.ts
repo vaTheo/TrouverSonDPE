@@ -25,7 +25,7 @@ async function bootstrap() {
         exceptionFactory: (errors) => new BadRequestException(errors),
       }),
     );
-    const port = 3000;
+    const port = 3001;
     await app.listen(port);
     console.log(`Server is running on http://localhost:${port}`); // Log when the server starts
   } catch (error) {

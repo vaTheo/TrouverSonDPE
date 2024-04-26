@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Param } from '@nestjs/common';
+import { Controller, Get, Req, Param, HttpStatus } from '@nestjs/common';
 import { DBAllRatings } from '@server/DBallRatings/DBallRatings.service';
 import { FrontDataService } from './frontData.service';
 import { FrontGroupDataValue } from './frontData';
@@ -240,4 +240,13 @@ export class FrontData {
       throw new Error(e);
     }
   }
+
+    @Get('ping')
+    async ping() {
+      return { success: true, message: 'Pong', status: HttpStatus.OK };
+    }
+  
+  
 }
+
+
