@@ -10,21 +10,15 @@ import {
   Param,
 } from '@nestjs/common';
 import { AddressObject } from '../datarating/fetch-address/address';
-import { GeorisqueAllData, RatesGeoRisque } from '../datarating/fetch-georisque/Georisque';
+import { RatesGeoRisque } from '../datarating/fetch-georisque/Georisque';
 import { eauAnalysis } from '../datarating/fetch-eau/eauAnalysis';
-import { TokenService } from '../datarating/token/token.service';
 import { RatingsDBService } from './ratingsDB.service';
-import { Ratings } from './ratings';
-import { RolesGuard } from '../midleware/roles.guards';
-import { RequestExtendsJWT } from '@server/midleware/JWTValidation';
 import { FetchAddressService } from '@server/datarating/fetch-address/address.service';
 import { FetchEauService } from '@server/datarating/fetch-eau/fetch-eau.service';
 import { FetchGeorisqueService } from '@server/datarating/fetch-georisque/fetch-georisque.service';
 import { EauPotableData, RatesEau, eauAllData } from '../datarating/fetch-eau/eau';
-import { AddressObjectDTO, AddressObjectThreeValueDTO, JsonEauDTO, JsonGeorisqueDTO } from './rating.dto';
+import { AddressObjectDTO, JsonEauDTO, JsonGeorisqueDTO } from './rating.dto';
 import { DBJsonGeorisque } from '../DBjson-Georisque/DBjsonGeorisque.service';
-import { DBJsonParcCarto } from '../DBJson-ParcCarto/DBjsonParcCarto.service';
-import { DBUserAddressInfo } from '../DBUserAddressInfo/DBUserAddressInfo.service';
 import { DBAddressInfo } from '../DBaddressInfo/DBaddressInfo.service';
 import { DBAllRatings } from '../DBallRatings/DBallRatings.service';
 import axios from 'axios';
@@ -34,12 +28,12 @@ import { DBJsonEau } from '../DBjson-Eau/DBjsonEau.service';
 import { FetchDPE } from '../datarating/fetch-dpe/fetch-DPE.service';
 import { DBJsonDPE } from '@server/DBJson-DPE/DBjsonDPE.service';
 import { RatesDPE } from '../datarating/fetch-dpe/DPE';
+import { Request } from 'express';
+import { DBJsonParcCarto } from '../DBJson-ParcCarto/DBjsonParcCarto.service';
 
 @Controller('ratingcontroller')
-@UseGuards(RolesGuard)
 export class RatingController {
   constructor(
-    private tokenService: TokenService,
     private RatingsDBService: RatingsDBService,
     private fetchAddressService: FetchAddressService,
     private fetchEauService: FetchEauService,
@@ -50,14 +44,13 @@ export class RatingController {
     private DBjsonGeorisque: DBJsonGeorisque,
     private DBjsonEau: DBJsonEau,
     private DBAddressInfo: DBAddressInfo,
-    private DBUserAddressInfo: DBUserAddressInfo,
     private DBJsonParcCarto: DBJsonParcCarto,
     private DBJsonDPE: DBJsonDPE,
   ) {} //Inport the token service so I can use it in the controller
 
   @Get('getrate')
   // @Roles('admin', 'user')
-  async getExistingRate(@Body() dataQuery: any/*AddressObjectDTO*/, @Req() req: RequestExtendsJWT) {
+  async getExistingRate(@Body() dataQuery: any /*AddressObjectDTO*/, @Req() req: Request) {
     try {
       const addressObject = await this.fetchAddressService.findAddress(dataQuery);
 
@@ -91,7 +84,7 @@ export class RatingController {
    *
    * @param param The address ID extracted from the URL parameter. It is used to identify the
    *              specific address for which Georisque data is being requested.
-   * @param req   The extended request object of type RequestExtendsJWT, which includes additional
+   * @param req   The extended request object of type Request, which includes additional
    *              user information such as user ID and UUID.
    *
    * @returns     A Promise resolving to the Georisque rates associated with the address ID if found,
@@ -100,7 +93,7 @@ export class RatingController {
   @Get('fetchgeorisque/:addressID')
   async fetchGerosiqueByAddressID(
     @Param('addressID') param: string,
-    @Req() req: RequestExtendsJWT,
+    @Req() req: Request,
   ): Promise<RatesGeoRisque | null> {
     if (await this.DBjsonGeorisque.isFilled(param)) {
       return this.DBAllRatings.getRatingGeorisqueByAddressId(param);
@@ -120,19 +113,21 @@ export class RatingController {
    *
    * @param dataQuerry The address object received in the request body, used to fetch and analyze
    *                   Georisque data.
-   * @param req        The extended request object of type RequestExtendsJWT, which includes additional
+   * @param req        The extended request object of type Request, which includes additional
    *                   user information such as user ID and UUID.
    *
    * @returns          A Promise resolving to the analyzed Georisque rates for the provided address.
    */
   @Post('fetchgeorisque')
-  async postGerosique(
-    @Body() addressObject: AddressObject,
-    @Req() req: RequestExtendsJWT,
-  ): Promise<RatesGeoRisque> {
-    const ratesGaspar = this.fetchGeorisqueService.analisysGaspar(await this.fetchGeorisqueService.callAllApiGasparPromiseAll(addressObject));
+  async postGerosique(@Body() addressObject: AddressObject, @Req() req: Request): Promise<RatesGeoRisque> {
+    const ratesGaspar = this.fetchGeorisqueService.analisysGaspar(
+      await this.fetchGeorisqueService.callAllApiGasparPromiseAll(addressObject),
+    );
 
-    await this.DBjsonGeorisque.addJsonGeorisque(addressObject.properties.id, await this.fetchGeorisqueService.callAllApiGasparPromiseAll(addressObject));
+    await this.DBjsonGeorisque.addJsonGeorisque(
+      addressObject.properties.id,
+      await this.fetchGeorisqueService.callAllApiGasparPromiseAll(addressObject),
+    );
     await this.DBAllRatings.updateRating(addressObject.properties.id, ratesGaspar);
     return ratesGaspar;
   }
@@ -140,7 +135,7 @@ export class RatingController {
   @Get('fetcheau/:addressID')
   async fetchEauByAddressID(
     @Param('addressID') param: string,
-    @Req() req: RequestExtendsJWT,
+    @Req() req: Request,
   ): Promise<RatesEau | null> {
     if (await this.DBjsonEau.isFilled(param)) {
       return this.DBAllRatings.getRatingEauByAddressId(param);
@@ -149,7 +144,7 @@ export class RatingController {
     }
   }
   @Post('fetcheau')
-  async postEau(@Body() addressObject: AddressObject, @Req() req: RequestExtendsJWT): Promise<RatesEau> {
+  async postEau(@Body() addressObject: AddressObject, @Req() req: Request): Promise<RatesEau> {
     let dataEauPotable: EauPotableData[];
     let eauAllData: eauAllData;
     const resultEauPotable: number = await this.fetchEauService.qualiteEau(addressObject).then((res) => {
@@ -158,15 +153,15 @@ export class RatingController {
     });
     eauAllData = { eauPotable: dataEauPotable };
     await this.DBjsonEau.addJsonEau(addressObject.properties.id, eauAllData);
-    await this.DBAllRatings.updateRating(addressObject.properties.id, {eauPotable:resultEauPotable});
+    await this.DBAllRatings.updateRating(addressObject.properties.id, { eauPotable: resultEauPotable });
 
-    return {eauPotable:resultEauPotable};
+    return { eauPotable: resultEauPotable };
   }
 
   @Get('fethParcCarto/:addressID')
   async fethParcCartoByAddressID(
     @Param('addressID') param: string,
-    @Req() req: RequestExtendsJWT,
+    @Req() req: Request,
   ): Promise<RatesParcCarto | null> {
     if (await this.DBJsonParcCarto.isFilled(param)) {
       return this.DBAllRatings.getRatingParcCartoByAddressId(param);
@@ -175,10 +170,7 @@ export class RatingController {
     }
   }
   @Post('fethParcCarto')
-  async postParcCarto(
-    @Body() addressObject: AddressObject,
-    @Req() req: RequestExtendsJWT,
-  ): Promise<RatesParcCarto> {
+  async postParcCarto(@Body() addressObject: AddressObject, @Req() req: Request): Promise<RatesParcCarto> {
     // Create a circle around th coordonate to search inside
     const geoJsonAreaAroundPoint = this.fetchParcCarto.createGeoJSONCircleString(
       addressObject.geometry.coordinates[1],
@@ -199,7 +191,7 @@ export class RatingController {
   @Get('fethDPE/:addressID')
   async fethDPEByAddressID(
     @Param('addressID') addressID: string,
-    @Req() req: RequestExtendsJWT,
+    @Req() req: Request,
   ): Promise<RatesParcCarto | null> {
     if (await this.DBJsonDPE.isFilled(addressID)) {
       return this.DBAllRatings.getRatingParcCartoByAddressId(addressID);
@@ -208,7 +200,7 @@ export class RatingController {
     }
   }
   @Post('fethDPE')
-  async postDPE(@Body() addressObject: AddressObject, @Req() req: RequestExtendsJWT): Promise<RatesDPE> {
+  async postDPE(@Body() addressObject: AddressObject, @Req() req: Request): Promise<RatesDPE> {
     const resultDPEHabitat = await this.fetchDPE.getDPEDatas(addressObject);
     const ratesDPEHabitat = this.fetchDPE.getDPERates(resultDPEHabitat);
     // Update DB
@@ -229,7 +221,7 @@ export class RatingController {
    * @param dataQuery The address details provided in the request body. It should be an instance
    *                  of AddressObjectDTO, which includes city, postcode, and street.
    * @param req       The extended request object, which includes additional user information such
-   *                  as user ID and UUID. It should be an instance of RequestExtendsJWT.
+   *                  as user ID and UUID. It should be an instance of Request.
    *
    * @returns         A Promise that resolves to an AddressObject containing the address details.
    *
@@ -237,10 +229,7 @@ export class RatingController {
    */
   @Post('getrate')
   // @Roles('admin', 'user')
-  async postAskForRate(
-    @Body() dataQuery: AddressObjectDTO,
-    @Req() req: RequestExtendsJWT,
-  ): Promise<AddressObject> {
+  async postAskForRate(@Body() dataQuery: AddressObjectDTO, @Req() req: Request): Promise<AddressObject> {
     try {
       // Get address ID of the specific address
       let inputaddressObject: AddressObjectDTO = {
@@ -250,13 +239,9 @@ export class RatingController {
       let addressInfo = await this.DBAddressInfo.findAddressInfo(addressObject.properties.id);
       // Fill address info DB
       if (!addressInfo) {
-        addressInfo = await this.DBAddressInfo.createEntry(req.user.userUUID, addressObject);
+        addressInfo = await this.DBAddressInfo.createEntry( addressObject);
       }
       // link user with addressID
-      const result = await this.DBUserAddressInfo.associatAddresseToUser(
-        req.user.userUUID,
-        addressInfo.addressID,
-      );
       if (!(await this.DBAllRatings.entryExists(addressObject.properties.id))) {
         await this.DBAllRatings.createEntry(addressObject.properties.id);
       }

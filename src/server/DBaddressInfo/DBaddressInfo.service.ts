@@ -7,14 +7,7 @@ import { PrismaService } from '@server/prisma/prisma.service';
 export class DBAddressInfo {
   constructor(private prisma: PrismaService) {}
 
-  async createEntry(userUUID: string, addressObject: AddressObject): Promise<AddressInfo | null> {
-    // First, find the user by UUID
-    const user = await this.prisma.user.findUnique({
-      where: { userUUID: userUUID },
-    });
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
+  async createEntry( addressObject: AddressObject): Promise<AddressInfo | null> {
 
     const addressInfo = await this.prisma.addressInfo.create({
       data: {

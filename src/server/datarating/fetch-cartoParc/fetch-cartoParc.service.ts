@@ -1,4 +1,4 @@
-import { getCenterOfBounds, computeDestinationPoint } from 'geolib';
+import { computeDestinationPoint } from 'geolib';
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { GeolibInputCoordinates } from 'geolib/es/types';
