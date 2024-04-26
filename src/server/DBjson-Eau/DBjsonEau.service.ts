@@ -75,7 +75,6 @@ export class DBJsonEau {
 
       return count > 0 || false;
     } catch (err) {
-      console.log('Nothing as been find in isFilled function');
       return false;
     }
   }

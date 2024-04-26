@@ -5,7 +5,6 @@ export const eauAnalysis = (eauPotableData: EauPotableData[]): number => {
   eauPotableData.forEach((element) => {
     if (!element.good) {
       numberFail += 1;
-      console.log(element);
     }
   });
 

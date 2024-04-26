@@ -43,7 +43,6 @@ export const sysmiqueAnalysis = (arraySismique: ZonageSismiqueData[]): number =>
   } else if (risqueLieu == 5) {
     return 50;
   } else {
-    console.log('SysmiqueAnalysis unknown error with code : ' + arraySismique[0].code_zone);
     return null
 
   }
@@ -74,7 +73,6 @@ export const installationClasseAnalysis = (arrayInstallationClasse: Installation
     } else if (item == 'Seveso seuil haut') {
       rate -= 5;
     } else {
-      console.log('Err installationClasseAnalysis, seveso name not taken into account :' + item);
     }
   });
   if (rate <= 0) {
@@ -93,7 +91,6 @@ export const radonAnalysis = (arrayRadon: RadonData[]): number => {
   } else if (arrayRadon[0].classe_potentiel == '3') {
     return 60;
   } else {
-    console.log('Error, radonAnalysis unknown class');
     return null
   }
 };

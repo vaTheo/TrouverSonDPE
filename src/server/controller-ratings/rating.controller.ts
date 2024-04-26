@@ -206,7 +206,6 @@ export class RatingController {
     // Update DB
     this.DBAllRatings.updateRating(addressObject.properties.id, ratesDPEHabitat);
     this.DBJsonDPE.addJson(addressObject.properties.id, resultDPEHabitat);
-    console.log(ratesDPEHabitat);
     return ratesDPEHabitat;
   }
   /**
@@ -239,7 +238,7 @@ export class RatingController {
       let addressInfo = await this.DBAddressInfo.findAddressInfo(addressObject.properties.id);
       // Fill address info DB
       if (!addressInfo) {
-        addressInfo = await this.DBAddressInfo.createEntry( addressObject);
+        addressInfo = await this.DBAddressInfo.createEntry(addressObject);
       }
       // link user with addressID
       if (!(await this.DBAllRatings.entryExists(addressObject.properties.id))) {
@@ -269,9 +268,6 @@ export class RatingController {
     const response = await axios.get(
       `https://api.vigieau.gouv.fr/reglementation?lon=3.117428&lat=43.355801&commune=34155&profil=exploitation`,
     );
-    console.log(response.data);
-
-    // const response = await axios.get(`https://api.vigieau.beta.gouv.fr/reglementation?commune=${dataQuerry}&profil={profil}`)
   }
   @Get('testnewapi')
   // @Roles('admin', 'user')
@@ -280,9 +276,8 @@ export class RatingController {
       const response = await axios.get(
         `https://api.vigieau.beta.gouv.fr/reglementation?commune=66048_7xolnt`,
       );
-      console.log(response.data);
     } catch (err) {
-      console.log(err);
+      throw new Error(err);
     }
   }
 }

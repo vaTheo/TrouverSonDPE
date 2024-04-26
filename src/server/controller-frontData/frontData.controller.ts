@@ -53,9 +53,8 @@ export class FrontData {
         DPEBatiment: groupedRates.DPEBatiment,
         polutionSol: groupedRates.polutionSol,
       };
-      console.log(returnedValue);
     } catch (err) {
-      console.log(err);
+      throw new Error(err);
     }
     return returnedValue;
   }
@@ -65,7 +64,6 @@ export class FrontData {
     @Param('addressID') addressID: string,
     @Req() req: Request,
   ): Promise<frontDPEBatiment> {
-    console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
     const allData: frontDPEBatiment = {
       DPEBatiment: {
         DPEHabitatExistant: await this.DBJsonDPE.JgetSpecificJson(addressID, 'DPEHabitatExistant'),
@@ -84,7 +82,6 @@ export class FrontData {
 
   @Get('geteau/:addressID')
   async getJSONeau(@Param('addressID') addressID: string, @Req() req: Request): Promise<frontEau> {
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
     try {
       const allData: frontEau = {
         eau: {
@@ -95,7 +92,6 @@ export class FrontData {
 
       return allData;
     } catch (e) {
-      console.log(e);
       throw new Error(e);
     }
   }
@@ -112,7 +108,6 @@ export class FrontData {
 
       return allData;
     } catch (e) {
-      console.log(e);
       throw new Error(e);
     }
   }
@@ -129,7 +124,6 @@ export class FrontData {
 
       return allData;
     } catch (e) {
-      console.log(e);
       throw new Error(e);
     }
   }
@@ -149,7 +143,6 @@ export class FrontData {
 
       return allData;
     } catch (e) {
-      console.log(e);
       throw new Error(e);
     }
   }
@@ -173,7 +166,6 @@ export class FrontData {
 
       return allData;
     } catch (e) {
-      console.log(e);
       throw new Error(e);
     }
   }
@@ -195,7 +187,6 @@ export class FrontData {
 
       return allData;
     } catch (e) {
-      console.log(e);
       throw new Error(e);
     }
   }
@@ -218,7 +209,6 @@ export class FrontData {
 
       return allData;
     } catch (e) {
-      console.log(e);
       throw new Error(e);
     }
   }
@@ -236,7 +226,6 @@ export class FrontData {
 
       return allData;
     } catch (e) {
-      console.log(e);
       throw new Error(e);
     }
   }
