@@ -1,29 +1,11 @@
-import {
-  Controller,
-  Get,
-  Body,
-  UseGuards,
-  Req,
-  HttpStatus,
-  HttpException,
-  Post,
-  Param,
-} from '@nestjs/common';
-import { RolesGuard } from '@server/midleware/roles.guards';
-import { TokenService } from '../datarating/token/token.service';
-import { RatingsDBService } from '../controller-ratings/ratingsDB.service';
+import { Controller, Get, Req, Param } from '@nestjs/common';
 import { DBAllRatings } from '@server/DBallRatings/DBallRatings.service';
-import { RequestExtendsJWT } from '@server/midleware/JWTValidation';
 import { FrontDataService } from './frontData.service';
 import { FrontGroupDataValue } from './frontData';
 import { DBJsonDPE } from '@server/DBJson-DPE/DBjsonDPE.service';
 import { DBJsonEau } from '@server/DBjson-Eau/DBjsonEau.service';
 import { DBJsonGeorisque } from '@server/DBjson-Georisque/DBjsonGeorisque.service';
-import { DBJsonParcCarto } from '@server/DBJson-ParcCarto/DBjsonParcCarto.service';
-import { DPEAllData } from '../datarating/fetch-dpe/DPE';
-import { eauAllData } from '../datarating/fetch-eau/eau';
-import { GeorisqueAllData } from '../datarating/fetch-georisque/Georisque';
-import { AZIData, CatnatData } from '../datarating/fetch-georisque/api-georisque';
+import { DBJsonParcCarto } from '../DBJson-ParcCarto/DBjsonParcCarto.service';
 import {
   frontCatastropheNaturelle,
   frontDPEBatiment,
@@ -35,9 +17,9 @@ import {
   frontzoneInnondable,
   frontzoneNaturelle,
 } from './specificInterface';
+import { Request } from 'express';
 
 @Controller('frontdata')
-@UseGuards(RolesGuard)
 export class FrontData {
   constructor(
     private DBAllRatings: DBAllRatings,
@@ -51,7 +33,7 @@ export class FrontData {
   @Get('getrates/:addressID')
   async getGroupedRates(
     @Param('addressID') addressID: string,
-    @Req() req: RequestExtendsJWT,
+    @Req() req: Request,
   ): Promise<FrontGroupDataValue> {
     let returnedValue: FrontGroupDataValue;
     try {
@@ -81,7 +63,7 @@ export class FrontData {
   @Get('getdpebatiment/:addressID')
   async getJsonDPEBatiment(
     @Param('addressID') addressID: string,
-    @Req() req: RequestExtendsJWT,
+    @Req() req: Request,
   ): Promise<frontDPEBatiment> {
     console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
     const allData: frontDPEBatiment = {
@@ -101,7 +83,7 @@ export class FrontData {
   }
 
   @Get('geteau/:addressID')
-  async getJSONeau(@Param('addressID') addressID: string, @Req() req: RequestExtendsJWT): Promise<frontEau> {
+  async getJSONeau(@Param('addressID') addressID: string, @Req() req: Request): Promise<frontEau> {
     console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
     try {
       const allData: frontEau = {
@@ -121,7 +103,7 @@ export class FrontData {
   @Get('getzoneinnondable/:addressID')
   async getJSONzoneInnondable(
     @Param('addressID') addressID: string,
-    @Req() req: RequestExtendsJWT,
+    @Req() req: Request,
   ): Promise<frontzoneInnondable> {
     try {
       const allData: frontzoneInnondable = {
@@ -138,7 +120,7 @@ export class FrontData {
   @Get('getcatastrophenaturelle/:addressID')
   async getJSONCatastropheNaturelle(
     @Param('addressID') addressID: string,
-    @Req() req: RequestExtendsJWT,
+    @Req() req: Request,
   ): Promise<frontCatastropheNaturelle> {
     try {
       const allData: frontCatastropheNaturelle = {
@@ -155,7 +137,7 @@ export class FrontData {
   @Get('getinstallationclassees/:addressID')
   async getJSONInstallationClassees(
     @Param('addressID') addressID: string,
-    @Req() req: RequestExtendsJWT,
+    @Req() req: Request,
   ): Promise<frontInstallationClassees> {
     try {
       const allData: frontInstallationClassees = {
@@ -175,7 +157,7 @@ export class FrontData {
   @Get('getrisquelocaux/:addressID')
   async getJSONrisqueLocaux(
     @Param('addressID') addressID: string,
-    @Req() req: RequestExtendsJWT,
+    @Req() req: Request,
   ): Promise<frontrisqueLocaux> {
     try {
       const allData: frontrisqueLocaux = {
@@ -199,7 +181,7 @@ export class FrontData {
   @Get('getzonenaturelle/:addressID')
   async getJSONzoneNaturelle(
     @Param('addressID') addressID: string,
-    @Req() req: RequestExtendsJWT,
+    @Req() req: Request,
   ): Promise<frontzoneNaturelle> {
     try {
       const allData: frontzoneNaturelle = {
@@ -221,7 +203,7 @@ export class FrontData {
   @Get('getparcnaturelle/:addressID')
   async getJSONParcNaturelle(
     @Param('addressID') addressID: string,
-    @Req() req: RequestExtendsJWT,
+    @Req() req: Request,
   ): Promise<frontParcNaturelle> {
     try {
       const allData: frontParcNaturelle = {
@@ -243,7 +225,7 @@ export class FrontData {
   @Get('getpollutionsol/:addressID')
   async getJSONpollutionsol(
     @Param('addressID') addressID: string,
-    @Req() req: RequestExtendsJWT,
+    @Req() req: Request,
   ): Promise<frontpollutionSol> {
     try {
       const allData: frontpollutionSol = {

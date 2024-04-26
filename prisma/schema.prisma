@@ -7,15 +7,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  userUUID            String                  @unique
-  password            String?
-  email               String?                 @unique
-  createdAt           DateTime                @default(now())
-  username            String?                 @unique
-  role                String                  @default("user")
-  dataSourceAddresses UserAddressInfo[]
-}
+// model User {
+//   userUUID            String                  @unique
+//   password            String?
+//   email               String?                 @unique
+//   createdAt           DateTime                @default(now())
+//   username            String?                 @unique
+//   role                String                  @default("user")
+//   dataSourceAddresses UserAddressInfo[]
+// }
 
 model AddressInfo {
   addressID           String                  @unique
@@ -30,16 +30,16 @@ model AddressInfo {
   jsonDataGeorisque   jsonDataGeorisque[]
   jsonDataParcCarto   jsonDataParcCarto[]
   jsonDataDPE         jsonDataDPE[]
-  users               UserAddressInfo[]
+  // users               UserAddressInfo[]
 }
 
-model UserAddressInfo {
-  userUUID          String
-  addressInfoId     String
-  user              User          @relation(fields: [userUUID], references: [userUUID])
-  addressInfo       AddressInfo   @relation(fields: [addressInfoId], references: [addressID])
-  @@id([userUUID, addressInfoId])
-}
+// model UserAddressInfo {
+//   userUUID          String
+//   addressInfoId     String
+//   user              User          @relation(fields: [userUUID], references: [userUUID])
+//   addressInfo       AddressInfo   @relation(fields: [addressInfoId], references: [addressID])
+//   @@id([userUUID, addressInfoId])
+// }
 model jsonDataEau {
   addressID     String      @unique
   eauPotable    Json?
