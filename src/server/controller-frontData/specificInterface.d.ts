@@ -1,5 +1,4 @@
 import { FeatureCarto } from '../datarating/fetch-cartoParc/api-cartoParc';
-import { ParcCartoAllData } from '../datarating/fetch-cartoParc/cartoParc';
 import { DPEAllData } from '../datarating/fetch-dpe/DPE';
 import { eauAllData } from '../datarating/fetch-eau/eau';
 import {

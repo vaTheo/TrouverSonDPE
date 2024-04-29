@@ -335,36 +335,17 @@ export interface GasprAPIResponse {
    */
   export interface InstallationsClasseesData {
     adresse1: string;
-    adresse2: string;
-    adresse3: string;
-    bovins: boolean;
-    carriere: boolean;
-    codeAIOT: string;
-    codeInsee: string;
     codeNaf: string;
-    codePostal: string;
     commune: string;
-    coordonneeXAIOT: number;
-    coordonneeYAIOT: number;
-    date_maj: string;
     documentsHorsInspection: InstallationsClasseesDocument[];
-    eolienne: boolean;
     etatActivite: string;
-    ied: boolean;
-    industrie: boolean;
     inspections: InstallationsClasseesInspection[];
     latitude: number;
     longitude: number;
-    porcs: boolean;
-    prioriteNationale: boolean;
     raisonSociale: string;
     regime: string;
-    rubriques: InstallationsClasseesRubrique[];
-    serviceAIOT: string;
     siret: string;
     statutSeveso: string;
-    systemeCoordonneesAIOT: string;
-    volailles: boolean;
   }
   
   export interface InstallationsClasseesDocument {
