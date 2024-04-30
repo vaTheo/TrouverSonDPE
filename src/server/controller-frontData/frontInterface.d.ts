@@ -7,6 +7,7 @@ import {
   InstallationsClasseesData,
   MVTData,
   RadonData,
+  RisquesData,
   SISData,
   ZonageSismiqueData,
 } from '../datarating/fetch-georisque/api-georisque';
@@ -51,6 +52,11 @@ export interface frontParcNaturelle {
   };
 }
 export interface frontpollutionSol {
-    pollutionSol: {sis?:SISData[]
+  pollutionSol: { sis?: SISData[] };
+}
+
+export interface FrontRisqueInformation {
+  risqueInformation: {
+    risqueInformation: RisquesData[];
   };
 }

@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { jsonParcCarto } from './jsonParcCarto';
-import { jsonParcCartoMapping } from './jsonParcCarto.const';
+import { EnumParcCarto } from './jsonParcCarto';
 import { ParcCartoAllData } from '@server/datarating/fetch-cartoParc/cartoParc';
 @Injectable()
 export class DBJsonParcCarto {
@@ -12,9 +11,9 @@ export class DBJsonParcCarto {
    * @param jsonToGet
    * @returns
    */
-  async getSpecificJson(addressID: string, jsonToGet: keyof jsonParcCarto): Promise<any | null> {
+  async getSpecificJson(addressID: string, jsonToGet: EnumParcCarto): Promise<any | null> {
     // Convert jsonToGet to actual database field
-    const dbField = jsonParcCartoMapping[jsonToGet];
+    const dbField = jsonToGet;
     if (!dbField) {
       return null;
     }
@@ -36,7 +35,7 @@ export class DBJsonParcCarto {
       return null;
     }
 
-    const jsonData = dataSourceWithJsonData.jsonDataParcCarto[0][dbField] as string;
+    const jsonData = dataSourceWithJsonData.jsonDataParcCarto[0][dbField]  as string;
     if (jsonData === null || jsonData === undefined) {
       return null;
     }

@@ -358,7 +358,7 @@ export interface GasprAPIResponse {
   
   export interface InstallationsClasseesInspection {
     dateInspection: string;
-    fichierInspection: Document;
+    fichierInspection: InstallationsClasseesDocument;
   }
   
   export interface InstallationsClasseesRubrique {

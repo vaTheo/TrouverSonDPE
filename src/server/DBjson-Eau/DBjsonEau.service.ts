@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { jsonEau } from './jsonEau';
-import { jsonEauMapping } from './jsonEau.const';
+import { EnumEau } from './jsonEau';
 import { eauAllData } from '@server/datarating/fetch-eau/eau';
 
 @Injectable()
@@ -13,9 +12,9 @@ export class DBJsonEau {
    * @param jsonToGet
    * @returns
    */
-  async getSpecificJsonDataEau(addressID: string, jsonToGet: keyof jsonEau): Promise<any | null> {
+  async getSpecificJsonDataEau(addressID: string, jsonToGet: EnumEau): Promise<any | null> {
     // Convert jsonToGet to actual database field
-    const dbField = jsonEauMapping[jsonToGet];
+    const dbField = jsonToGet;
     if (!dbField) {
       throw new NotFoundException(`Invalid field name: ${jsonToGet}`);
     }

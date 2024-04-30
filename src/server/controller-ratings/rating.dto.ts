@@ -1,6 +1,6 @@
 import { IsString, Length } from 'class-validator';
-import { jsonGeorisque } from '../DBjson-Georisque/jsonGeorisque';
-import { jsonEau } from '../DBjson-Eau/jsonEau';
+import { EnumEau } from '../DBjson-Eau/jsonEau';
+import { EnumGeorisque } from '../DBjson-Georisque/jsonGeorisque';
 
 export class AddressObjectThreeValueDTO {
   @Length(5, 5)
@@ -22,7 +22,7 @@ export class JsonGeorisqueDTO{
   addressID:string
   
   @IsString()
-  jsonData:keyof jsonGeorisque
+  jsonData:EnumGeorisque
   
 }
 
@@ -31,6 +31,6 @@ export class JsonEauDTO{
   addressID:string
   
   @IsString()
-  jsonData:keyof jsonEau
+  jsonData: EnumEau
   
 }
