@@ -27,7 +27,7 @@ async function bootstrap() {
     );
     const port = 3001;
     await app.listen(port);
-    console.log(`Server is running on port {port}`); // Log when the server starts
+    console.log(`Server is running on port ${port}`); // Log when the server starts
   } catch (error) {
     console.error('Error during Nest application startup', error); // Log if there's an error
   }

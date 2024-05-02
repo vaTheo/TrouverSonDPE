@@ -42,11 +42,11 @@ export class FetchGeorisqueService {
         );
         dataResponse = response.data;
         data = [...data, ...dataResponse.data]; //Merge the two array
-        if (dataResponse.next) {
+        if (dataResponse.next ) {
           page++;
         }
-        await delay(350);
-      } while (dataResponse.next != null); //Continue untill response is not NULL
+        await delay(50);
+      } while (dataResponse.next != null && page <= 15); //Continue untill response is not NULL
       const yearsToInclude = [
         '2024',
         '2023',
@@ -109,11 +109,11 @@ export class FetchGeorisqueService {
     const endpoints = [
       { endpoint: 'gaspar/azi', type: 'AZIData', rayon: '1' },
       { endpoint: 'gaspar/catnat', type: 'CatnatData', rayon: '1' },
-      { endpoint: 'installations_classees', type: 'InstallationsClasseesData', rayon: '5000' },
-      { endpoint: 'mvt', type: 'MVTData', rayon: '5000' },
+      { endpoint: 'installations_classees', type: 'InstallationsClasseesData', rayon: '2000' },
+      { endpoint: 'mvt', type: 'MVTData', rayon: '2000' },
       { endpoint: 'radon', type: 'RadonData', rayon: '1' },
       { endpoint: 'gaspar/risques', type: 'RisquesData', rayon: '1' },
-      { endpoint: 'sis', type: 'SISData', rayon: '5000' },
+      { endpoint: 'sis', type: 'SISData', rayon: '2000' },
       { endpoint: 'gaspar/tri', type: 'TRIData', rayon: '1' },
       { endpoint: 'zonage_sismique', type: 'ZonageSismiqueData', rayon: '1' },
     ];

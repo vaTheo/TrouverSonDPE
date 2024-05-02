@@ -50,6 +50,8 @@ export class FetchEauService {
           counts[libelle]++;
         }
       });
+      console.log('Finished getting : ' + endpoint + ' for ' + cityCode);
+
       return resultatDis;
     } catch (err) {
       const URLsend = basURL + endpoint + codeCommune + dateMinPrelevement;

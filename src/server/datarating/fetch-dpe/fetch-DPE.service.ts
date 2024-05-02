@@ -31,6 +31,8 @@ export class FetchDPE {
         return [];
       }
       let filteredObjects = filterObjectKeys(data.aggs[0].results, KEYSTOKEEDPE) as ResultItemDPE[];
+      console.log('Finished getting : ' + endpoint  + ' for ' + addressObject.properties.id);
+
       return filteredObjects;
     } catch (error) {
       console.error(`Error fetching data endpoint ${endpoint}`, error);

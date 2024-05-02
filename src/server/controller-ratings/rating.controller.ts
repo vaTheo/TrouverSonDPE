@@ -120,14 +120,10 @@ export class RatingController {
    */
   @Post('fetchgeorisque')
   async postGerosique(@Body() addressObject: AddressObject, @Req() req: Request): Promise<RatesGeoRisque> {
-    const ratesGaspar = this.fetchGeorisqueService.analisysGaspar(
-      await this.fetchGeorisqueService.callAllApiGasparPromiseAll(addressObject),
-    );
+    const georisqueAllData = await this.fetchGeorisqueService.callAllApiGasparPromiseAll(addressObject);
+    const ratesGaspar = this.fetchGeorisqueService.analisysGaspar(georisqueAllData);
 
-    await this.DBjsonGeorisque.addJsonGeorisque(
-      addressObject.properties.id,
-      await this.fetchGeorisqueService.callAllApiGasparPromiseAll(addressObject),
-    );
+    await this.DBjsonGeorisque.addJsonGeorisque(addressObject.properties.id, georisqueAllData);
     await this.DBAllRatings.updateRating(addressObject.properties.id, ratesGaspar);
     return ratesGaspar;
   }
