@@ -1,8 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { jsonGeorisque } from './jsonGeorisque';
-import { jsonGeorisqueMapping } from './jsonGeorisque.const';
+// import { jsonGeorisqueMapping } from './jsonGeorisque.const';
 import { GeorisqueAllData } from '../datarating/fetch-georisque/Georisque';
+import { EnumGeorisque } from './jsonGeorisque';
 
 @Injectable()
 export class DBJsonGeorisque {
@@ -14,9 +14,9 @@ export class DBJsonGeorisque {
    * @param jsonToGet
    * @returns
    */
-  async getSpecificJsonDataGeorisque(addressID: string, jsonToGet: keyof jsonGeorisque): Promise<any | null> {
+  async getSpecificJsonDataGeorisque(addressID: string, jsonToGet:  EnumGeorisque): Promise<any | null> {
     // Convert jsonToGet to actual database field
-    const dbField = jsonGeorisqueMapping[jsonToGet];
+    const dbField =jsonToGet;
     if (!dbField) {
       return null    }
 
@@ -79,7 +79,6 @@ export class DBJsonGeorisque {
 
       return count > 0 || false;
     } catch (err) {
-      console.log('Nothing as been find in isFilled function');
       return false;
     }
   }

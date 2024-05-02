@@ -1,5 +1,4 @@
 import { FeatureCarto } from '../datarating/fetch-cartoParc/api-cartoParc';
-import { ParcCartoAllData } from '../datarating/fetch-cartoParc/cartoParc';
 import { DPEAllData } from '../datarating/fetch-dpe/DPE';
 import { eauAllData } from '../datarating/fetch-eau/eau';
 import {
@@ -8,6 +7,7 @@ import {
   InstallationsClasseesData,
   MVTData,
   RadonData,
+  RisquesData,
   SISData,
   ZonageSismiqueData,
 } from '../datarating/fetch-georisque/api-georisque';
@@ -52,6 +52,11 @@ export interface frontParcNaturelle {
   };
 }
 export interface frontpollutionSol {
-    pollutionSol: {sis?:SISData[]
+  pollutionSol: { sis?: SISData[] };
+}
+
+export interface FrontRisqueInformation {
+  risqueInformation: {
+    risqueInformation: RisquesData[];
   };
 }

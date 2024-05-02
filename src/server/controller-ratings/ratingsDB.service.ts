@@ -15,7 +15,6 @@ export class RatingsDBService {
    * @returns
    */
   async getAZIDataByAddressID(addressID: string): Promise<Prisma.JsonValue | null> {
-    console.log(`Retrieving AZIData for addressID: ${addressID}`);
       // Then, use that DataSourcesID to retrieve the AZIData
       try{
       const jsonDataGeorisqueRecord = await this.prisma.jsonDataGeorisque.findFirst({

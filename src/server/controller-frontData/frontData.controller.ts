@@ -13,11 +13,15 @@ import {
   frontInstallationClassees,
   frontParcNaturelle,
   frontpollutionSol,
+  FrontRisqueInformation,
   frontrisqueLocaux,
   frontzoneInnondable,
   frontzoneNaturelle,
-} from './specificInterface';
+} from './frontInterface';
 import { Request } from 'express';
+import { EnumGeorisque } from '../DBjson-Georisque/jsonGeorisque';
+import { EnumParcCarto } from '@server/DBJson-ParcCarto/jsonParcCarto';
+import { EnumEau } from '@server/DBjson-Eau/jsonEau';
 
 @Controller('frontdata')
 export class FrontData {
@@ -53,9 +57,8 @@ export class FrontData {
         DPEBatiment: groupedRates.DPEBatiment,
         polutionSol: groupedRates.polutionSol,
       };
-      console.log(returnedValue);
     } catch (err) {
-      console.log(err);
+      throw new Error(err);
     }
     return returnedValue;
   }
@@ -65,7 +68,6 @@ export class FrontData {
     @Param('addressID') addressID: string,
     @Req() req: Request,
   ): Promise<frontDPEBatiment> {
-    console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
     const allData: frontDPEBatiment = {
       DPEBatiment: {
         DPEHabitatExistant: await this.DBJsonDPE.JgetSpecificJson(addressID, 'DPEHabitatExistant'),
@@ -84,18 +86,16 @@ export class FrontData {
 
   @Get('geteau/:addressID')
   async getJSONeau(@Param('addressID') addressID: string, @Req() req: Request): Promise<frontEau> {
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
     try {
       const allData: frontEau = {
         eau: {
-          coursEau: await this.DBJsonEau.getSpecificJsonDataEau(addressID, 'coursEau'),
-          eauPotable: await this.DBJsonEau.getSpecificJsonDataEau(addressID, 'eauPotable'),
+          coursEau: await this.DBJsonEau.getSpecificJsonDataEau(addressID, EnumEau.coursEau),
+          eauPotable: await this.DBJsonEau.getSpecificJsonDataEau(addressID, EnumEau.eauPotable),
         },
       };
 
       return allData;
     } catch (e) {
-      console.log(e);
       throw new Error(e);
     }
   }
@@ -107,12 +107,11 @@ export class FrontData {
   ): Promise<frontzoneInnondable> {
     try {
       const allData: frontzoneInnondable = {
-        zoneInnondable: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(addressID, 'AZI'),
+        zoneInnondable: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(addressID, EnumGeorisque.AZI),
       };
 
       return allData;
     } catch (e) {
-      console.log(e);
       throw new Error(e);
     }
   }
@@ -124,12 +123,14 @@ export class FrontData {
   ): Promise<frontCatastropheNaturelle> {
     try {
       const allData: frontCatastropheNaturelle = {
-        CatastropheNaturelle: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(addressID, 'Catnat'),
+        CatastropheNaturelle: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(
+          addressID,
+          EnumGeorisque.Catnat,
+        ),
       };
 
       return allData;
     } catch (e) {
-      console.log(e);
       throw new Error(e);
     }
   }
@@ -143,13 +144,12 @@ export class FrontData {
       const allData: frontInstallationClassees = {
         InstallationClassees: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(
           addressID,
-          'InstallationsClassees',
+          EnumGeorisque.InstallationsClassees,
         ),
       };
 
       return allData;
     } catch (e) {
-      console.log(e);
       throw new Error(e);
     }
   }
@@ -162,18 +162,17 @@ export class FrontData {
     try {
       const allData: frontrisqueLocaux = {
         risqueLocaux: {
-          MVTData: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(addressID, 'MVT'),
-          RadonData: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(addressID, 'Radon'),
+          MVTData: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(addressID, EnumGeorisque.MVT),
+          RadonData: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(addressID, EnumGeorisque.Radon),
           ZonageSismiqueData: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(
             addressID,
-            'ZonageSismique',
+            EnumGeorisque.ZonageSismique,
           ),
         },
       };
 
       return allData;
     } catch (e) {
-      console.log(e);
       throw new Error(e);
     }
   }
@@ -186,16 +185,15 @@ export class FrontData {
     try {
       const allData: frontzoneNaturelle = {
         zoneNaturelle: {
-          naturaHabitat: await this.DBJsonParcCarto.getSpecificJson(addressID, 'naturaHabitat'),
-          naturaOiseaux: await this.DBJsonParcCarto.getSpecificJson(addressID, 'naturaOiseaux'),
-          znieff1: await this.DBJsonParcCarto.getSpecificJson(addressID, 'znieff1'),
-          znieff2: await this.DBJsonParcCarto.getSpecificJson(addressID, 'znieff2'),
+          naturaHabitat: await this.DBJsonParcCarto.getSpecificJson(addressID, EnumParcCarto.naturaHabitat),
+          naturaOiseaux: await this.DBJsonParcCarto.getSpecificJson(addressID, EnumParcCarto.naturaOiseaux),
+          znieff1: await this.DBJsonParcCarto.getSpecificJson(addressID, EnumParcCarto.znieff1),
+          znieff2: await this.DBJsonParcCarto.getSpecificJson(addressID, EnumParcCarto.znieff2),
         },
       };
 
       return allData;
     } catch (e) {
-      console.log(e);
       throw new Error(e);
     }
   }
@@ -208,17 +206,16 @@ export class FrontData {
     try {
       const allData: frontParcNaturelle = {
         parcNaturelle: {
-          pn: await this.DBJsonParcCarto.getSpecificJson(addressID, 'pn'),
-          pnr: await this.DBJsonParcCarto.getSpecificJson(addressID, 'pnr'),
-          rnc: await this.DBJsonParcCarto.getSpecificJson(addressID, 'rnc'),
-          rncf: await this.DBJsonParcCarto.getSpecificJson(addressID, 'rncf'),
-          rnn: await this.DBJsonParcCarto.getSpecificJson(addressID, 'rnn'),
+          pn: await this.DBJsonParcCarto.getSpecificJson(addressID, EnumParcCarto.pn),
+          pnr: await this.DBJsonParcCarto.getSpecificJson(addressID, EnumParcCarto.pnr),
+          rnc: await this.DBJsonParcCarto.getSpecificJson(addressID, EnumParcCarto.rnc),
+          rncf: await this.DBJsonParcCarto.getSpecificJson(addressID, EnumParcCarto.rncf),
+          rnn: await this.DBJsonParcCarto.getSpecificJson(addressID, EnumParcCarto.rnn),
         },
       };
 
       return allData;
     } catch (e) {
-      console.log(e);
       throw new Error(e);
     }
   }
@@ -230,23 +227,39 @@ export class FrontData {
     try {
       const allData: frontpollutionSol = {
         pollutionSol: {
-          sis: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(addressID, 'SIS'),
+          sis: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(addressID, EnumGeorisque.SIS),
         },
       };
 
       return allData;
     } catch (e) {
-      console.log(e);
       throw new Error(e);
     }
   }
 
-    @Get('ping')
-    async ping() {
-      return { success: true, message: 'Pong', status: HttpStatus.OK };
+  @Get('getrisqueinformation/:addressID')
+  async getJSONrisqueClasse(
+    @Param('addressID') addressID: string,
+    @Req() req: Request,
+  ): Promise<FrontRisqueInformation> {
+    try {
+      const allData: FrontRisqueInformation = {
+        risqueInformation: {
+          risqueInformation: await this.DBJsonGeorisque.getSpecificJsonDataGeorisque(
+            addressID,
+            EnumGeorisque.risqueInformation,
+          ),
+        },
+      };
+
+      return allData;
+    } catch (e) {
+      throw new Error(e);
     }
-  
-  
+  }
+
+  @Get('ping')
+  async ping() {
+    return { success: true, message: 'Pong', status: HttpStatus.OK };
+  }
 }
-
-
