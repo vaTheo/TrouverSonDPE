@@ -1,30 +1,28 @@
 export interface GasprAPIResponse {
-    results: number;
-    page: number;
-    total_pages: number;
-    data:
-      | AZIData[]
-      | CatnatData[]
-      | CaviteData[]
-      | InstallationsClasseesData[]
-      | MVTData[]
-      | PAPIData[]
-      | PCSData[]
-      | RadonData[]
-      | RisquesData[]
-      | SISData[]
-      | TIMData[]
-      | TRIData[]
-      | ZonageSismiqueData[];
-    response_code: number;
-    message: string | null;
-    next: string | null;
-    previous: string | null;
-  }
-  
+  results: number;
+  page: number;
+  total_pages: number;
+  data:
+    | AZIData[]
+    | CatnatData[]
+    | CaviteData[]
+    | InstallationsClasseesData[]
+    | MVTData[]
+    | PAPIData[]
+    | PCSData[]
+    | RadonData[]
+    | RisquesData[]
+    | SISData[]
+    | TIMData[]
+    | TRIData[]
+    | ZonageSismiqueData[];
+  response_code: number;
+  message: string | null;
+  next: string | null;
+  previous: string | null;
+}
 
-  
-  /*Exemple response resultat API GASPAR AZI :
+/*Exemple response resultat API GASPAR AZI :
   {
     results: 2,
     page: 1,
@@ -91,31 +89,31 @@ export interface GasprAPIResponse {
     previous: null
   }
   */
-  
-  export interface AZIData {
-    code_national_azi: string;
-    libelle_azi: string;
-    liste_libelle_risque: LibelleRisque[];
-    libelle_bassin_risques: string;
-    libelle_commentaire: string | null;
-    date_debut_programmation: string | null;
-    date_fin_programmation: string | null;
-    date_debut_etude: string | null;
-    date_fin_etude: string | null;
-    date_debut_information: string | null;
-    date_fin_information: string | null;
-    date_realisation: string | null;
-    date_diffusion: string | null;
-    date_publication_web: string | null;
-    code_insee: string;
-    libelle_commune: string;
-  }
-  
-  export interface LibelleRisque {
-    num_risque: string;
-    libelle_risque_long: string;
-  }
-  /*Exemple for API response of Catnat: 
+
+export interface AZIData {
+  code_national_azi: string;
+  libelle_azi: string;
+  liste_libelle_risque: LibelleRisque[];
+  libelle_bassin_risques: string;
+  libelle_commentaire: string | null;
+  date_debut_programmation: string | null;
+  date_fin_programmation: string | null;
+  date_debut_etude: string | null;
+  date_fin_etude: string | null;
+  date_debut_information: string | null;
+  date_fin_information: string | null;
+  date_realisation: string | null;
+  date_diffusion: string | null;
+  date_publication_web: string | null;
+  code_insee: string;
+  libelle_commune: string;
+}
+
+export interface LibelleRisque {
+  num_risque: string;
+  libelle_risque_long: string;
+}
+/*Exemple for API response of Catnat: 
   {
     results: 4,
     page: 1,
@@ -178,18 +176,18 @@ export interface GasprAPIResponse {
     previous: null
   }
   */
-  export interface CatnatData {
-    code_national_catnat: string;
-    date_debut_evt: string;
-    date_fin_evt: string;
-    date_publication_arrete: string;
-    date_publication_jo: string;
-    libelle_risque_jo: string;
-    code_insee: string;
-    libelle_commune: string;
-  }
-  
-  /*Exemple for API response of Cavite: 
+export interface CatnatData {
+  code_national_catnat: string;
+  date_debut_evt: string;
+  date_fin_evt: string;
+  date_publication_arrete: string;
+  date_publication_jo: string;
+  libelle_risque_jo: string;
+  code_insee: string;
+  libelle_commune: string;
+}
+
+/*Exemple for API response of Cavite: 
   *{
     results: 29,
     page: 1,
@@ -312,219 +310,217 @@ export interface GasprAPIResponse {
     previous: null
   }
   */
-  
-  export interface CaviteData {
-    identifiant: string;
+
+export interface CaviteData {
+  identifiant: string;
+  type: string;
+  nom: string | null;
+  reperage_geo: string;
+  region: CaviteRegionOrDepartement;
+  departement: CaviteRegionOrDepartement;
+  code_insee: string;
+  longitude: number;
+  latitude: number;
+}
+
+export interface CaviteRegionOrDepartement {
+  code: string;
+  nom: string;
+}
+
+/*
+ *InstallationsClassees SEVESO
+ */
+export interface InstallationsClasseesData {
+  adresse1: string;
+  codeNaf: string;
+  commune: string;
+  documentsHorsInspection: InstallationsClasseesDocument[];
+  etatActivite: string;
+  inspections: InstallationsClasseesInspection[];
+  latitude: number;
+  longitude: number;
+  raisonSociale: string;
+  regime: string;
+  siret: string;
+  statutSeveso: string;
+}
+
+export interface InstallationsClasseesDocument {
+  dateFichier: string;
+  identifiantFichier: string;
+  nomFichier: string;
+  typeFichier: string;
+  urlFichier: string;
+}
+
+export interface InstallationsClasseesInspection {
+  dateInspection: string;
+  fichierInspection: InstallationsClasseesDocument;
+}
+
+export interface InstallationsClasseesRubrique {
+  alinea: string;
+  nature: string;
+  numeroRubrique: string;
+  quantiteTotale: string;
+  regimeAutoriseAlinea: string;
+  unite: string;
+}
+
+/*
+ *MVT
+ */
+
+export interface MVTData {
+  code_insee: string;
+  commentaire_lieu: string;
+  commentaire_mvt: string;
+  date_debut: string;
+  date_maj: string;
+  departement: MVTCodedEntity;
+  fiabilite: string;
+  identifiant: string;
+  latitude: number;
+  longitude: number;
+  precision_date: string;
+  precision_lieu: string;
+  region: MVTCodedEntity;
+  type: string;
+}
+
+export interface MVTCodedEntity {
+  code: string;
+  nom: string;
+}
+
+/*
+ *PAPI
+ */
+
+export interface PAPIData {
+  code_insee: string;
+  code_national_papi: string;
+  date_fin_realisation: string;
+  date_labellisation: string;
+  date_signature: string;
+  libelle_bassin_risques: string;
+  libelle_commentaire: string;
+  libelle_commune: string;
+  libelle_papi: string;
+  liste_libelle_risque: LibelleRisque[];
+}
+
+export interface LibelleRisque {
+  libelle_risque_long: string;
+  num_risque: string;
+}
+
+/*
+ *PCS
+ */
+
+export interface PCSData {
+  code_insee: string;
+  code_national_pcs: string;
+  date_debut_etude: string;
+  date_fin_etude: string;
+  date_notification: string;
+  libelle_bassin_risques: string;
+  libelle_commentaire: string;
+  libelle_commune: string;
+  libelle_pcs: string;
+  liste_libelle_risque: LibelleRisque[];
+}
+
+/*
+ *Radon
+ */
+
+export interface RadonData {
+  classe_potentiel: string;
+  code_insee: string;
+  libelle_commune: string;
+}
+
+/*
+ *RGA
+ */
+export interface RGAResponse {
+  codeExposition: string;
+  exposition: string;
+}
+
+/*
+ *Risques
+ */
+export interface RisquesData {
+  code_insee: string;
+  libelle_commune: string;
+  risques_detail: RisqueDetail[];
+}
+
+export interface RisqueDetail {
+  libelle_risque_long: string;
+  num_risque: string;
+  zone_sismicite: string;
+}
+/*
+ *SIS
+ */
+export interface SISData {
+  adresse?: string;
+  adresse_lieudit?: string;
+  code_insee?: string;
+  fiche_risque?: string;
+  geom?: Geom;
+  id_sis?: string;
+  nom?: string;
+  nom_commune?: string;
+  superficie?: number;
+}
+
+export interface Geom {
+  bbox: number[];
+  crs: {
+    properties: any;
     type: string;
-    nom: string | null;
-    reperage_geo: string;
-    region: CaviteRegionOrDepartement;
-    departement: CaviteRegionOrDepartement;
-    code_insee: string;
-    longitude: number;
-    latitude: number;
-  }
-  
-  export interface CaviteRegionOrDepartement {
-    code: string;
-    nom: string;
-  }
-  
-  /*
-   *InstallationsClassees SEVESO
-   */
-  export interface InstallationsClasseesData {
-    adresse1: string;
-    codeNaf: string;
-    commune: string;
-    documentsHorsInspection: InstallationsClasseesDocument[];
-    etatActivite: string;
-    inspections: InstallationsClasseesInspection[];
-    latitude: number;
-    longitude: number;
-    raisonSociale: string;
-    regime: string;
-    siret: string;
-    statutSeveso: string;
-  }
-  
-  export interface InstallationsClasseesDocument {
-    dateFichier: string;
-    identifiantFichier: string;
-    nomFichier: string;
-    typeFichier: string;
-    urlFichier: string;
-  }
-  
-  export interface InstallationsClasseesInspection {
-    dateInspection: string;
-    fichierInspection: InstallationsClasseesDocument;
-  }
-  
-  export interface InstallationsClasseesRubrique {
-    alinea: string;
-    nature: string;
-    numeroRubrique: string;
-    quantiteTotale: string;
-    regimeAutoriseAlinea: string;
-    unite: string;
-  }
-  
-  /*
-   *MVT
-   */
-  
-  export interface MVTData {
-    code_insee: string;
-    commentaire_lieu: string;
-    commentaire_mvt: string;
-    date_debut: string;
-    date_maj: string;
-    departement: MVTCodedEntity;
-    fiabilite: string;
-    identifiant: string;
-    latitude: number;
-    longitude: number;
-    precision_date: string;
-    precision_lieu: string;
-    region: MVTCodedEntity;
-    type: string;
-  }
-  
-  export interface MVTCodedEntity {
-    code: string;
-    nom: string;
-  }
-  
-  /*
-   *PAPI
-   */
-  
-  export interface PAPIData {
-    code_insee: string;
-    code_national_papi: string;
-    date_fin_realisation: string;
-    date_labellisation: string;
-    date_signature: string;
-    libelle_bassin_risques: string;
-    libelle_commentaire: string;
-    libelle_commune: string;
-    libelle_papi: string;
-    liste_libelle_risque: LibelleRisque[];
-  }
-  
-  export interface LibelleRisque {
-    libelle_risque_long: string;
-    num_risque: string;
-  }
-  
-  /*
-   *PCS
-   */
-  
-  export interface PCSData {
-    code_insee: string;
-    code_national_pcs: string;
-    date_debut_etude: string;
-    date_fin_etude: string;
-    date_notification: string;
-    libelle_bassin_risques: string;
-    libelle_commentaire: string;
-    libelle_commune: string;
-    libelle_pcs: string;
-    liste_libelle_risque: LibelleRisque[];
-  }
-  
-  /*
-   *Radon
-   */
-  
-  export interface RadonData {
-    classe_potentiel: string;
-    code_insee: string;
-    libelle_commune: string;
-  }
-  
-  /*
-   *RGA
-   */
-  export interface RGAResponse {
-    codeExposition: string;
-    exposition: string;
-  }
-  
-  /*
-   *Risques
-   */
-  export interface RisquesData {
-    code_insee: string;
-    libelle_commune: string;
-    risques_detail: RisqueDetail[];
-  }
-  
-  export interface RisqueDetail {
-    libelle_risque_long: string;
-    num_risque: string;
-    zone_sismicite: string;
-  }
-  
-  /*
-   *SIS
-   */
-  export interface SISData {
-    adresse?: string;
-    adresse_lieudit?: string;
-    code_insee?: string;
-    fiche_risque?: string;
-    geom?: Geom;
-    id_sis?: string;
-    nom?: string;
-    nom_commune?: string;
-    superficie?: number;
-  }
-  
-  export interface Geom {
-    bbox: number[];
-    crs: {
-      properties: any;
-      type: string;
-    };
-  }
-  
-  /*
-   *TIMD
-   */
-  export interface TIMData {
-    code_insee: string;
-    date_transmission: string;
-    libelle_commune: string;
-  }
-  
-  /*
-   *TRID
-   */
-  export interface TRIData {
-    code_insee: string;
-    code_national_tri: string;
-    date_arrete_approbation: string;
-    date_arrete_carte: string;
-    date_arrete_national: string;
-    date_arrete_pcb: string;
-    date_arrete_pcb_local: string;
-    date_arrete_prefet_parties_prenantes: string;
-    libelle_bassin_risques: string;
-    libelle_commentaire: string;
-    libelle_commune: string;
-    libelle_tri: string;
-    liste_libelle_risque: LibelleRisque[];
-  }
-  /*
-   *ZonageSismique
-   */
-  export interface ZonageSismiqueData {
-    code_insee: string;
-    code_zone: string;
-    libelle_commune: string;
-    zone_sismicite: string;
-  }
-  
+  };
+}
+
+/*
+ *TIMD
+ */
+export interface TIMData {
+  code_insee: string;
+  date_transmission: string;
+  libelle_commune: string;
+}
+
+/*
+ *TRID
+ */
+export interface TRIData {
+  code_insee: string;
+  code_national_tri: string;
+  date_arrete_approbation: string;
+  date_arrete_carte: string;
+  date_arrete_national: string;
+  date_arrete_pcb: string;
+  date_arrete_pcb_local: string;
+  date_arrete_prefet_parties_prenantes: string;
+  libelle_bassin_risques: string;
+  libelle_commentaire: string;
+  libelle_commune: string;
+  libelle_tri: string;
+  liste_libelle_risque: LibelleRisque[];
+}
+/*
+ *ZonageSismique
+ */
+export interface ZonageSismiqueData {
+  code_insee: string;
+  code_zone: string;
+  libelle_commune: string;
+  zone_sismicite: string;
+}
