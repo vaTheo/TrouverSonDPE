@@ -3,8 +3,9 @@ import axios from 'axios';
 import { AddressObject } from '../fetch-address/address';
 import { ApiResponse, ResultItemDPE } from './api-DPE';
 import { filterObjectKeys } from '../utilities';
-import { KEYSTOKEEDPE } from './api-keysToKeep';
+import { KEYSTOKEEPDPE } from './api-keysToKeep';
 import { DPEAllData, RatesDPE } from './DPE';
+import { Console } from 'console';
 
 @Injectable()
 export class FetchDPE {
@@ -30,10 +31,11 @@ export class FetchDPE {
       if (data.total === 0) {
         return [];
       }
-      let filteredObjects = filterObjectKeys(data.aggs[0].results, KEYSTOKEEDPE) as ResultItemDPE[];
+      let filteredObjects = filterObjectKeys(data.aggs[0].results, KEYSTOKEEPDPE) as ResultItemDPE[];
       console.log('Finished getting : ' + endpoint  + ' for ' + addressObject.properties.id);
-
-      return filteredObjects;
+      console.log(data.aggs[0].results)
+      return data.aggs[0].results;
+      // return filteredObjects;
     } catch (error) {
       console.error(`Error fetching data endpoint ${endpoint}`, error);
       throw new HttpException(`Error fetching data endpoint ${endpoint}`, HttpStatus.NOT_FOUND);
