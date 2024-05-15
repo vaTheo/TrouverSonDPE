@@ -12,7 +12,7 @@ async function bootstrap() {
   try {
     const app = await NestFactory.create(RootModule);
     app.enableCors({
-      origin: ['https://geonote.fly.dev','http://localhost:3000'], // Your frontend's origin
+      origin: ['https://geonote.fly.dev','http://localhost:3000',"https://geonotebuild.fly.dev/"], // Your frontend's origin
       credentials: true,
     });
     app.use(cookieParser());
