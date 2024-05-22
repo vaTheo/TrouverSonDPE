@@ -17,6 +17,7 @@ import { GeorisqueAllData, RatesGeoRisque } from '@server/datarating/fetch-geori
 import axios from 'axios';
 import { GasprAPIResponse } from './api-georisque';
 import { KEYSTOKEEPGEORISQUE } from './api-keysToKeep';
+import axiosInstanceWithUserAdgent from '@server/utils/axiosInstance';
 
 @Injectable()
 export class FetchGeorisqueService {
@@ -30,22 +31,20 @@ export class FetchGeorisqueService {
   async apiGaspar(addressObject: AddressObject, endpoint: string, rayon: string) {
     let dataResponse: GasprAPIResponse;
     let data: any = [];
-    const URL = 'https://www.georisques.gouv.fr/api/v3/';
-    
+    const URL = 'https://georisques.gouv.fr/api/v1/';
+
     const coordone = getCoordinatesAsString(addressObject);
     let page = 1;
 
     try {
       do {
-        console.log('tesssssssst',`${URL}${endpoint}?code_insee=${addressObject.properties.citycode}&page=${page}`)
-        const response = await axios.get(
-          endpoint.includes('radon')
-            ? `${URL}${endpoint}?code_insee=${addressObject.properties.citycode}&page=${page}`
-            : `${URL}${endpoint}?latlon=${coordone}&rayon=${rayon}&page=${page.toString()}`,
-        );
+        const sentURL = endpoint.includes('radon')
+          ? `${URL}${endpoint}?code_insee=${addressObject.properties.citycode}&page=${page}`
+          : `${URL}${endpoint}?latlon=${coordone}&rayon=${rayon}&page=${page.toString()}`;
+        const response = await axiosInstanceWithUserAdgent.get(sentURL);
         dataResponse = response.data;
         data = [...data, ...dataResponse.data]; //Merge the two array
-        if (dataResponse.next ) {
+        if (dataResponse.next) {
           page++;
         }
         await delay(50);

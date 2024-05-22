@@ -6,6 +6,7 @@ import { filterObjectKeys } from '../utilities';
 import { KEYSTOKEEPDPE } from './api-keysToKeep';
 import { DPEAllData, RatesDPE } from './DPE';
 import { Console } from 'console';
+import axiosInstanceWithUserAdgent from '@server/utils/axiosInstance';
 
 @Injectable()
 export class FetchDPE {
@@ -20,10 +21,10 @@ export class FetchDPE {
         const lat = addressObject.geometry.coordinates[1];
         const long = addressObject.geometry.coordinates[0];
         const aroundMeters = 50;
-        const response = await axios.get(`${URLAPI}geo_agg?geo_distance=${long}:${lat}:${aroundMeters}`);
+        const response = await axiosInstanceWithUserAdgent.get(`${URLAPI}geo_agg?geo_distance=${long}:${lat}:${aroundMeters}`);
         data = response.data;
       } else {
-        const response = await axios.get(
+        const response = await axiosInstanceWithUserAdgent.get(
           `${URLAPI}geo_agg?q=${addressObject.properties.id}&q_fields=Identifiant__BAN&size=50`,
         );
         data = response.data;
@@ -33,9 +34,7 @@ export class FetchDPE {
       }
       let filteredObjects = filterObjectKeys(data.aggs[0].results, KEYSTOKEEPDPE) as ResultItemDPE[];
       console.log('Finished getting : ' + endpoint  + ' for ' + addressObject.properties.id);
-      console.log(data.aggs[0].results)
-      return data.aggs[0].results;
-      // return filteredObjects;
+      return filteredObjects;
     } catch (error) {
       console.error(`Error fetching data endpoint ${endpoint}`, error);
       throw new HttpException(`Error fetching data endpoint ${endpoint}`, HttpStatus.NOT_FOUND);
