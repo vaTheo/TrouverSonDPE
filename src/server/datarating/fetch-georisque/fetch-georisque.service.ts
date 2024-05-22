@@ -22,6 +22,7 @@ import { KEYSTOKEEPGEORISQUE } from './api-keysToKeep';
 export class FetchGeorisqueService {
   /*
    *DATASHEET API : https://www.georisques.gouv.fr/doc-api
+   * V1.9.0 OAS 3.0
    * 1000call/min
    */
 
@@ -29,12 +30,14 @@ export class FetchGeorisqueService {
   async apiGaspar(addressObject: AddressObject, endpoint: string, rayon: string) {
     let dataResponse: GasprAPIResponse;
     let data: any = [];
-    const URL = 'https://www.georisques.gouv.fr/api/v1/';
+    const URL = 'https://www.georisques.gouv.fr/api/v3/';
+    
     const coordone = getCoordinatesAsString(addressObject);
     let page = 1;
 
     try {
       do {
+        console.log('tesssssssst',`${URL}${endpoint}?code_insee=${addressObject.properties.citycode}&page=${page}`)
         const response = await axios.get(
           endpoint.includes('radon')
             ? `${URL}${endpoint}?code_insee=${addressObject.properties.citycode}&page=${page}`
@@ -86,7 +89,7 @@ export class FetchGeorisqueService {
       const URLsend = endpoint.includes('radon')
         ? `${URL}${endpoint}?code_insee=${addressObject.properties.citycode}&page=${page}`
         : `${URL}${endpoint}?latlon=${coordone}&rayon=${rayon}&page=${page.toString()}`;
-      const urlErr = `-- URL= ${URL}${URLsend}`;
+      const urlErr = `-- URL= ${URLsend}`;
       if (axios.isAxiosError(err) && err.response?.data) {
         const responseData = err.response.data;
         // Check for known status codes
@@ -94,6 +97,8 @@ export class FetchGeorisqueService {
           console.error(`Resource not found: ${responseData.message} ${urlErr}`);
         } else if (err.response?.status === 410) {
           console.error(`Resource no longer available: ${responseData.message} ${urlErr}`);
+        } else if (err.response?.status === 403) {
+          console.error(`Access FORBIDEN: ${responseData.message} ${urlErr}`);
         } else {
           console.error(`Unexpected error: ${responseData.message} ${urlErr}`);
         }
