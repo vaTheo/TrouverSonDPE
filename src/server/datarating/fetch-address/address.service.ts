@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { AddressObject } from '@server/datarating/fetch-address/address';
 import axios from 'axios';
 import { AddressObjectDTO, AddressObjectThreeValueDTO } from '../../controller-ratings/rating.dto';
+import axiosInstanceWithUserAdgent from '@server/utils/axiosInstance';
 const URLapi = 'https://api-adresse.data.gouv.fr/search/?q=';
 
 @Injectable()
@@ -11,7 +12,7 @@ export class FetchAddressService {
     const querryString = inputAddressObject.street.replace(/\s/g, '+'); //replace space by +
 
     try {
-      const response = await axios.get(`${URLapi}${querryString}&postcode=${inputAddressObject.postCode}`);
+      const response = await axiosInstanceWithUserAdgent.get(`${URLapi}${querryString}&postcode=${inputAddressObject.postCode}`);
       if (!response.data) {
         throw new Error('Error undifined value return by getBANid');
       }
@@ -33,7 +34,7 @@ export class FetchAddressService {
     const querryString = inputAddressObject.address.replace(/\s/g, '+'); //replace space by +
 
     try {
-      const response = await axios.get(`${URLapi}${querryString}`);
+      const response = await axiosInstanceWithUserAdgent.get(`${URLapi}${querryString}`);
       if (!response.data) {
         throw new Error('Error undifined value return by getBANid');
       }

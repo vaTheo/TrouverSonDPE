@@ -4,6 +4,7 @@ import { getFormattedDateYearsAgoAsString } from '@server/datarating/fetch-addre
 import { AddressObject } from '@server/datarating/fetch-address/address';
 import axios from 'axios';
 import { EauPotableData } from './eau';
+import axiosInstanceWithUserAdgent from '@server/utils/axiosInstance';
 
 @Injectable()
 export class FetchEauService {
@@ -24,7 +25,7 @@ export class FetchEauService {
 
     // Get resultat Dis
     try {
-      const response = await axios.get(basURL + endpoint + codeCommune + dateMinPrelevement);
+      const response = await axiosInstanceWithUserAdgent.get(basURL + endpoint + codeCommune + dateMinPrelevement);
       const resultatDis: ResultatDis = response.data;
 
       resultatDis.data.forEach((item) => {

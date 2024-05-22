@@ -30,6 +30,7 @@ import { DBJsonDPE } from '@server/DBJson-DPE/DBjsonDPE.service';
 import { RatesDPE } from '../datarating/fetch-dpe/DPE';
 import { Request } from 'express';
 import { DBJsonParcCarto } from '../DBJson-ParcCarto/DBjsonParcCarto.service';
+import axiosInstanceWithUserAdgent from '@server/utils/axiosInstance';
 
 @Controller('ratingcontroller')
 export class RatingController {
@@ -50,7 +51,7 @@ export class RatingController {
 
   @Get('getrate')
   // @Roles('admin', 'user')
-  async getExistingRate(@Body() dataQuery: any /*AddressObjectDTO*/, @Req() req: Request) {
+  async getExistingRate(@Body() dataQuery: AddressObjectDTO, @Req() req: Request) {
     try {
       const addressObject = await this.fetchAddressService.findAddress(dataQuery);
 
@@ -261,7 +262,7 @@ export class RatingController {
   @Get('vigieau')
   // @Roles('admin', 'user')
   async vigieau(@Body() dataQuerry: any) {
-    const response = await axios.get(
+    const response = await axiosInstanceWithUserAdgent.get(
       `https://api.vigieau.gouv.fr/reglementation?lon=3.117428&lat=43.355801&commune=34155&profil=exploitation`,
     );
   }
@@ -269,7 +270,7 @@ export class RatingController {
   // @Roles('admin', 'user')
   async testnewapi(@Body() dataQuerry: any) {
     try {
-      const response = await axios.get(
+      const response = await axiosInstanceWithUserAdgent.get(
         `https://api.vigieau.beta.gouv.fr/reglementation?commune=66048_7xolnt`,
       );
     } catch (err) {

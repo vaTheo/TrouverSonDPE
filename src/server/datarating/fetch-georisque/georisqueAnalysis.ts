@@ -30,11 +30,11 @@ export const AZIAnalysis = (arrayAZI: AZIData[]): number => {
 
 export const sysmiqueAnalysis = (arraySismique: ZonageSismiqueData[]): number => {
   // Zonage Sismique Data Risque = 1-Très faible 2-faible 3-Moderée 4-Moyen 5-Fort
-  const risqueLieu = parseInt(arraySismique[0].code_zone);
-  
-  if (risqueLieu  ==1) {
-    return 100
-  } else if (risqueLieu  ==2) {
+  const risqueLieu = parseInt(arraySismique[0]?.code_zone ? arraySismique[0]?.code_zone : '0');
+
+  if (risqueLieu == 1) {
+    return 100;
+  } else if (risqueLieu == 2) {
     return 95;
   } else if (risqueLieu == 3) {
     return 90;
@@ -43,8 +43,7 @@ export const sysmiqueAnalysis = (arraySismique: ZonageSismiqueData[]): number =>
   } else if (risqueLieu == 5) {
     return 50;
   } else {
-    return null
-
+    return null;
   }
 };
 
@@ -53,7 +52,7 @@ export const CATNATAnalysis = (arrayCATNAT: CatnatData[]): number | null => {
   if (!arrayCATNAT.length) {
     return 100;
   }
-  rate = 100 - (20 * arrayCATNAT.length);
+  rate = 100 - 20 * arrayCATNAT.length;
   return rate > 0 ? rate : 0;
 };
 
@@ -91,7 +90,7 @@ export const radonAnalysis = (arrayRadon: RadonData[]): number => {
   } else if (arrayRadon[0].classe_potentiel == '3') {
     return 60;
   } else {
-    return null
+    return null;
   }
 };
 
@@ -105,7 +104,7 @@ export const risqueAnalysis = (arrayRisque: RisquesData[]): number => {
     return null;
   }
 
-  let rate = 100 - (10 * arrayAllNumRisque.length);
+  let rate = 100 - 10 * arrayAllNumRisque.length;
   return rate > 0 ? rate : 0;
 };
 
@@ -115,7 +114,7 @@ export const mvtAnalysis = (arrayMvt: MVTData[]): number => {
     return 100;
   }
 
-  let rate = 100 - (10 * arrayMvt.length);
+  let rate = 100 - 10 * arrayMvt.length;
   return rate > 0 ? rate : 0;
 };
 
@@ -124,7 +123,7 @@ export const sisAnalysis = (arraySIS: SISData[]): number => {
     return 100;
   }
 
-  let rate = 100 - (20 * arraySIS.length);
+  let rate = 100 - 20 * arraySIS.length;
   return rate > 0 ? rate : 0;
 };
 
@@ -139,7 +138,6 @@ export const TRIAnalysis = (arrayTRI: TRIData[]): number => {
     return null;
   }
 
-  let rate = 100 - (10 * arrayTRI.length);
+  let rate = 100 - 10 * arrayTRI.length;
   return rate > 0 ? rate : 0;
-  
 };

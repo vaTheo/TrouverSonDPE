@@ -7,6 +7,7 @@ import { filterObjectKeys } from '../utilities';
 import { KEYSTOKEEPCARTO } from './api-keysToKeep';
 import * as turf from '@turf/turf';
 import { ParcCartoAllData, RatesParcCarto } from './cartoParc';
+import axiosInstanceWithUserAdgent from '@server/utils/axiosInstance';
 
 @Injectable()
 export class FetchParcCarto {
@@ -42,7 +43,7 @@ export class FetchParcCarto {
 
   async callNatureData(endpoint: string, stringGEOJSON: string): Promise<FeatureCarto> {
     try {
-      const response = await axios.get(`https://apicarto.ign.fr/api${endpoint}?geom=${stringGEOJSON}`);
+      const response = await axiosInstanceWithUserAdgent.get(`https://apicarto.ign.fr/api${endpoint}?geom=${stringGEOJSON}`);
       const data: CartoParcResponse = response.data;
       // calculate area
 
