@@ -43,7 +43,9 @@ export class FetchParcCarto {
 
   async callNatureData(endpoint: string, stringGEOJSON: string): Promise<FeatureCarto> {
     try {
-      const response = await axiosInstanceWithUserAdgent.get(`https://apicarto.ign.fr/api${endpoint}?geom=${stringGEOJSON}`);
+      const response = await axiosInstanceWithUserAdgent.get(
+        `https://apicarto.ign.fr/api${endpoint}?geom=${stringGEOJSON}`,
+      );
       const data: CartoParcResponse = response.data;
       // calculate area
 

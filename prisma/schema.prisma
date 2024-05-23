@@ -18,7 +18,7 @@ datasource db {
 // }
 
 model AddressInfo {
-  addressID           String                  @unique
+  addressID           String               @unique
   street              String
   city                String
   postcode            String
@@ -30,6 +30,7 @@ model AddressInfo {
   jsonDataGeorisque   jsonDataGeorisque[]
   jsonDataParcCarto   jsonDataParcCarto[]
   jsonDataDPE         jsonDataDPE[]
+  createdAt           DateTime             @default(now())
   // users               UserAddressInfo[]
 }
 

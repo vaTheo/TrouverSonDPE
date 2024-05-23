@@ -1,5 +1,6 @@
 export const KEYSTOKEEPGEORISQUE = [
   // 'code_national_azi',
+  "libelle_commune",
   'liste_libelle_risque',
   // 'libelle_bassin_risques',
   // 'libelle_commentaire',

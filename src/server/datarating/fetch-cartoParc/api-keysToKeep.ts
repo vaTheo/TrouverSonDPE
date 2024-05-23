@@ -1,1 +1,1 @@
-export const KEYSTOKEEPCARTO = ['area', 'id', ' geometry_name', 'properties'];
+export const KEYSTOKEEPCARTO = ['area', 'id', ' geometry_name', 'properties', 'crs'];
