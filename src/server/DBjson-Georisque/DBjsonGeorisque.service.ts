@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-// import { jsonGeorisqueMapping } from './jsonGeorisque.const';
 import { GeorisqueAllData } from '../datarating/fetch-georisque/Georisque';
 import { EnumGeorisque } from './jsonGeorisque';
 
@@ -14,18 +13,19 @@ export class DBJsonGeorisque {
    * @param jsonToGet
    * @returns
    */
-  async getSpecificJsonDataGeorisque(addressID: string, jsonToGet:  EnumGeorisque): Promise<any | null> {
+  async getSpecificJsonDataGeorisque(addressID: string, jsonToGet: EnumGeorisque): Promise<any | null> {
     // Convert jsonToGet to actual database field
-    const dbField =jsonToGet;
+    const dbField = jsonToGet;
     if (!dbField) {
-      return null    }
+      return null;
+    }
 
     const dataSourceWithJsonData = await this.prisma.addressInfo.findUnique({
       where: { addressID: addressID },
       include: {
         jsonDataGeorisque: {
           select: { [dbField]: true },
-          take: 1, // Assuming one-to-one relation or taking the first entry
+          take: 1,
         },
       },
     });
@@ -38,7 +38,7 @@ export class DBJsonGeorisque {
     }
 
     const jsonData = dataSourceWithJsonData.jsonDataGeorisque[0][dbField] as string;
-    if (jsonData === null || jsonData === undefined) {
+    if (!jsonData) {
       return null;
     }
     // TODO: Why JSON data is type never when I remove the as string ?.???
