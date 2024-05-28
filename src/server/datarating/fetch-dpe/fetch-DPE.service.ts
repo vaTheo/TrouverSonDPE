@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { AddressObject } from '../fetch-address/address';
 import { ApiResponse, ResultItemDPE } from './api-DPE';
-import { filterObjectKeys } from '../utilities';
+import { filterObjectKeys } from '../../utils/utilities';
 import { KEYSTOKEEPDPE } from './api-keysToKeep';
 import { DPEAllData, RatesDPE } from './DPE';
 import { Console } from 'console';

@@ -62,15 +62,15 @@ export const installationClasseAnalysis = (arrayInstallationClasse: Installation
   });
   let rate = 100;
   if (!arrayInstallationClasse.length) {
-    return null;
+    return 100;
   }
   arrayStatusSeveso.forEach((item) => {
     if (item == 'Non Seveso') {
-      rate -= 0.5;
+      rate -= 0.1;
     } else if (item == 'Seveso seuil bas') {
       rate -= 1;
     } else if (item == 'Seveso seuil haut') {
-      rate -= 5;
+      rate -= 10;
     } else {
     }
   });
@@ -104,7 +104,7 @@ export const risqueAnalysis = (arrayRisque: RisquesData[]): number => {
     return null;
   }
 
-  let rate = 100 - 10 * arrayAllNumRisque.length;
+  let rate = 100 - 2* arrayAllNumRisque.length;
   return rate > 0 ? rate : 0;
 };
 
@@ -114,7 +114,7 @@ export const mvtAnalysis = (arrayMvt: MVTData[]): number => {
     return 100;
   }
 
-  let rate = 100 - 10 * arrayMvt.length;
+  let rate = 100 - 5 * arrayMvt.length;
   return rate > 0 ? rate : 0;
 };
 
@@ -123,7 +123,7 @@ export const sisAnalysis = (arraySIS: SISData[]): number => {
     return 100;
   }
 
-  let rate = 100 - 20 * arraySIS.length;
+  let rate = 100 - 5 * arraySIS.length;
   return rate > 0 ? rate : 0;
 };
 
@@ -135,7 +135,7 @@ export const TRIAnalysis = (arrayTRI: TRIData[]): number => {
   });
 
   if (!arrayTRI.length) {
-    return null;
+    return 100;
   }
 
   let rate = 100 - 10 * arrayTRI.length;

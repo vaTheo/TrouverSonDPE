@@ -1,11 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import {  ResultatDis } from '@server/datarating/fetch-eau/api-eau';
+import { ResultatDis } from '@server/datarating/fetch-eau/api-eau';
 import { getFormattedDateYearsAgoAsString } from '@server/datarating/fetch-address/addressFunction';
 import { AddressObject } from '@server/datarating/fetch-address/address';
 import axios from 'axios';
 import { EauPotableData } from './eau';
 import axiosInstanceWithUserAdgent from '@server/utils/axiosInstance';
+import { LyonCityCodes, MarseilleCityCodes, ParisCityCodes } from './arrondisment';
+import { saveDataToFile } from '@server/utils/utilities';
+import { paramAnalyseEau } from './eau.limits';
 
+/**
+ * Doc: https://hubeau.eaufrance.fr/page/api-qualite-eau-potable
+ */
 @Injectable()
 export class FetchEauService {
   async qualiteEau(adressObject: AddressObject): Promise<ResultatDis> {
@@ -15,17 +21,24 @@ export class FetchEauService {
     const endpoint = 'resultats_dis';
     //City code managment it appear Hub eau do not manage disctrict
     let cityCode = adressObject.properties.citycode;
-    // TODO: Manage city conde des arrondissements des grandes villes 
-    const lyonCityCodes = ['69381', '69382', '69383', '69384', '69385', '69386', '69387', '69388', '69389'];
-    if (lyonCityCodes.includes(cityCode)) {
+    // TODO: Manage city conde des arrondissements des grandes villes
+    if (LyonCityCodes.includes(cityCode)) {
       cityCode = '69123';
+    }
+    if (ParisCityCodes.includes(cityCode)) {
+      cityCode = '75056';
+    }
+    if (MarseilleCityCodes.includes(cityCode)) {
+      cityCode = '13055';
     }
     const codeCommune = `?code_commune=${cityCode}`;
     const dateMinPrelevement = `&date_min_prelevement=${getFormattedDateYearsAgoAsString(10)}`;
 
     // Get resultat Dis
     try {
-      const response = await axiosInstanceWithUserAdgent.get(basURL + endpoint + codeCommune + dateMinPrelevement);
+      const response = await axiosInstanceWithUserAdgent.get(
+        basURL + endpoint + codeCommune + dateMinPrelevement,
+      );
       const resultatDis: ResultatDis = response.data;
 
       resultatDis.data.forEach((item) => {
@@ -36,10 +49,8 @@ export class FetchEauService {
       });
       type DataItem = {
         libelle_parametre: string;
-        // Include other properties as needed
       };
 
-      // Assuming resultatDis.data is an array of DataItem
       const counts: Record<string, number> = {};
 
       resultatDis.data.forEach((item: DataItem) => {
@@ -51,8 +62,8 @@ export class FetchEauService {
           counts[libelle]++;
         }
       });
+      saveDataToFile(resultatDis, 'resultatDis.json');
       console.log('Finished getting : ' + endpoint + ' for ' + cityCode);
-
       return resultatDis;
     } catch (err) {
       const URLsend = basURL + endpoint + codeCommune + dateMinPrelevement;
@@ -74,88 +85,16 @@ export class FetchEauService {
   }
 
   dataCalculation(resultatDis: ResultatDis): EauPotableData[] {
-    // Creation of empty data and defining thresholds
-    let paramAnalyseEau: EauPotableData[] = [
-      {
-        libelle_parametre: 'Escherichia coli /100ml - MF',
-        min: 0,
-        max: 0,
-        totalAverage: 0,
-        countValue: 0,
-        good: false,
-      },
-      {
-        libelle_parametre: 'Entérocoques /100ml-MS',
-        min: 0,
-        max: 0,
-        totalAverage: 0,
-        countValue: 0,
-        good: false,
-      },
-      {
-        libelle_parametre: 'Nitrates (en NO3)',
-        min: 0,
-        max: 50,
-        totalAverage: 0,
-        countValue: 0,
-        good: false,
-      },
-      {
-        libelle_parametre: 'Turbidité néphélométrique NFU',
-        min: 0,
-        max: 1.0,
-        totalAverage: 0,
-        countValue: 0,
-        good: false,
-      },
-      {
-        libelle_parametre: 'Conductivité à 25°C',
-        min: 200,
-        max: 1100,
-        totalAverage: 0,
-        countValue: 0,
-        good: false,
-      },
-      {
-        libelle_parametre: 'Ammonium (en NH4)',
-        min: 0,
-        max: 0.1,
-        totalAverage: 0,
-        countValue: 0,
-        good: false,
-      },
-      {
-        libelle_parametre: 'pH',
-        min: 6.5,
-        max: 9.0,
-        totalAverage: 0,
-        countValue: 0,
-        good: false,
-      },
-      {
-        libelle_parametre: 'Bact. aér. revivifiables à 36°-44h',
-        min: 0,
-        max: 0,
-        totalAverage: 0,
-        countValue: 0,
-        good: false,
-      },
-      {
-        libelle_parametre: 'Plomb',
-        min: 0,
-        max: 10,
-        totalAverage: 0,
-        countValue: 0,
-        good: false,
-      },
-    ];
     //Object to keep track of total values and counts for each parameter
     const totals: Record<string, { total: number; count: number }> = {};
 
     resultatDis.data.forEach((item) => {
       const param = item.libelle_parametre;
-      const value = item.resultat_numerique;
+      const value: number = item.resultat_numerique;
 
+      // const value = item.resultat_numerique === 0: item.resultat_alphanumerique : item.resultat_numerique;
+
+      // const test:number = item.resultat_alphanumerique.replace(/[<>=]/g, '')
       // Initialize the accumulator for this parameter if it's not already there
       if (!totals[param]) {
         totals[param] = { total: 0, count: 0 };
@@ -180,7 +119,7 @@ export class FetchEauService {
         param.countValue = 0; // No occurrences found
       }
     });
-
+    console.log('paramAnalyseEau = ', paramAnalyseEau);
     return paramAnalyseEau;
   }
 }

@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { getCoordinatesAsString } from '@server/datarating/fetch-address/addressFunction';
 import { AddressObject } from '@server/datarating/fetch-address/address';
-import { delay, filterObjectKeys, sortObject } from '@server/datarating/utilities';
 import {
   AZIAnalysis,
   CATNATAnalysis,
@@ -18,6 +17,7 @@ import axios from 'axios';
 import { GasprAPIResponse } from './api-georisque';
 import { KEYSTOKEEPGEORISQUE } from './api-keysToKeep';
 import axiosInstanceWithUserAdgent from '@server/utils/axiosInstance';
+import { delay, filterObjectKeys, sortObject } from '@server/utils/utilities';
 
 @Injectable()
 export class FetchGeorisqueService {

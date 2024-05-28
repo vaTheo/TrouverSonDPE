@@ -1,5 +1,7 @@
 export interface EauPotableData {
   libelle_parametre: string;
+  unite: string;
+  name:string;
   min: number;
   max: number;
   totalAverage: number;
@@ -8,6 +10,8 @@ export interface EauPotableData {
 }
 export interface CoursEauData {
   libelle_parametre: string;
+  unite: string;
+  name:string;
   min: number;
   max: number;
   totalAverage: number;

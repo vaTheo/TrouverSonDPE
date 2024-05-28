@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { GeolibInputCoordinates } from 'geolib/es/types';
 import { CartoParcResponse, FeatureCarto } from './api-cartoParc';
-import { filterObjectKeys } from '../utilities';
+import { filterObjectKeys } from '../../utils/utilities';
 import { KEYSTOKEEPCARTO } from './api-keysToKeep';
 import * as turf from '@turf/turf';
 import { ParcCartoAllData, RatesParcCarto } from './cartoParc';
