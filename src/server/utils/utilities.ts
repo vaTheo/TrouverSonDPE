@@ -1,4 +1,5 @@
 import { writeFile } from 'fs';
+import { getDistance } from 'geolib';
 
 export function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -44,4 +45,8 @@ export function sortObject(events: any[], keyToSort: string) {
     const dateB = parseDateString(b[keyToSort]);
     return dateA.getTime() - dateB.getTime();
   });
+}
+
+export function getDistanceBetweenTwoPoint(lat1:number,lat2:number,lon1:number,lon2:number):number{
+  return getDistance({latitude: lat1, longitude: lon1}, {latitude: lat2, longitude: lon2});
 }

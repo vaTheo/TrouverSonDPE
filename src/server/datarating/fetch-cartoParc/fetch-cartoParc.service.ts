@@ -1,6 +1,5 @@
 import { computeDestinationPoint } from 'geolib';
 import { Injectable } from '@nestjs/common';
-import axios from 'axios';
 import { GeolibInputCoordinates } from 'geolib/es/types';
 import { CartoParcResponse, FeatureCarto } from './api-cartoParc';
 import { filterObjectKeys } from '../../utils/utilities';
@@ -111,11 +110,11 @@ export class FetchParcCarto {
       const data = cartoAllData[typedKey];
       let rate = 0;
       if (!data) {
-        ratesCarto[typedKey] = null;
+        return ratesCarto[typedKey] = 0;
       } else {
         ratesCarto[typedKey] = rate + 20 * data.length;
         if (ratesCarto[typedKey] <= 0) {
-          ratesCarto[typedKey] = 100;
+          ratesCarto[typedKey] = 0;
         }
       }
     });

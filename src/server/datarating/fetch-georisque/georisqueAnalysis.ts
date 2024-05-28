@@ -25,7 +25,7 @@ export const AZIAnalysis = (arrayAZI: AZIData[]): number => {
   const uniqueRisqueAZI = allRisqueNumber.filter((value, index, self) => {
     return self.indexOf(value) === index;
   });
-  return rates - 10 * allRisqueNumber.length;
+  return rates - 40* allRisqueNumber.length;
 };
 
 export const sysmiqueAnalysis = (arraySismique: ZonageSismiqueData[]): number => {
@@ -66,12 +66,13 @@ export const installationClasseAnalysis = (arrayInstallationClasse: Installation
   }
   arrayStatusSeveso.forEach((item) => {
     if (item == 'Non Seveso') {
-      rate -= 0.1;
-    } else if (item == 'Seveso seuil bas') {
       rate -= 1;
+    } else if (item == 'Seveso seuil bas') {
+      rate -= 5;
     } else if (item == 'Seveso seuil haut') {
-      rate -= 10;
+      rate -= 20;
     } else {
+      rate -= 0.5;
     }
   });
   if (rate <= 0) {
@@ -100,11 +101,11 @@ export const risqueAnalysis = (arrayRisque: RisquesData[]): number => {
       return parseInt(item.num_risque);
     });
   });
-  if (!arrayRisque.length) {
-    return null;
+  if (! arrayRisque[0].risques_detail.length) {
+    return 100;
   }
 
-  let rate = 100 - 2* arrayAllNumRisque.length;
+  let rate = 100 - 2 * arrayRisque[0].risques_detail.length;
   return rate > 0 ? rate : 0;
 };
 

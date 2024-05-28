@@ -119,7 +119,6 @@ export class FetchEauService {
         param.countValue = 0; // No occurrences found
       }
     });
-    console.log('paramAnalyseEau = ', paramAnalyseEau);
     return paramAnalyseEau;
   }
 }

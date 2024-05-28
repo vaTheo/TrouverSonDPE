@@ -14,10 +14,10 @@ import {
 } from '@server/datarating/fetch-georisque/georisqueAnalysis';
 import { GeorisqueAllData, RatesGeoRisque } from '@server/datarating/fetch-georisque/Georisque';
 import axios from 'axios';
-import { GasprAPIResponse } from './api-georisque';
+import { GasprAPIResponse, InstallationsClasseesData } from './api-georisque';
 import { KEYSTOKEEPGEORISQUE } from './api-keysToKeep';
 import axiosInstanceWithUserAdgent from '@server/utils/axiosInstance';
-import { delay, filterObjectKeys, sortObject } from '@server/utils/utilities';
+import { delay, filterObjectKeys, getDistanceBetweenTwoPoint, sortObject } from '@server/utils/utilities';
 
 @Injectable()
 export class FetchGeorisqueService {
@@ -80,6 +80,27 @@ export class FetchGeorisqueService {
         filteredObjects = filteredObjects.filter((item) => {
           return yearsToInclude.some((year) => item.date_debut.includes(year));
         });
+      } else if (endpoint == 'installations_classees') {
+        // Get distance btw addresse and installation + sort by distence ascending order
+        filteredObjects.forEach((e) => {
+          // getDistanceBetweenTwoPoint(e.latitude, e.longitude, addressObject.geometry.coordinates[1], addressObject.geometry.coordinates[0])
+          if (
+            e.latitude &&
+            e.longitude &&
+            addressObject.geometry.coordinates[1] &&
+            addressObject.geometry.coordinates[0]
+          ) {
+            e.distance = getDistanceBetweenTwoPoint(
+              e.latitude,
+              addressObject.geometry.coordinates[1], //Latitude
+              addressObject.geometry.coordinates[0], //Longitude
+              e.longitude,
+            );
+          }
+        });
+        filteredObjects.sort(
+          (a: InstallationsClasseesData, b: InstallationsClasseesData) => a.distance - b.distance,
+        );
       }
       console.log('Finished getting : ' + endpoint + ', at page ' + page);
 
@@ -130,6 +151,7 @@ export class FetchGeorisqueService {
     // Await the resolution of all API call promises using Promise.all
     const resultsArray = await Promise.all(apiCalls);
     // Combine all resolved objects into a single object
+
     const results = Object.assign({}, ...resultsArray);
 
     return results;

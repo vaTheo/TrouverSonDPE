@@ -344,6 +344,7 @@ export interface InstallationsClasseesData {
   regime: string;
   siret: string;
   statutSeveso: string;
+  distance:number;
 }
 
 export interface InstallationsClasseesDocument {
