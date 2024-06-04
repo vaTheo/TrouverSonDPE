@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { DataRatingModule } from './controller-ratings/ratings.module';
-import { PrismaService } from '@server/prisma/prisma.service';
-import { FrontDataModule } from './controller-frontData/frontData.module';
+import { DataRatingModule } from './V1/controller-ratings/ratings.module';
+import { PrismaService } from './prisma/prisma.service';
+import { FrontDataModule } from './V1/controller-frontData/frontData.module';
 
 @Module({
   imports: [DataRatingModule, FrontDataModule],
