@@ -1,9 +1,9 @@
 import axiosInstanceWithUserAdgent from "src/server/utils/axiosInstance";
-import { AddressDTO } from "../dto";
+import { AddressDTO } from "../dtoFetchData";
 import { AddressObject } from "./address";
-import { HttpException, HttpStatus } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 
-
+@Injectable()
 export class AddressService{
 
     async findAddress(inputAddressObject: AddressDTO): Promise<AddressObject> {

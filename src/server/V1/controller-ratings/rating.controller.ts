@@ -25,7 +25,7 @@ import axios from 'axios';
 import { FetchParcCarto } from '../datarating/fetch-cartoParc/fetch-cartoParc.service';
 import { RatesParcCarto } from '../datarating/fetch-cartoParc/cartoParc';
 import { DBJsonEau } from '../DBjson-Eau/DBjsonEau.service';
-import { FetchDPE } from '../datarating/fetch-dpe/fetch-DPE.service';
+import { FetchDPE } from '../datarating/fetch-dpe/fetchDPE.service';
 import { DBJsonDPE } from '../DBJson-DPE/DBjsonDPE.service';
 import { RatesDPE } from '../datarating/fetch-dpe/DPE';
 import { Request } from 'express';
@@ -197,13 +197,13 @@ export class RatingController {
     }
   }
   @Post('fethDPE')
-  async postDPE(@Body() addressObject: AddressObject, @Req() req: Request): Promise<RatesDPE> {
+  async postDPE(@Body() addressObject: AddressObject, @Req() req: Request): Promise<any> {
     const resultDPEHabitat = await this.fetchDPE.getDPEDatas(addressObject);
     const ratesDPEHabitat = this.fetchDPE.getDPERates(resultDPEHabitat);
     // Update DB
-    this.DBAllRatings.updateRating(addressObject.properties.id, ratesDPEHabitat);
-    this.DBJsonDPE.addJson(addressObject.properties.id, resultDPEHabitat);
-    return ratesDPEHabitat;
+    // this.DBAllRatings.updateRating(addressObject.properties.id, ratesDPEHabitat);
+    // this.DBJsonDPE.addJson(addressObject.properties.id, resultDPEHabitat);
+    // return ratesDPEHabitat;
   }
   /**
    * Handles a POST request to obtain rate information for a specified address.
