@@ -52,6 +52,7 @@ export class RatingController {
   @Get('getrate')
   // @Roles('admin', 'user')
   async getExistingRate(@Body() dataQuery: AddressObjectDTO, @Req() req: Request) {
+    
     try {
       const addressObject = await this.fetchAddressService.findAddress(dataQuery);
 
@@ -232,15 +233,16 @@ export class RatingController {
         address: dataQuery.address,
       };
       const addressObject: AddressObject = await this.fetchAddressService.findAddress(inputaddressObject);
+      console.log("addressObject : ",addressObject);
       let addressInfo = await this.DBAddressInfo.findAddressInfo(addressObject.properties.id);
       // Fill address info DB
       if (!addressInfo) {
         addressInfo = await this.DBAddressInfo.createEntry(addressObject);
       }
-      // link user with addressID
-      if (!(await this.DBAllRatings.entryExists(addressObject.properties.id))) {
-        await this.DBAllRatings.createEntry(addressObject.properties.id);
-      }
+      // // link user with addressID
+      // if (!(await this.DBAllRatings.entryExists(addressObject.properties.id))) {
+      //   await this.DBAllRatings.createEntry(addressObject.properties.id);
+      // }
       // Return the address object
       console.error(addressObject);
       return addressObject;

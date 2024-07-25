@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Post } from '@nestjs/common';
 import { AddressService } from './fetch-Addresse/address.service';
 import { AddressObject } from './fetch-Addresse/address';
 import { parcCartoService } from './fetch-ParCarto/fetchParcCarto.service';
@@ -7,6 +7,9 @@ import { DPEAllData } from './fetch-DPE/DPE';
 import { georisqueService } from './fetchGeorisque/fetchGeorisque.service';
 import { ParcCartoAllData } from './fetch-ParCarto/parcCarto';
 import { GeorisqueAllData } from './fetchGeorisque/georisque';
+import { EauService } from './fetch-eau/fetch-eau.service';
+import { EauAllData, EauPotableData } from './fetch-eau/eau';
+import { eauAnalysis } from './fetch-eau/eauAnalysis';
 // import { AddressDTO } from './dtoFetchData';
 
 @Controller('v2/fetch')
@@ -15,7 +18,8 @@ export class FetchDataController {
     private AddressService: AddressService,
     private ParcCarto: parcCartoService,
     private DPE: DpeService,
-    private georisque:georisqueService,
+    private georisque: georisqueService,
+    private eau: EauService,
   ) {}
 
   /**
@@ -28,7 +32,7 @@ export class FetchDataController {
     return this.AddressService.findAddress(dataQuery);
   }
 
-  @Get('parcCarto')
+  @Post('parcCarto')
   async fetchParcCarto(@Body() addressObject: AddressObject): Promise<ParcCartoAllData> {
     const geoJsonAreaAroundPoint = this.ParcCarto.createGeoJSONCircleString(
       addressObject.geometry.coordinates[1],
@@ -44,7 +48,7 @@ export class FetchDataController {
     return parcCartoAllData;
   }
 
-  @Get('dpe')
+  @Post('dpe')
   async fetchDPE(@Body() addressObject: AddressObject): Promise<DPEAllData> {
     const resultDPEHabitat = await this.DPE.getDPEDatas(addressObject);
     const ratesDPEHabitat = this.DPE.getDPERates(resultDPEHabitat);
@@ -52,12 +56,25 @@ export class FetchDataController {
     return ratesDPEHabitat;
   }
 
-  @Get('georisque')
+  @Post('georisque')
   async fetchGeorisque(@Body() addressObject: AddressObject): Promise<GeorisqueAllData> {
     const georisqueAllData = await this.georisque.callAllApiGasparPromiseAll(addressObject);
     const ratesGaspar = this.georisque.rateGaspar(georisqueAllData);
 
-    return this.georisque.groupRatesGeorique(georisqueAllData,ratesGaspar)
+    return this.georisque.groupRatesGeorique(georisqueAllData, ratesGaspar);
+  }
+
+  @Post('eau')
+  async fetchEau(@Body() addressObject: AddressObject): Promise<EauAllData> {
+    let dataEauPotable: EauPotableData[];
+    let eauAllData: EauAllData;
+    const resultEauPotable: number = await this.eau.qualiteEau(addressObject).then((res) => {
+      dataEauPotable = this.eau.dataCalculation(res);
+      return eauAnalysis(dataEauPotable);
+    });
+    eauAllData = { eauPotable: dataEauPotable, rateEauPotable: resultEauPotable };
+    
+    return eauAllData;
   }
 
   @Get('ping')

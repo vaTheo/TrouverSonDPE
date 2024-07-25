@@ -7,25 +7,28 @@ import { PrismaService } from '../../prisma/prisma.service';
 export class DBAddressInfo {
   constructor(private prisma: PrismaService) {}
 
-  async createEntry( addressObject: AddressObject): Promise<AddressInfo | null> {
-
-    const addressInfo = await this.prisma.addressInfo.create({
-      data: {
-        street: addressObject.properties.street,
-        city: addressObject.properties.city,
-        postcode: addressObject.properties.postcode,
-        citycode: addressObject.properties.citycode,
-        latitude: addressObject.geometry.coordinates[1],
-        longitude: addressObject.geometry.coordinates[0],
-        addressID: addressObject.properties.id,
-      },
-    });
-    return addressInfo;
+  async createEntry(addressObject: AddressObject): Promise<AddressInfo | null> {
+    try {
+      const addressInfo = await this.prisma.addressInfo.create({
+        data: {
+          street: addressObject.properties.street !== undefined ? addressObject.properties.street : '',
+          city: addressObject.properties.city,
+          postcode: addressObject.properties.postcode,
+          citycode: addressObject.properties.citycode,
+          latitude: addressObject.geometry.coordinates[1],
+          longitude: addressObject.geometry.coordinates[0],
+          addressID: addressObject.properties.id,
+        },
+      });
+      return addressInfo;
+    } catch (err) {
+      console.error('Error in createEntry:', err);
+    }
   }
 
   async addressExists(addressID: string): Promise<boolean> {
     const address = await this.prisma.addressInfo.findUnique({
-      where: { addressID:addressID},
+      where: { addressID: addressID },
     });
 
     return address !== null;

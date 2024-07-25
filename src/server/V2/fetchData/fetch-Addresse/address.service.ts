@@ -22,6 +22,7 @@ export class AddressService{
           if (!response.data.features[0]) {
             throw new HttpException('No address find', HttpStatus.BAD_REQUEST);
           }
+
           return response.data.features[0]; //Return the first adresse (Usually there is only one)
         } catch (err) {
           console.error(err);

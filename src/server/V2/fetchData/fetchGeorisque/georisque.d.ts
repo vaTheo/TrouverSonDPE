@@ -1,4 +1,18 @@
-import { AZIData, CatnatData, CaviteData, InstallationsClasseesData, MVTData, PAPIData, PCSData, RadonData, RisquesData, SISData, TIMData, TRIData, ZonageSismiqueData } from "./externalApi";
+import {
+  AZIData,
+  CatnatData,
+  CaviteData,
+  InstallationsClasseesData,
+  MVTData,
+  PAPIData,
+  PCSData,
+  RadonData,
+  RisquesData,
+  SISData,
+  TIMData,
+  TRIData,
+  ZonageSismiqueData,
+} from './externalApi';
 
 export interface GeorisqueAllData {
   ratesZoneInnondable?: number;
