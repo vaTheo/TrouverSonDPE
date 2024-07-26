@@ -13,7 +13,7 @@ import { ResultatDis } from './api-eau';
  */
 @Injectable()
 export class EauService {
-  async qualiteEau(adressObject: AddressObject): Promise<ResultatDis> {
+  async apiEau(adressObject: AddressObject): Promise<ResultatDis> {
     let uniqueCodeReseau: string[] = [];
     let uniqueTypeAnalysis: string[] = [];
     const basURL = 'https://hubeau.eaufrance.fr/api/v1/qualite_eau_potable/';
@@ -83,40 +83,59 @@ export class EauService {
   }
 
   dataCalculation(resultatDis: ResultatDis): EauPotableData[] {
-    //Object to keep track of total values and counts for each parameter
-    const totals: Record<string, { total: number; count: number }> = {};
+    try {
+      //Object to keep track of total values and counts for each parameter
+      const totals: Record<string, { total: number; count: number }> = {};
+      resultatDis.data.forEach((item) => {
+        const param = item.libelle_parametre;
+        const value: number = item?.resultat_numerique || 0;
 
-    resultatDis.data.forEach((item) => {
-      const param = item.libelle_parametre;
-      const value: number = item.resultat_numerique;
+        // const value = item.resultat_numerique === 0: item.resultat_alphanumerique : item.resultat_numerique;
 
-      // const value = item.resultat_numerique === 0: item.resultat_alphanumerique : item.resultat_numerique;
+        // const test:number = item.resultat_alphanumerique.replace(/[<>=]/g, '')
+        // Initialize the accumulator for this parameter if it's not already there
+        if (!totals[param]) {
+          totals[param] = { total: 0, count: 0 };
+        }
 
-      // const test:number = item.resultat_alphanumerique.replace(/[<>=]/g, '')
-      // Initialize the accumulator for this parameter if it's not already there
-      if (!totals[param]) {
-        totals[param] = { total: 0, count: 0 };
+        // Accumulate totals and counts
+        totals[param].total += value;
+        totals[param].count += 1;
+      });
+
+      // Calculate averages and check if they are within the range
+      paramAnalyseEau.forEach((param) => {
+        const data = totals[param.libelle_parametre];
+        if (data) {
+          const avg = data.total / data.count;
+          param.totalAverage = avg;
+          param.good = avg >= param.min && avg <= param.max;
+          param.countValue = data.count; // Assigning countValue
+        } else {
+          param.totalAverage = 0;
+          param.good = null;
+          param.countValue = 0; // No occurrences found
+        }
+      });
+      return paramAnalyseEau;
+    } catch (err) {
+      console.log('______________', err);
+    }
+  }
+
+  eauAnalysis(eauPotableData: EauPotableData[]): number {
+    let numberFail = 0;
+    eauPotableData.forEach((element) => {
+      if (!element.good) {
+        numberFail += 1;
       }
-
-      // Accumulate totals and counts
-      totals[param].total += value;
-      totals[param].count += 1;
     });
 
-    // Calculate averages and check if they are within the range
-    paramAnalyseEau.forEach((param) => {
-      const data = totals[param.libelle_parametre];
-      if (data) {
-        const avg = data.total / data.count;
-        param.totalAverage = avg;
-        param.good = avg >= param.min && avg <= param.max;
-        param.countValue = data.count; // Assigning countValue
-      } else {
-        param.totalAverage = 0;
-        param.good = null;
-        param.countValue = 0; // No occurrences found
-      }
-    });
-    return paramAnalyseEau;
+    if (!eauPotableData.length) {
+      return null;
+    }
+
+    let rate = 100 - 20 * numberFail;
+    return rate > 0 ? rate : 0;
   }
 }

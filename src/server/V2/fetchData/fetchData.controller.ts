@@ -7,9 +7,8 @@ import { DPEAllData } from './fetch-DPE/DPE';
 import { georisqueService } from './fetchGeorisque/fetchGeorisque.service';
 import { ParcCartoAllData } from './fetch-ParCarto/parcCarto';
 import { GeorisqueAllData } from './fetchGeorisque/georisque';
-import { EauService } from './fetch-eau/fetch-eau.service';
 import { EauAllData, EauPotableData } from './fetch-eau/eau';
-import { eauAnalysis } from './fetch-eau/eauAnalysis';
+import { EauService } from './fetch-eau/fetchEau.service';
 // import { AddressDTO } from './dtoFetchData';
 
 @Controller('v2/fetch')
@@ -42,7 +41,10 @@ export class FetchDataController {
     );
     // Getting the data from the API
     let parcCartoAllData = await this.ParcCarto.getNatureDatas(geoJsonAreaAroundPoint);
-
+    if (!parcCartoAllData) {
+      console.error('Error while fetching ParcCarto data');
+      return null;
+    }
     parcCartoAllData = this.ParcCarto.ratesParcCarto(parcCartoAllData);
 
     return parcCartoAllData;
@@ -51,6 +53,11 @@ export class FetchDataController {
   @Post('dpe')
   async fetchDPE(@Body() addressObject: AddressObject): Promise<DPEAllData> {
     const resultDPEHabitat = await this.DPE.getDPEDatas(addressObject);
+
+    if (!resultDPEHabitat) {
+      console.error('Error while fetching DPE data');
+      return null;
+    }
     const ratesDPEHabitat = this.DPE.getDPERates(resultDPEHabitat);
 
     return ratesDPEHabitat;
@@ -59,6 +66,10 @@ export class FetchDataController {
   @Post('georisque')
   async fetchGeorisque(@Body() addressObject: AddressObject): Promise<GeorisqueAllData> {
     const georisqueAllData = await this.georisque.callAllApiGasparPromiseAll(addressObject);
+    if (!georisqueAllData) {
+      console.error('Error while fetching Georisque data');
+      return null;
+    }
     const ratesGaspar = this.georisque.rateGaspar(georisqueAllData);
 
     return this.georisque.groupRatesGeorique(georisqueAllData, ratesGaspar);
@@ -66,17 +77,16 @@ export class FetchDataController {
 
   @Post('eau')
   async fetchEau(@Body() addressObject: AddressObject): Promise<EauAllData> {
-    let dataEauPotable: EauPotableData[];
-    let eauAllData: EauAllData;
-    const resultEauPotable: number = await this.eau.qualiteEau(addressObject).then((res) => {
-      dataEauPotable = this.eau.dataCalculation(res);
-      return eauAnalysis(dataEauPotable);
-    });
-    eauAllData = { eauPotable: dataEauPotable, rateEauPotable: resultEauPotable };
-    
-    return eauAllData;
-  }
+    const rawResultEau = await this.eau.apiEau(addressObject);
+    if (!rawResultEau || !rawResultEau.data) {
+      console.error('Error while fetching Eau data');
+      return null;
+    }
+    let dataEauPotable = this.eau.dataCalculation(rawResultEau);
 
+    return { eauPotable: dataEauPotable, rateEauPotable: this.eau.eauAnalysis(dataEauPotable) };
+  }
+ 
   @Get('ping')
   async ping() {
     return { success: true, message: 'Pong', status: HttpStatus.OK };

@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { AddressObject } from '../fetch-Addresse/address';
 import { GasprAPIResponse, InstallationsClasseesData } from './externalApi';
-import { getCoordinatesAsString } from 'src/server/V1/datarating/fetch-address/addressFunction';
 import axiosInstanceWithUserAdgent from 'src/server/utils/axiosInstance';
-import { delay, filterObjectKeys, getDistanceBetweenTwoPoint, sortObject } from 'src/server/utils/utilities';
+import { delay, filterObjectKeys, getCoordinatesAsString, getDistanceBetweenTwoPoint, sortObject } from 'src/server/utils/utilities';
 import { KEYSTOKEEPGEORISQUE } from './keysToKeep';
 import { GeorisqueAllData, RatesGeoRisque } from './georisque';
 import {

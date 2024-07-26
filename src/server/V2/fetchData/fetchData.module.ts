@@ -4,7 +4,7 @@ import { parcCartoService as ParcCartoService } from './fetch-ParCarto/fetchParc
 import { AddressService } from './fetch-Addresse/address.service';
 import { DpeService } from './fetch-DPE/fetchDpe.service';
 import { georisqueService as GeorisqueService } from './fetchGeorisque/fetchGeorisque.service';
-import { EauService } from './fetch-eau/fetch-eau.service';
+import { EauService } from './fetch-eau/fetchEau.service';
 
 @Module({
   imports: [],
