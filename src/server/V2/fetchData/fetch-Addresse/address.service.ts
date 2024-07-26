@@ -1,9 +1,9 @@
 import axiosInstanceWithUserAdgent from "src/server/utils/axiosInstance";
-import { AddressDTO } from "../dto";
+import { AddressDTO } from "../dtoFetchData";
 import { AddressObject } from "./address";
-import { HttpException, HttpStatus } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 
-
+@Injectable()
 export class AddressService{
 
     async findAddress(inputAddressObject: AddressDTO): Promise<AddressObject> {
@@ -22,6 +22,7 @@ export class AddressService{
           if (!response.data.features[0]) {
             throw new HttpException('No address find', HttpStatus.BAD_REQUEST);
           }
+
           return response.data.features[0]; //Return the first adresse (Usually there is only one)
         } catch (err) {
           console.error(err);
