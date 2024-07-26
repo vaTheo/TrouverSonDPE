@@ -26,7 +26,7 @@ export class FetchDataController {
    * @param dataQuery
    * @returns AddressObject
    */
-  @Get('address')
+  @Post('address')
   async fetchAddress(@Body() dataQuery: any): Promise<AddressObject> {
     return this.AddressService.findAddress(dataQuery);
   }

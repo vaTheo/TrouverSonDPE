@@ -1,1 +1,0 @@
-// 30 appels / minute / IP
