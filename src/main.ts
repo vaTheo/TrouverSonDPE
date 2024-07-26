@@ -12,9 +12,10 @@ async function bootstrap() {
   try {
     const app = await NestFactory.create(RootModule);
     app.enableCors({
-      origin: ['https://geonote.fly.dev','http://localhost:3000'],
+      origin: ['https://geonote.fly.dev', 'http://localhost:3000'],
       credentials: true,
-    });
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+      allowedHeaders: 'Content-Type, Accept, Authorization',    });
     app.use(cookieParser());
     app.useGlobalPipes(
       // use to validate types on HTTP requests
@@ -27,9 +28,9 @@ async function bootstrap() {
     );
     const port = 3001;
     await app.listen(port);
-    console.log(`Server is running on port ${port}`); // Log when the server starts
+    console.log(`Server is running on port ${port}`);
   } catch (error) {
-    console.error('Error during Nest application startup', error); // Log if there's an error
+    console.error('Error during Nest application startup', error);
   }
 }
 bootstrap();

@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
-import { DataRatingModule } from './controller-ratings/ratings.module';
-import { PrismaService } from '@server/prisma/prisma.service';
-import { FrontDataModule } from './controller-frontData/frontData.module';
+import { PrismaService } from './prisma/prisma.service';
+import { FetchDataModule } from './V2/fetchData/fetchData.module';
 
 @Module({
-  imports: [DataRatingModule, FrontDataModule],
+  imports: [FetchDataModule],
   controllers: [],
   providers: [PrismaService], 
 })
