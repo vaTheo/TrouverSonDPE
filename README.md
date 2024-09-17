@@ -33,7 +33,8 @@ Application available [here](https://geonote.fly.dev)
 
 ## Technologies Used
 
-- yarn
+- [Node.js](https://nodejs.org/)
+- [yarn](https://yarnpkg.com/)
 - [TypeScript](https://www.typescriptlang.org/)
 
 ### Back-end
