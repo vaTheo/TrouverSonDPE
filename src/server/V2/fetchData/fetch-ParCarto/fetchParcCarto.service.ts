@@ -8,6 +8,8 @@ import { CartoParcResponse, FeatureCarto } from './externalApiParcCarto';
 import { KEYSTOKEEPCARTO } from './keysToKeep';
 import { ParcCartoAllData, RatesParcCarto } from './parcCarto';
 
+
+//Documentation : https://apicarto.ign.fr/api/doc/
 @Injectable()
 export class parcCartoService {
   createGeoJSONCircleString(
